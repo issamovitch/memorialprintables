@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, Flower2 } from "lucide-react";
+import { Menu } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -31,7 +32,14 @@ export function SiteHeader() {
           href="/"
           className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
         >
-          <Flower2 className="size-6 text-secondary" strokeWidth={1.5} />
+          <Image
+            src="/logo.png"
+            alt="MemorialPrintables"
+            width={40}
+            height={40}
+            quality={100}
+            className="size-10"
+          />
           <span className="font-heading text-lg font-semibold tracking-tight text-primary">
             MemorialPrintables
           </span>
@@ -50,7 +58,7 @@ export function SiteHeader() {
           ))}
           <Separator orientation="vertical" className="mx-2 h-5" />
           <Link href="/funeral-program-maker">
-            <Button variant="ghost" size="sm" className="text-sm text-primary">
+            <Button size="sm" className="cursor-pointer bg-[#6B6B8D] text-white hover:bg-[#6B6B8D]/90">
               Create Free Program
             </Button>
           </Link>
@@ -70,9 +78,19 @@ export function SiteHeader() {
           </SheetTrigger>
           <SheetContent side="right" className="w-72 overflow-y-auto">
             <SheetHeader>
-              <SheetTitle className="font-heading text-lg text-primary">
-                MemorialPrintables
-              </SheetTitle>
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/logo.png"
+                  alt="MemorialPrintables"
+                  width={32}
+                  height={32}
+                  quality={100}
+                  className="size-8"
+                />
+                <SheetTitle className="font-heading text-lg text-primary">
+                  MemorialPrintables
+                </SheetTitle>
+              </div>
             </SheetHeader>
             <nav className="mt-4 flex flex-col gap-1" aria-label="Mobile navigation">
               {navLinks.map((link) => (

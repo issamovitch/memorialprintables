@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Flower2, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 
 const footerLinks = {
@@ -45,9 +46,13 @@ export function SiteFooter() {
               href="/"
               className="mb-4 flex items-center gap-2 transition-opacity hover:opacity-80"
             >
-              <Flower2
-                className="size-5 text-secondary"
-                strokeWidth={1.5}
+              <Image
+                src="/logo.png"
+                alt="MemorialPrintables"
+                width={28}
+                height={28}
+                quality={100}
+                className="size-7"
               />
               <span className="font-heading text-base font-semibold text-primary">
                 MemorialPrintables

@@ -83,7 +83,7 @@ export function HeroSection({
               <Button
                 variant="outline"
                 size="lg"
-                className="min-w-[200px] text-primary border-border hover:bg-muted"
+                className="min-w-[200px] text-primary border-border hover:bg-[#3D5A73]/10 hover:text-[#3D5A73]"
                 asChild
               >
                 <Link href={secondaryHref}>{secondaryText}</Link>

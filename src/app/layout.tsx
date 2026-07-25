@@ -27,12 +27,24 @@ export const metadata: Metadata = {
   description:
     "Create beautiful, free funeral programs online. No signup required. Instant print-ready PDF download with our easy funeral program maker.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/logo.png",
   },
   openGraph: {
     type: "website",
     siteName: "MemorialPrintables",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MemorialPrintables - Free Funeral Program Templates",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
