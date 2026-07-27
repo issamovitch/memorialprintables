@@ -1,55 +1,45 @@
-import type { Metadata } from "next";
-import { Lora, Inter } from "next/font/google";
-import "./globals.css";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-
-const heading = Lora({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const body = Inter({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600"],
-});
+import type { Metadata } from 'next';
+import NextTopLoader from 'nextjs-toploader';
+import './globals.css';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://memorialprintables.com"),
-  title: {
-    default: "Free Funeral Program Templates | MemorialPrintables",
-    template: "%s | MemorialPrintables",
-  },
+  metadataBase: new URL('https://memorialprintables.com'),
+  title: 'Memorial Printables | Free Funeral Program Maker & Memorial Templates',
   description:
-    "Create beautiful, free funeral programs online. No signup required. Instant print-ready PDF download with our easy funeral program maker.",
+    'Create beautiful, print-ready funeral programs and memorial keepsakes. 100% free, no signup, no watermark. Everything stays private in your browser.',
+  keywords: [
+    'funeral program maker',
+    'free funeral program template',
+    'memorial printables',
+    'funeral program generator',
+    'printable funeral program',
+  ],
   icons: {
-    icon: "/logo.png",
+    icon: '/logo.png',
   },
   openGraph: {
-    type: "website",
-    siteName: "MemorialPrintables",
-    locale: "en_US",
+    title: 'Free Funeral Program Maker & Memorial Templates',
+    description: 'Create beautiful, print-ready funeral programs. Free, no signup.',
+    url: 'https://memorialprintables.com',
+    siteName: 'Memorial Printables',
+    type: 'website',
     images: [
       {
-        url: "/og-image.png",
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: "MemorialPrintables - Free Funeral Program Templates",
+        alt: 'Memorial Printables — Free Funeral Program Maker',
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    images: ["/og-image.png"],
+    card: 'summary_large_image',
+    title: 'Memorial Printables | Free Funeral Program Maker',
+    description: 'Create beautiful, print-ready funeral programs. Free, no signup.',
+    images: ['/og-image.png'],
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -58,13 +48,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${heading.variable} ${body.variable} antialiased bg-background text-foreground`}
-      >
-        <SiteHeader />
-        <main className="min-h-[calc(100vh-8rem)]">{children}</main>
-        <SiteFooter />
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased">
+        <NextTopLoader
+          color="#3f7d74"
+          height={3}
+          showSpinner={false}
+          shadow="0 0 10px rgba(63,125,116,0.3)"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Memorial Printables',
+              url: 'https://memorialprintables.com',
+              description: 'Free memorial printables and funeral program maker.',
+            }),
+          }}
+        />
+        {children}
+        <Toaster />
       </body>
     </html>
   );

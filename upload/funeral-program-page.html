@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Funeral Program Maker — No Signup, Print-Ready PDF</title>
+<style>
+  :root{
+    --accent:#3f7d74; --accent-dark:#2f5f58; --accent-soft:#eef4f2;
+    --ink:#1f2a28; --slate:#5b6663; --muted:#8a938f;
+    --line:#e6e9e7; --bg:#fbfcfb; --card:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:15px}
+  .serif{font-family:Georgia,"Times New Roman",serif}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* nav */
+  nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+  .nav-inner{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:19px}
+  .logo .mark{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-links a{font-size:14.5px;color:var(--slate)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-right{display:flex;align-items:center;gap:16px}
+  .free-tag{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:5px}
+  .cta{background:var(--accent);color:#fff;padding:9px 17px;border-radius:8px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
+  .cta:hover{background:var(--accent-dark)}
+
+  /* head */
+  .breadcrumb{font-size:13px;color:var(--muted);padding:18px 0 0}
+  .breadcrumb a:hover{color:var(--accent)}
+  h1.title{font-size:30px;font-weight:700;margin:10px 0 6px}
+  .subtitle{color:var(--slate);font-size:16px}
+
+  .chips{display:flex;gap:9px;margin:18px 0;flex-wrap:wrap}
+  .chip{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 14px;font-size:13px;color:var(--slate);cursor:pointer}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+
+  .privacy{background:var(--accent-soft);border:1px solid #d9e7e3;border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--accent-dark);display:flex;align-items:center;gap:9px;margin-bottom:22px}
+
+  /* tool layout */
+  .tool{display:grid;grid-template-columns:400px 1fr;gap:26px;align-items:start}
+  .col-form{display:flex;flex-direction:column;gap:16px}
+
+  .group{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .group h3{font-size:15px;font-weight:700;margin-bottom:3px}
+  .group .hint{font-size:12.5px;color:var(--muted);margin-bottom:15px}
+
+  .formats{display:flex;gap:5px;background:var(--bg);padding:4px;border-radius:10px;border:1px solid var(--line);margin-bottom:2px}
+  .formats button{flex:1;padding:9px 4px;font-size:13px;border:none;background:transparent;border-radius:7px;cursor:pointer;color:var(--slate);font-weight:500;transition:.15s}
+  .formats button:hover{color:var(--accent)}
+  .formats button.active{background:var(--accent);color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+
+  .field{margin-bottom:13px}
+  .field:last-child{margin-bottom:0}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:5px;font-weight:600}
+  input[type=text],textarea,select{width:100%;padding:10px 12px;border:1px solid #dde2df;border-radius:9px;font-family:inherit;font-size:14px;background:#fff;color:var(--ink);transition:.15s}
+  textarea{resize:vertical;min-height:70px;line-height:1.55}
+  input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,125,116,.1)}
+  input::placeholder{color:#b9c0bc}
+
+  .upload-row{display:flex;align-items:center;gap:12px}
+  .upload-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border:1px solid var(--accent);color:var(--accent);border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}
+  .upload-btn:hover{background:var(--accent);color:#fff}
+  .upload-btn svg{width:15px;height:15px}
+  .thumb{width:48px;height:48px;border-radius:9px;object-fit:cover;border:1px solid var(--line);display:none}
+  .thumb.show{display:block}
+  .thumb-clear{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;display:none}
+  .thumb-clear.show{display:inline}
+
+  /* template picker: 3 per row, only one row visible, vertical scroll for more */
+  .tpl-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-height:176px;overflow-y:auto;padding:4px 10px 4px 2px}
+  .tpl-strip::-webkit-scrollbar{width:8px}
+  .tpl-strip::-webkit-scrollbar-track{background:var(--bg);border-radius:8px}
+  .tpl-strip::-webkit-scrollbar-thumb{background:#cfd6d3;border-radius:8px}
+  .tpl-strip::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+  .tpl-card{cursor:pointer;text-align:center}
+  .tpl-thumb{width:100%;aspect-ratio:5.5/7;border-radius:9px;border:2px solid var(--line);background:#fff;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:12px 8px;transition:.15s}
+  .tpl-card:hover .tpl-thumb{border-color:var(--accent)}
+  .tpl-card.active .tpl-thumb{border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,125,116,.14)}
+  .tpl-thumb .t-bar{width:40px;height:4px;border-radius:3px}
+  .tpl-thumb .t-photo{width:34px;height:40px;border-radius:3px;background:#eef1ef}
+  .tpl-thumb .t-line{width:52px;height:3px;border-radius:2px;background:#e4e8e6}
+  .tpl-thumb .t-line.sm{width:38px}
+  .tpl-name{font-size:11.5px;color:var(--slate);margin-top:7px;font-weight:500}
+  .tpl-card.active .tpl-name{color:var(--accent);font-weight:600}
+  .styles{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .styles button{padding:8px 15px;border:1px solid var(--line);background:#fff;border-radius:8px;font-size:13px;cursor:pointer;color:var(--slate)}
+  .styles button.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .swatches{display:flex;gap:9px}
+  .swatch{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+  .swatch.active{box-shadow:0 0 0 2px var(--accent)}
+
+  /* preview */
+  .col-preview{position:sticky;top:80px}
+  .preview-bar{display:flex;justify-content:flex-end;gap:10px;margin-bottom:12px}
+  .pbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--slate)}
+  .pbtn:hover{border-color:var(--accent);color:var(--accent)}
+  .pbtn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .pbtn.primary:hover{background:var(--accent-dark)}
+  .pbtn svg{width:15px;height:15px}
+  .stage{background:#eef0ee;border:1px solid var(--line);border-radius:14px;padding:30px;display:flex;flex-direction:column;align-items:center;gap:20px;max-height:78vh;overflow:auto}
+  .sheet-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600}
+  .sheet{background:#fff;box-shadow:0 6px 26px rgba(0,0,0,.13);display:flex;overflow:hidden;flex-shrink:0}
+  /* Fixed real ratios at 52px/inch. US Letter = 8.5 x 11.
+     single 442x572 = 8.5:11  |  spread 572x442 = 11:8.5  */
+  .sheet.single{width:442px;height:572px;flex-direction:column}
+  .sheet.spread{width:572px;height:442px}
+  .cell{flex:1;min-width:0;min-height:0;padding:26px 22px;border-right:1px dashed #ececec;display:flex;flex-direction:column;overflow:hidden}
+  .cell:last-child{border-right:none}
+  .cover{justify-content:center;align-items:center;text-align:center}
+  .cover .memof{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .cover .photo{width:112px;height:138px;background:var(--accent-soft);border-radius:5px;margin:16px 0;display:flex;align-items:center;justify-content:center;color:#b3c4bf;font-size:11px;background-size:cover;background-position:center}
+  .cover .name{font-size:25px;font-family:Georgia,serif;margin-bottom:5px;line-height:1.25}
+  .cover .rule{width:44px;height:2px;background:var(--accent);margin:4px 0 8px}
+  .cover .dates{font-size:13px;color:var(--slate)}
+  .sec-title{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:9px;border-bottom:1px solid #eee;padding-bottom:6px;font-family:Georgia,serif}
+  .sec-body{font-size:13px;white-space:pre-line;color:#3f4744;font-family:Georgia,serif;line-height:1.75}
+  .back{justify-content:center;align-items:center;text-align:center}
+  .back .sec-body{font-style:italic}
+
+  /* content sections */
+  section.block{margin:56px 0}
+  .band{background:#fff;border:1px solid var(--line);border-radius:16px;padding:34px}
+  h2.h{font-size:23px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+  .h-sub{color:var(--slate);margin-bottom:24px}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+  .step .num{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:10px}
+  .step p{font-size:13.5px;color:var(--slate)}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .two-col h4{font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:7px;color:var(--accent)}
+  .two-col ul{list-style:none}
+  .two-col li{font-size:14px;color:var(--slate);padding:5px 0 5px 20px;position:relative}
+  .two-col li:before{content:"•";color:var(--accent);position:absolute;left:4px}
+
+  .ad{background:#f3f5f3;border:1px dashed #d7dcd9;border-radius:12px;padding:26px;text-align:center;color:var(--muted);font-size:12.5px;letter-spacing:.08em}
+  .ad .lbl{text-transform:uppercase;font-size:11px;margin-bottom:4px}
+
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-item:last-child{border-bottom:none}
+  .faq-q{padding:16px 0;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .faq-q span{color:var(--muted);transition:.2s}
+  .faq-a{font-size:14px;color:var(--slate);padding:0 0 16px;display:none}
+  .faq-item.open .faq-a{display:block}
+  .faq-item.open .faq-q span{transform:rotate(180deg)}
+
+  .promo{background:var(--accent-soft);border:1px solid #d9e7e3;border-radius:16px;padding:30px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+  .promo .tag{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .promo h3{font-size:20px;margin-bottom:8px}
+  .promo p{font-size:13.5px;color:var(--slate);max-width:560px}
+  .promo .acts{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+  .promo .acts a{background:var(--accent);color:#fff;padding:11px 20px;border-radius:9px;font-size:14px;font-weight:600;text-align:center;white-space:nowrap}
+  .promo .acts a.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px;transition:.15s}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.05)}
+  .card .ic{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:11px}
+  .card h4{font-size:15px;margin-bottom:4px}
+  .card p{font-size:12.5px;color:var(--muted)}
+  .cards.guides .card .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .cards.guides .card h4{font-size:14.5px;line-height:1.35}
+  .cards.guides .card .read{font-size:12px;color:var(--muted);margin-top:8px}
+
+  .country-row{display:flex;gap:10px;flex-wrap:wrap}
+  .country{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 13px;font-size:13px;color:var(--slate);cursor:pointer}
+  .country:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* footer */
+  footer{background:#1f2a28;color:#aeb8b4;margin-top:60px;padding:48px 0 26px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:30px}
+  footer .logo{color:#fff;margin-bottom:12px}
+  footer .about{font-size:13px;color:#8a9691;max-width:230px}
+  footer .about .badge{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:#9fb0aa}
+  footer h5{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+  footer ul{list-style:none}
+  footer li{margin-bottom:9px}
+  footer li a{font-size:13.5px;color:#aeb8b4}
+  footer li a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid #33413d;margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;font-size:12.5px;color:#7d8a85;gap:20px;flex-wrap:wrap}
+
+  @media(max-width:980px){
+    .tool{grid-template-columns:1fr}
+    .col-preview{position:static}
+    .steps{grid-template-columns:1fr 1fr}
+    .cards{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .nav-links{display:none}
+    .two-col{grid-template-columns:1fr;gap:24px}
+    .sheet.single{width:340px;height:440px}
+    .sheet.spread{width:440px;height:340px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <span class="mark">✦</span>Ever<span>Rest</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Programs ▾</a>
+      <a href="#">Templates ▾</a>
+      <a href="#">Guides</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="nav-right">
+      <span class="free-tag">✦ Free · No signup</span>
+      <a href="#" class="cta">✦ Make a program</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="breadcrumb"><a href="#">Home</a> › <a href="#">Program Makers</a> › Funeral Program</div>
+  <h1 class="title">Funeral Program Maker</h1>
+  <p class="subtitle">Create a beautiful, print-ready funeral program in under a minute.</p>
+
+  <div class="chips">
+    <div class="chip">▤ Format</div>
+    <div class="chip">✝ Religion</div>
+    <div class="chip">▾ All templates</div>
+  </div>
+
+  <div class="privacy">🔒 100% private. Everything is generated in your browser — nothing is uploaded or saved.</div>
+
+  <div class="tool">
+    <!-- FORM -->
+    <div class="col-form">
+      <div class="group">
+        <h3>Format</h3>
+        <div class="hint">Choose how the program folds. The preview updates instantly.</div>
+        <div class="formats" id="formats">
+          <button data-fmt="single" class="active">Single</button>
+          <button data-fmt="bifold">Bifold</button>
+          <button data-fmt="trifold">Trifold</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Template</h3>
+        <div class="hint">Pick a design. Sets the layout and colour.</div>
+        <div class="tpl-strip" id="tplStrip">
+          <div class="tpl-card active" data-c="#3f7d74" data-name="Classic">
+            <div class="tpl-thumb"><div class="t-bar" style="background:#3f7d74"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+            <div class="tpl-name">Classic</div>
+          </div>
+          <div class="tpl-card" data-c="#7a6a8a" data-name="Lavender">
+            <div class="tpl-thumb"><div class="t-bar" style="background:#7a6a8a"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+            <div class="tpl-name">Lavender</div>
+          </div>
+          <div class="tpl-card" data-c="#8a6d5b" data-name="Warm">
+            <div class="tpl-thumb"><div class="t-bar" style="background:#8a6d5b"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+            <div class="tpl-name">Warm</div>
+          </div>
+          <div class="tpl-card" data-c="#4a6b8a" data-name="Slate Blue">
+            <div class="tpl-thumb"><div class="t-bar" style="background:#4a6b8a"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+            <div class="tpl-name">Slate Blue</div>
+          </div>
+          <div class="tpl-card" data-c="#9a5b5b" data-name="Rose">
+            <div class="tpl-thumb"><div class="t-bar" style="background:#9a5b5b"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+            <div class="tpl-name">Rose</div>
+          </div>
+          <div class="tpl-card" data-c="#5b6663" data-name="Minimal">
+            <div class="tpl-thumb"><div class="t-bar" style="background:#5b6663"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+            <div class="tpl-name">Minimal</div>
+          </div>
+          <div class="tpl-card" data-c="#6b7a4a" data-name="Sage">
+            <div class="tpl-thumb"><div class="t-bar" style="background:#6b7a4a"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+            <div class="tpl-name">Sage</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>In memory of</h3>
+        <div class="hint">These appear on the cover.</div>
+        <div class="field"><label>Full name</label><input type="text" id="name" value="Margaret Eleanor Hayes"></div>
+        <div class="field"><label>Dates</label><input type="text" id="dates" value="March 4, 1946 — January 12, 2026"></div>
+        <div class="field">
+          <label>Photo</label>
+          <div class="upload-row">
+            <label class="upload-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Upload photo
+              <input type="file" id="photo" accept="image/*" hidden>
+            </label>
+            <img class="thumb" id="thumb" alt="">
+            <button class="thumb-clear" id="thumbClear" type="button">remove</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Content</h3>
+        <div class="hint">The order of service, life story, and closing note.</div>
+        <div class="field"><label>Order of service</label><textarea id="order">Prelude
+Opening Words
+Hymn — Amazing Grace
+Scripture Reading
+Eulogy
+Closing Prayer
+Recessional</textarea></div>
+        <div class="field"><label>Obituary</label><textarea id="obit">Margaret was born in Portland and lived a life full of warmth and devotion to her family. A teacher for 30 years, she touched countless lives.</textarea></div>
+        <div class="field"><label>Acknowledgments</label><textarea id="ack">The family gratefully thanks all who offered love and support during this difficult time.</textarea></div>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="col-preview">
+      <div class="preview-bar">
+        <button class="pbtn" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-3a2 2 0 012-2h16a2 2 0 012 2v3a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>Print</button>
+        <button class="pbtn primary" onclick="alert('In the real build this exports a print-ready PDF via pdf-lib, with fold panels placed in print position.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>Download PDF</button>
+      </div>
+      <div class="stage" id="stage"></div>
+    </div>
+  </div>
+
+  <!-- how to -->
+  <section class="block">
+    <div class="band">
+      <h2 class="h">How to make a funeral program</h2>
+      <p class="h-sub">Four steps to a finished, print-ready program — no account needed.</p>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><p>Pick a format — single, bifold, or trifold.</p></div>
+        <div class="step"><div class="num">2</div><p>Enter the name, dates, and upload a photo.</p></div>
+        <div class="step"><div class="num">3</div><p>Add the order of service and obituary.</p></div>
+        <div class="step"><div class="num">4</div><p>Choose a style, then download your PDF.</p></div>
+        <div class="step"><div class="num">5</div><p>Print double-sided, fold, and share.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- what to include -->
+  <section class="block">
+    <h2 class="h">What to include in a funeral program</h2>
+    <p class="h-sub">A clear program helps guests follow the service and becomes a lasting keepsake.</p>
+    <div class="two-col">
+      <div>
+        <h4>◷ What to include</h4>
+        <ul>
+          <li>Full name, birth and death dates, and a cover photo.</li>
+          <li>The order of service — readings, hymns, eulogy, prayers.</li>
+          <li>A short obituary or life story.</li>
+          <li>Acknowledgments thanking those who offered support.</li>
+          <li>An optional poem, scripture, or favourite quote.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>◷ Why it matters</h4>
+        <p style="font-size:14px;color:var(--slate)">A well-structured program gives mourners something to hold and follow, guides them through each moment of the service, and preserves the details of a life so families can return to it long after the day itself.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad"><div class="lbl">Advertisement</div>A discreet ad keeps this tool free. The maker above is fully usable without clicking anything.</div>
+
+  <!-- faq -->
+  <section class="block">
+    <div class="band">
+      <h2 class="h">Frequently asked questions</h2>
+      <div id="faq">
+        <div class="faq-item"><div class="faq-q">Do I need an account to make a program?<span>▾</span></div><div class="faq-a">No. There is no signup, watermark, or hidden fee. Fill in the fields and download your PDF.</div></div>
+        <div class="faq-item"><div class="faq-q">Is my data private?<span>▾</span></div><div class="faq-a">Yes. Everything is generated in your browser. Your photo and details are never uploaded or saved.</div></div>
+        <div class="faq-item"><div class="faq-q">What paper should I use?<span>▾</span></div><div class="faq-a">Standard 8.5 × 11" letter paper works well. For a keepsake feel, use a heavier 80 lb cardstock.</div></div>
+        <div class="faq-item"><div class="faq-q">How do I print a bifold?<span>▾</span></div><div class="faq-a">Print double-sided on one sheet, then fold in half. The maker positions the panels so the cover lands on the front automatically.</div></div>
+        <div class="faq-item"><div class="faq-q">Can I add my own photo?<span>▾</span></div><div class="faq-a">Yes. Use the Upload photo button — it appears on the cover instantly and stays on your device.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- promo / affiliate -->
+  <section class="block">
+    <div class="promo">
+      <div>
+        <div class="tag">Recommended</div>
+        <h3>Need it printed and delivered?</h3>
+        <p>If you'd rather not print at home, online print services can ship professionally printed programs on heavy cardstock — often next-day. Free to design here; upgrade only if you want it done for you.</p>
+        <p style="margin-top:10px;font-size:12px;color:var(--muted)">Affiliate disclosure: we may earn a commission if you order through these links, at no cost to you.</p>
+      </div>
+      <div class="acts">
+        <a href="#">Order Prints</a>
+        <a href="#" class="ghost">Compare Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- learn more -->
+  <section class="block">
+    <h2 class="h">◫ Learn more</h2>
+    <p class="h-sub">Practical guides to help you plan a meaningful service.</p>
+    <div class="cards guides">
+      <a class="card" href="#"><div class="k">Getting started</div><h4>How to Write a Funeral Program: A Step-by-Step Guide</h4><div class="read">7 min read</div></a>
+      <a class="card" href="#"><div class="k">Wording</div><h4>Order of Service Wording and Examples</h4><div class="read">6 min read</div></a>
+      <a class="card" href="#"><div class="k">Writing</div><h4>How to Write an Obituary That Honors a Life</h4><div class="read">8 min read</div></a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><span class="mark">✦</span>Ever<span style="color:#7fb3a9">Rest</span></div>
+        <p class="about">Free, private memorial tools. Fill in a form, download a print-ready PDF, ever.</p>
+        <div class="about badge">◷ Generated in your browser — nothing uploaded</div>
+        <div class="about badge">✓ No signup required to download</div>
+      </div>
+      <div><h5>Programs</h5><ul><li><a href="#">Funeral Program</a></li><li><a href="#">Catholic</a></li><li><a href="#">Celebration of Life</a></li><li><a href="#">Pet Memorial</a></li><li><a href="#">Browse all →</a></li></ul></div>
+      <div><h5>Keepsakes</h5><ul><li><a href="#">Prayer Cards</a></li><li><a href="#">Bookmarks</a></li><li><a href="#">Thank-You Cards</a></li><li><a href="#">Memorial Cards</a></li><li><a href="#">View all →</a></li></ul></div>
+      <div><h5>By language</h5><ul><li><a href="#">English</a></li><li><a href="#">Español</a></li><li><a href="#">Français</a></li><li><a href="#">Português</a></li><li><a href="#">A4 / UK</a></li></ul></div>
+      <div><h5>Resources</h5><ul><li><a href="#">Guides</a></li><li><a href="#">How to Write a Program</a></li><li><a href="#">Order of Service Wording</a></li><li><a href="#">About</a></li><li><a href="#">Privacy</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 EverRest. Free tools for families.</span>
+      <span>Everything runs in your browser. Your details stay private.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const state={fmt:'single',photo:'',accent:'#3f7d74'};
+  const $=id=>document.getElementById(id);
+  const textFields=['name','dates','order','obit','ack'];
+  const data=()=>({name:$('name').value,dates:$('dates').value,photo:state.photo,order:$('order').value,obit:$('obit').value,ack:$('ack').value});
+
+  function coverHTML(d){
+    const photo=d.photo?`<div class="photo" style="background-image:url('${d.photo}')"></div>`:`<div class="photo">Photo</div>`;
+    return `<div class="cell cover"><div class="memof">In Loving Memory</div>${photo}<div class="name">${d.name}</div><div class="rule"></div><div class="dates">${d.dates}</div></div>`;
+  }
+  const orderHTML=d=>`<div class="cell"><div class="sec-title">Order of Service</div><div class="sec-body">${d.order}</div></div>`;
+  const obitHTML=d=>`<div class="cell"><div class="sec-title">Obituary</div><div class="sec-body">${d.obit}</div></div>`;
+  const backHTML=d=>`<div class="cell back"><div class="sec-body">${d.ack}</div></div>`;
+
+  function render(){
+    const d=data();let html='';
+    if(state.fmt==='single'){
+      html=`<div class="sheet-label">Front · 8.5 × 11"</div><div class="sheet single">${coverHTML(d)}</div>
+        <div class="sheet-label">Back</div><div class="sheet single">
+        <div class="cell"><div class="sec-title">Order of Service</div><div class="sec-body">${d.order}</div></div>
+        <div class="cell"><div class="sec-title">Obituary</div><div class="sec-body">${d.obit}</div></div></div>`;
+    }
+    if(state.fmt==='bifold'){
+      html=`<div class="sheet-label">Outside · fold down the middle</div><div class="sheet spread">${backHTML(d)}${coverHTML(d)}</div>
+        <div class="sheet-label">Inside</div><div class="sheet spread">${orderHTML(d)}${obitHTML(d)}</div>`;
+    }
+    if(state.fmt==='trifold'){
+      html=`<div class="sheet-label">Outside · cover on right</div><div class="sheet spread">${backHTML(d)}
+        <div class="cell"><div class="sec-title">Poem</div><div class="sec-body">Do not stand at my grave and weep,
+I am not there; I do not sleep.</div></div>${coverHTML(d)}</div>
+        <div class="sheet-label">Inside</div><div class="sheet spread">${orderHTML(d)}${obitHTML(d)}
+        <div class="cell"><div class="sec-title">Reflections</div><div class="sec-body">Shared memories from family and friends.</div></div></div>`;
+    }
+    $('stage').innerHTML=html;
+  }
+
+  textFields.forEach(f=>$(f).addEventListener('input',render));
+
+  $('photo').addEventListener('change',e=>{
+    const file=e.target.files[0];if(!file)return;
+    const r=new FileReader();
+    r.onload=ev=>{state.photo=ev.target.result;const t=$('thumb');t.src=state.photo;t.classList.add('show');$('thumbClear').classList.add('show');render();};
+    r.readAsDataURL(file);
+  });
+  $('thumbClear').addEventListener('click',()=>{state.photo='';$('photo').value='';$('thumb').classList.remove('show');$('thumbClear').classList.remove('show');render();});
+
+  document.querySelectorAll('#formats button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#formats button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');state.fmt=b.dataset.fmt;render();
+  }));
+
+  document.querySelectorAll('#tplStrip .tpl-card').forEach(c=>c.addEventListener('click',()=>{
+    document.querySelectorAll('#tplStrip .tpl-card').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    document.documentElement.style.setProperty('--accent',c.dataset.c);
+  }));
+
+  document.querySelectorAll('.faq-item').forEach(it=>it.querySelector('.faq-q').addEventListener('click',()=>it.classList.toggle('open')));
+
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+     1→@import "tailwindcss";
+     2→@import "tw-animate-css";
+     3→
+     4→@custom-variant dark (&:is(.dark *));
+     5→
+     6→@theme inline {
+     7→  --color-background: var(--background);
+     8→  --color-foreground: var(--foreground);
+     9→  --font-sans: var(--font-inter);
+    10→  --font-mono: var(--font-geist-mono);
+    11→  --font-serif: var(--font-playfair);
+    12→  --color-sidebar-ring: var(--sidebar-ring);
+    13→  --color-sidebar-border: var(--sidebar-border);
+    14→  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    15→  --color-sidebar-accent: var(--sidebar-accent);
+    16→  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    17→  --color-sidebar-primary: var(--sidebar-primary);
+    18→  --color-sidebar-foreground: var(--sidebar-foreground);
+    19→  --color-sidebar: var(--sidebar);
+    20→  --color-chart-5: var(--chart-5);
+    21→  --color-chart-4: var(--chart-4);
+    22→  --color-chart-3: var(--chart-3);
+    23→  --color-chart-2: var(--chart-2);
+    24→  --color-chart-1: var(--chart-1);
+    25→  --color-ring: var(--ring);
+    26→  --color-input: var(--input);
+    27→  --color-border: var(--border);
+    28→  --color-destructive: var(--destructive);
+    29→  --color-accent-foreground: var(--accent-foreground);
+    30→  --color-accent: var(--accent);
+    31→  --color-muted-foreground: var(--muted-foreground);
+    32→  --color-muted: var(--muted);
+    33→  --color-secondary-foreground: var(--secondary-foreground);
+    34→  --color-secondary: var(--secondary);
+    35→  --color-primary-foreground: var(--primary-foreground);
+    36→  --color-primary: var(--primary);
+    37→  --color-popover-foreground: var(--popover-foreground);
+    38→  --color-popover: var(--popover);
+    39→  --color-card-foreground: var(--card-foreground);
+    40→  --color-card: var(--card);
+    41→  --radius-sm: calc(var(--radius) - 4px);
+    42→  --radius-md: calc(var(--radius) - 2px);
+    43→  --radius-lg: var(--radius);
+    44→  --radius-xl: calc(var(--radius) + 4px);
+    45→  --brand-teal: #3f7d74;
+    46→  --brand-teal-light: #eef4f2;
+    47→}
+    48→
+    49→:root {
+    50→  --radius: 0.625rem;
+    51→  --background: oklch(1 0 0);
+    52→  --foreground: oklch(0.145 0 0);
+    53→  --card: oklch(1 0 0);
+    54→  --card-foreground: oklch(0.145 0 0);
+    55→  --popover: oklch(1 0 0);
+    56→  --popover-foreground: oklch(0.145 0 0);
+    57→  --primary: oklch(0.205 0 0);
+    58→  --primary-foreground: oklch(0.985 0 0);
+    59→  --secondary: oklch(0.97 0 0);
+    60→  --secondary-foreground: oklch(0.205 0 0);
+    61→  --muted: oklch(0.97 0 0);
+    62→  --muted-foreground: oklch(0.556 0 0);
+    63→  --accent: oklch(0.97 0 0);
+    64→  --accent-foreground: oklch(0.205 0 0);
+    65→  --destructive: oklch(0.577 0.245 27.325);
+    66→  --border: oklch(0.922 0 0);
+    67→  --input: oklch(0.922 0 0);
+    68→  --ring: oklch(0.708 0 0);
+    69→  --chart-1: oklch(0.646 0.222 41.116);
+    70→  --chart-2: oklch(0.6 0.118 184.704);
+    71→  --chart-3: oklch(0.398 0.07 227.392);
+    72→  --chart-4: oklch(0.828 0.189 84.429);
+    73→  --chart-5: oklch(0.769 0.188 70.08);
+    74→  --sidebar: oklch(0.985 0 0);
+    75→  --sidebar-foreground: oklch(0.145 0 0);
+    76→  --sidebar-primary: oklch(0.205 0 0);
+    77→  --sidebar-primary-foreground: oklch(0.985 0 0);
+    78→  --sidebar-accent: oklch(0.97 0 0);
+    79→  --sidebar-accent-foreground: oklch(0.205 0 0);
+    80→  --sidebar-border: oklch(0.922 0 0);
+    81→  --sidebar-ring: oklch(0.708 0 0);
+    82→}
+    83→
+    84→@layer base {
+    85→  * {
+    86→    @apply border-border outline-ring/50;
+    87→  }
+    88→}
+    89→
+    90→/* ============================================================================
+    91→   Memorial Printables — Funeral Program Maker
+    92→   ============================================================================ */
+    93→.er-root{
+    94→  --accent:#3f7d74; --accent-dark:#2f5f58; --accent-soft:#eef4f2;
+    95→  --ink:#1f2a28; --slate:#5b6663; --muted:#8a938f;
+    96→  --line:#e6e9e7; --bg:#fbfcfb; --card:#ffffff;
+    97→  box-sizing:border-box;
+    98→  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    99→  color:var(--ink);
+   100→  background:var(--bg);
+   101→  line-height:1.6;
+   102→  font-size:15px;
+   103→  min-height:100vh;
+   104→  display:flex;
+   105→  flex-direction:column;
+   106→}
+   107→.er-root *,.er-root *::before,.er-root *::after{box-sizing:border-box;margin:0;padding:0}
+   108→.er-root .serif{font-family:Georgia,"Times New Roman",serif}
+   109→.er-root a{color:inherit;text-decoration:none}
+   110→.er-root .wrap{max-width:1180px;margin:0 auto;padding:0 28px;width:100%}
+   111→
+   112→/* nav */
+   113→.er-root nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+   114→.er-root .nav-inner{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between}
+   115→.er-root .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:19px}
+   116→.er-root .logo .mark{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+   117→.er-root .logo span{color:var(--accent)}
+   118→.er-root .nav-links{display:flex;align-items:center;gap:26px}
+   119→.er-root .nav-links a{font-size:14.5px;color:var(--slate)}
+   120→.er-root .nav-links a:hover{color:var(--ink)}
+   121→.er-root .nav-right{display:flex;align-items:center;gap:16px}
+   122→.er-root .free-tag{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:5px}
+   123→.er-root .cta{background:var(--accent);color:#fff;padding:9px 17px;border-radius:8px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
+   124→.er-root .cta:hover{background:var(--accent-dark)}
+   125→
+   126→/* head */
+   127→.er-root .breadcrumb{font-size:13px;color:var(--muted);padding:18px 0 0}
+   128→.er-root .breadcrumb a:hover{color:var(--accent)}
+   129→.er-root h1.title{font-size:30px;font-weight:700;margin:10px 0 6px}
+   130→.er-root .subtitle{color:var(--slate);font-size:16px}
+   131→
+   132→.er-root .chips{display:flex;gap:9px;margin:18px 0;flex-wrap:wrap}
+   133→.er-root .chip{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 14px;font-size:13px;color:var(--slate);cursor:pointer}
+   134→.er-root .chip:hover{border-color:var(--accent);color:var(--accent)}
+   135→
+   136→.er-root .privacy{background:var(--accent-soft);border:1px solid #d9e7e3;border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--accent-dark);display:flex;align-items:center;gap:9px;margin-bottom:22px}
+   137→
+   138→/* tool layout */
+   139→.er-root .tool{display:grid;grid-template-columns:400px 1fr;gap:26px;align-items:start}
+   140→.er-root .col-form{display:flex;flex-direction:column;gap:16px}
+   141→
+   142→.er-root .group{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+   143→.er-root .group h3{font-size:15px;font-weight:700;margin-bottom:3px}
+   144→.er-root .group .hint{font-size:12.5px;color:var(--muted);margin-bottom:15px}
+   145→
+   146→.er-root .formats{display:flex;gap:5px;background:var(--bg);padding:4px;border-radius:10px;border:1px solid var(--line);margin-bottom:2px}
+   147→.er-root .formats button{flex:1;padding:9px 4px;font-size:13px;border:none;background:transparent;border-radius:7px;cursor:pointer;color:var(--slate);font-weight:500;transition:.15s;font-family:inherit}
+   148→.er-root .formats button:hover{color:var(--accent)}
+   149→.er-root .formats button.active{background:var(--accent);color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+   150→
+   151→.er-root .field{margin-bottom:13px}
+   152→.er-root .field:last-child{margin-bottom:0}
+   153→.er-root .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+   154→.er-root .field label.er-label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:5px;font-weight:600}
+   155→.er-root .field input[type=text],.er-root .field textarea,.er-root .field select{width:100%;padding:10px 12px;border:1px solid #dde2df;border-radius:9px;font-family:inherit;font-size:14px;background:#fff;color:var(--ink);transition:.15s}
+   156→.er-root .field textarea{resize:vertical;min-height:70px;line-height:1.55}
+   157→.er-root .field input[type=text]:focus,.er-root .field textarea:focus,.er-root .field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,125,116,.1)}
+   158→.er-root .field input::placeholder{color:#b9c0bc}
+   159→
+   160→.er-root .upload-row{display:flex;align-items:center;gap:12px}
+   161→.er-root .upload-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border:1px solid var(--accent);color:var(--accent);border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}
+   162→.er-root .upload-btn:hover{background:var(--accent);color:#fff}
+   163→.er-root .upload-btn svg{width:15px;height:15px}
+   164→.er-root .thumb{width:48px;height:48px;border-radius:9px;object-fit:cover;border:1px solid var(--line);display:none}
+   165→.er-root .thumb.show{display:block}
+   166→.er-root .edit-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:#fff;border:1px solid var(--line);color:var(--slate);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap;font-family:inherit}
+   167→.er-root .edit-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light,#f6f9f8)}
+   168→.er-root .edit-btn svg{width:14px;height:14px}
+   169→.er-root .thumb-clear{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;display:none;font-family:inherit}
+   170→.er-root .thumb-clear.show{display:inline}
+   171→
+   172→/* template picker */
+   173→.er-root .tpl-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-height:176px;overflow-y:auto;padding:4px 10px 4px 2px}
+   174→.er-root .tpl-strip::-webkit-scrollbar{width:8px}
+   175→.er-root .tpl-strip::-webkit-scrollbar-track{background:var(--bg);border-radius:8px}
+   176→.er-root .tpl-strip::-webkit-scrollbar-thumb{background:#cfd6d3;border-radius:8px}
+   177→.er-root .tpl-strip::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+   178→.er-root .tpl-card{cursor:pointer;text-align:center}
+   179→.er-root .tpl-thumb{width:100%;aspect-ratio:5.5/7;border-radius:9px;border:2px solid var(--line);background:#fff;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:12px 8px;transition:.15s}
+   180→.er-root .tpl-card:hover .tpl-thumb{border-color:var(--accent)}
+   181→.er-root .tpl-card.active .tpl-thumb{border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,125,116,.14)}
+   182→.er-root .tpl-thumb .t-bar{width:40px;height:4px;border-radius:3px}
+   183→.er-root .tpl-thumb .t-photo{width:34px;height:40px;border-radius:3px;background:#eef1ef}
+   184→.er-root .tpl-thumb .t-line{width:52px;height:3px;border-radius:2px;background:#e4e8e6}
+   185→.er-root .tpl-thumb .t-line.sm{width:38px}
+   186→.er-root .tpl-name{font-size:11.5px;color:var(--slate);margin-top:7px;font-weight:500}
+   187→.er-root .tpl-card.active .tpl-name{color:var(--accent);font-weight:600}
+   188→
+   189→/* preview */
+   190→.er-root .col-preview{position:sticky;top:80px}
+   191→.er-root .preview-bar{display:flex;justify-content:flex-end;gap:10px;margin-bottom:12px}
+   192→.er-root .pbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--slate);font-family:inherit}
+   193→.er-root .pbtn:hover{border-color:var(--accent);color:var(--accent)}
+   194→.er-root .pbtn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+   195→.er-root .pbtn.primary:hover{background:var(--accent-dark)}
+   196→.er-root .pbtn svg{width:15px;height:15px}
+   197→.er-root .stage{background:#eef0ee;border:1px solid var(--line);border-radius:14px;padding:30px;display:flex;flex-direction:column;align-items:center;gap:20px;max-height:78vh;overflow:auto}
+   198→.er-root .sheet-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600}
+   199→.er-root .sheet{background:#fff;box-shadow:0 6px 26px rgba(0,0,0,.13);display:flex;overflow:hidden;flex-shrink:0}
+   200→.er-root .sheet.single{width:442px;height:572px;flex-direction:column}
+   201→.er-root .sheet.spread{width:572px;height:442px}
+   202→.er-root .cell{flex:1;min-width:0;min-height:0;padding:26px 22px;border-right:1px dashed #ececec;display:flex;flex-direction:column;overflow:hidden}
+   203→.er-root .cell:last-child{border-right:none}
+   204→.er-root .cover{justify-content:center;align-items:center;text-align:center}
+   205→.er-root .cover .memof{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+   206→.er-root .cover .photo{width:112px;height:138px;background:var(--accent-soft);border-radius:5px;margin:16px 0;display:flex;align-items:center;justify-content:center;color:#b3c4bf;font-size:11px;background-size:cover;background-position:center}
+   207→.er-root .cover .name{font-size:25px;font-family:Georgia,serif;margin-bottom:5px;line-height:1.25}
+   208→.er-root .cover .rule{width:44px;height:2px;background:var(--accent);margin:4px 0 8px}
+   209→.er-root .cover .dates{font-size:13px;color:var(--slate)}
+   210→.er-root .sec-title{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:9px;border-bottom:1px solid #eee;padding-bottom:6px;font-family:Georgia,serif}
+   211→.er-root .sec-body{font-size:13px;white-space:pre-line;color:#3f4744;font-family:Georgia,serif;line-height:1.75}
+   212→.er-root .back{justify-content:center;align-items:center;text-align:center}
+   213→.er-root .back .sec-body{font-style:italic}
+   214→
+   215→/* content sections */
+   216→.er-root section.block{margin:56px 0}
+   217→.er-root .band{background:#fff;border:1px solid var(--line);border-radius:16px;padding:34px}
+   218→.er-root h2.h{font-size:23px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+   219→.er-root .h-sub{color:var(--slate);margin-bottom:24px}
+   220→.er-root .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+   221→.er-root .step .num{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:10px}
+   222→.er-root .step p{font-size:13.5px;color:var(--slate)}
+   223→.er-root .two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+   224→.er-root .two-col h4{font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:7px;color:var(--accent)}
+   225→.er-root .two-col ul{list-style:none}
+   226→.er-root .two-col li{font-size:14px;color:var(--slate);padding:5px 0 5px 20px;position:relative}
+   227→.er-root .two-col li:before{content:"•";color:var(--accent);position:absolute;left:4px}
+   228→
+   229→.er-root .ad{background:#f3f5f3;border:1px dashed #d7dcd9;border-radius:12px;padding:26px;text-align:center;color:var(--muted);font-size:12.5px;letter-spacing:.08em}
+   230→.er-root .ad .lbl{text-transform:uppercase;font-size:11px;margin-bottom:4px}
+   231→
+   232→.er-root .faq-item{border-bottom:1px solid var(--line)}
+   233→.er-root .faq-item:last-child{border-bottom:none}
+   234→.er-root .faq-q{padding:16px 0;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+   235→.er-root .faq-q span.arrow{color:var(--muted);transition:.2s}
+   236→.er-root .faq-a{font-size:14px;color:var(--slate);padding:0 0 16px;display:none}
+   237→.er-root .faq-item.open .faq-a{display:block}
+   238→.er-root .faq-item.open .faq-q span.arrow{transform:rotate(180deg)}
+   239→
+   240→.er-root .promo{background:var(--accent-soft);border:1px solid #d9e7e3;border-radius:16px;padding:30px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+   241→.er-root .promo .tag{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700;margin-bottom:8px}
+   242→.er-root .promo h3{font-size:20px;margin-bottom:8px}
+   243→.er-root .promo p{font-size:13.5px;color:var(--slate);max-width:560px}
+   244→.er-root .promo .acts{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+   245→.er-root .promo .acts a{background:var(--accent);color:#fff;padding:11px 20px;border-radius:9px;font-size:14px;font-weight:600;text-align:center;white-space:nowrap}
+   246→.er-root .promo .acts a.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+   247→
+   248→.er-root .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+   249→.er-root .card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px;transition:.15s}
+   250→.er-root .card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.05)}
+   251→.er-root .card .ic{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:11px}
+   252→.er-root .card h4{font-size:15px;margin-bottom:4px}
+   253→.er-root .card p{font-size:12.5px;color:var(--muted)}
+   254→.er-root .cards.guides{grid-template-columns:repeat(3,1fr)}
+   255→.er-root .cards.guides .card .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-weight:700;margin-bottom:8px}
+   256→.er-root .cards.guides .card h4{font-size:14.5px;line-height:1.35}
+   257→.er-root .cards.guides .card .read{font-size:12px;color:var(--muted);margin-top:8px}
+   258→
+   259→/* footer */
+   260→.er-root footer{background:#1f2a28;color:#aeb8b4;margin-top:60px;padding:48px 0 26px}
+   261→.er-root .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:30px}
+   262→.er-root footer .logo{color:#fff;margin-bottom:12px}
+   263→.er-root footer .about{font-size:13px;color:#8a9691;max-width:230px}
+   264→.er-root footer .about .badge{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:#9fb0aa}
+   265→.er-root footer h5{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+   266→.er-root footer ul{list-style:none}
+   267→.er-root footer li{margin-bottom:9px}
+   268→.er-root footer li a{font-size:13.5px;color:#aeb8b4}
+   269→.er-root footer li a:hover{color:#fff}
+   270→.er-root .foot-bottom{border-top:1px solid #33413d;margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;font-size:12.5px;color:#7d8a85;gap:20px;flex-wrap:wrap}
+   271→
+   272→.er-root .main-content{flex:1}
+   273→
+   274→@media(max-width:980px){
+   275→  .er-root .tool{grid-template-columns:1fr}
+   276→  .er-root .col-preview{position:static}
+   277→  .er-root .steps{grid-template-columns:1fr 1fr}
+   278→  .er-root .cards,.er-root .cards.guides{grid-template-columns:1fr 1fr}
+   279→  .er-root .foot-grid{grid-template-columns:1fr 1fr}
+   280→  .er-root .nav-links{display:none}
+   281→  .er-root .two-col{grid-template-columns:1fr;gap:24px}
+   282→  .er-root .sheet.single{width:340px;height:440px}
+   283→  .er-root .sheet.spread{width:440px;height:340px}
+   284→  .er-root .promo{flex-direction:column;align-items:flex-start}
+   285→}
+   286→
+   287→@media print{
+   288→  .er-root nav,.er-root .breadcrumb,.er-root h1.title,.er-root .subtitle,.er-root .chips,.er-root .privacy,.er-root .col-form,.er-root .preview-bar,.er-root section.block,.er-root .ad,.er-root footer{display:none!important}
+   289→  .er-root .stage{background:#fff;border:none;padding:0;max-height:none;overflow:visible;gap:12px}
+   290→  .er-root .col-preview{position:static}
+   291→  .er-root .tool{display:block}
+   292→  .er-root .sheet{box-shadow:none;page-break-after:always}
+   293→  .er-root .sheet-label{display:none}
+   294→}
+   295→
+   296→/* ============================================================================
+   297→   Site-wide styles — shared nav, footer, and page layout for Home/About/Contact
+   298→   ============================================================================ */
+   299→.site-root{
+   300→  --accent:#3f7d74; --accent-dark:#2f5f58; --accent-soft:#eef4f2;
+   301→  --ink:#1f2a28; --slate:#5b6663; --muted:#8a938f;
+   302→  --line:#e6e9e7; --bg:#fbfcfb; --card:#ffffff;
+   303→  box-sizing:border-box;
+   304→  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+   305→  color:var(--ink);
+   306→  background:var(--bg);
+   307→  line-height:1.6;
+   308→  font-size:15px;
+   309→  min-height:100vh;
+   310→  display:flex;
+   311→  flex-direction:column;
+   312→}
+   313→.site-root *,.site-root *::before,.site-root *::after{box-sizing:border-box;margin:0;padding:0}
+   314→.site-root a{color:inherit;text-decoration:none}
+   315→.site-root .wrap{max-width:1180px;margin:0 auto;padding:0 28px;width:100%}
+   316→.site-root .serif{font-family:Georgia,"Times New Roman",serif}
+   317→.site-root .main-content{flex:1}
+   318→
+   319→/* shared nav */
+   320→.site-nav{
+   321→  background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;
+   322→}
+   323→.site-nav .nav-inner{
+   324→  max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;
+   325→}
+   326→.site-nav .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px}
+   327→.site-nav .logo .logo-img{border-radius:6px}
+   328→.site-nav .logo .mark{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+   329→.site-nav .logo span{color:var(--accent)}
+   330→.site-nav .nav-links{display:flex;align-items:center;gap:26px}
+   331→.site-nav .nav-links a{font-size:14.5px;color:var(--slate);transition:.15s;padding:6px 2px;border-bottom:2px solid transparent}
+   332→.site-nav .nav-links a:hover{color:var(--accent)}
+   333→.site-nav .nav-links a.active{color:var(--accent)!important;font-weight:700!important;border-bottom-color:var(--accent)!important}
+   334→.site-nav .nav-right{display:flex;align-items:center;gap:16px}
+   335→.site-nav .free-tag{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:5px}
+   336→.site-nav .cta{background:var(--accent);color:#fff;padding:9px 17px;border-radius:8px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
+   337→.site-nav .cta:hover{background:var(--accent-dark)}
+   338→.site-nav .mobile-toggle{display:none;background:none;border:none;cursor:pointer;color:var(--ink);padding:4px}
+   339→
+   340→/* shared footer */
+   341→.site-footer{background:#1f2a28;color:#aeb8b4;margin-top:60px;padding:48px 0 26px}
+   342→.site-footer .logo{color:#fff;display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;margin-bottom:12px}
+   343→.site-footer .logo .logo-img{border-radius:6px}
+   344→.site-footer .logo span{color:#fff}
+   345→.site-footer .about{font-size:13px;color:#8a9691;max-width:230px}
+   346→.site-footer .about .badge{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:#9fb0aa}
+   347→.site-footer h5{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+   348→.site-footer ul{list-style:none}
+   349→.site-footer li{margin-bottom:9px}
+   350→.site-footer li a{font-size:13.5px;color:#aeb8b4}
+   351→.site-footer li a:hover{color:#fff}
+   352→.site-footer .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:30px}
+   353→.site-footer .foot-bottom{border-top:1px solid #33413d;margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;font-size:12.5px;color:#7d8a85;gap:20px;flex-wrap:wrap}
+   354→
+   355→/* home page hero */
+   356→.site-hero{
+   357→  background:linear-gradient(135deg,var(--accent-soft) 0%,#fff 60%);
+   358→  padding:80px 0 70px;text-align:center;
+   359→}
+   360→.site-hero .hero-badge{
+   361→  display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #d9e7e3;border-radius:20px;padding:6px 16px;font-size:13px;color:var(--accent);margin-bottom:20px;font-weight:600;
+   362→}
+   363→.site-hero h1{font-size:42px;font-weight:800;line-height:1.2;margin-bottom:16px;max-width:720px;margin-left:auto;margin-right:auto;color:var(--ink)}
+   364→.site-hero h1 em{font-style:normal;font-family:Georgia,"Times New Roman",serif;color:var(--accent)}
+   365→.site-hero .hero-sub{font-size:18px;color:var(--slate);max-width:580px;margin:0 auto 30px;line-height:1.6}
+   366→.site-hero .hero-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+   367→.site-hero .btn-primary{background:var(--accent);color:#fff;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:.15s}
+   368→.site-hero .btn-primary:hover{background:var(--accent-dark)}
+   369→.site-hero .btn-secondary{background:#fff;color:var(--ink);padding:14px 28px;border-radius:10px;font-size:16px;font-weight:600;border:1px solid var(--line);display:inline-flex;align-items:center;gap:8px;transition:.15s}
+   370→.site-hero .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+   371→.site-hero .trust-row{display:flex;justify-content:center;gap:30px;margin-top:36px;flex-wrap:wrap}
+   372→.site-hero .trust-item{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--muted);font-weight:500}
+   373→
+   374→/* feature cards */
+   375→.site-features{padding:70px 0}
+   376→.site-features h2{text-align:center;font-size:28px;font-weight:700;margin-bottom:10px}
+   377→.site-features .feat-sub{text-align:center;font-size:16px;color:var(--slate);margin-bottom:40px}
+   378→.site-features .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+   379→.site-features .feat-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px 24px;transition:.2s}
+   380→.site-features .feat-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.06)}
+   381→.site-features .feat-icon{width:48px;height:48px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
+   382→.site-features .feat-card h4{font-size:16px;margin-bottom:6px;font-weight:700}
+   383→.site-features .feat-card p{font-size:13.5px;color:var(--slate);line-height:1.6}
+   384→
+   385→/* how it works */
+   386→.site-howto{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:70px 0}
+   387→.site-howto h2{text-align:center;font-size:28px;font-weight:700;margin-bottom:10px}
+   388→.site-howto .howto-sub{text-align:center;font-size:16px;color:var(--slate);margin-bottom:40px}
+   389→.site-howto .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:900px;margin:0 auto}
+   390→.site-howto .step{text-align:center}
+   391→.site-howto .step .num{width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin-bottom:14px}
+   392→.site-howto .step h4{font-size:15px;margin-bottom:6px;font-weight:700}
+   393→.site-howto .step p{font-size:13.5px;color:var(--slate);line-height:1.5}
+   394→
+   395→/* CTA band */
+   396→.site-cta-band{padding:70px 0;text-align:center}
+   397→.site-cta-band h2{font-size:30px;font-weight:700;margin-bottom:12px}
+   398→.site-cta-band .cta-sub{font-size:16px;color:var(--slate);margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto}
+   399→.site-cta-band .btn-primary{background:var(--accent);color:#fff;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:.15s}
+   400→.site-cta-band .btn-primary:hover{background:var(--accent-dark)}
+   401→
+   402→/* about page */
+   403→.site-page-hero{padding:60px 0 40px;text-align:center}
+   404→.site-page-hero .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:16px}
+   405→.site-page-hero .breadcrumb a:hover{color:var(--accent)}
+   406→.site-page-hero h1{font-size:36px;font-weight:800;margin-bottom:12px}
+   407→.site-page-hero .page-sub{font-size:17px;color:var(--slate);max-width:560px;margin:0 auto}
+   408→.site-section{padding:50px 0}
+   409→.site-section h2{font-size:24px;font-weight:700;margin-bottom:10px}
+   410→.site-section .section-sub{font-size:15px;color:var(--slate);margin-bottom:28px;max-width:640px}
+   411→.site-section .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+   412→.site-section .value-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;transition:.15s}
+   413→.site-section .value-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.05)}
+   414→.site-section .value-card .vc-icon{width:42px;height:42px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:20px}
+   415→.site-section .value-card h4{font-size:15px;font-weight:700;margin-bottom:6px}
+   416→.site-section .value-card p{font-size:13.5px;color:var(--slate);line-height:1.6}
+   417→
+   418→/* contact page */
+   419→.site-contact-form{max-width:600px;margin:0 auto}
+   420→.site-contact-form .form-group{margin-bottom:20px}
+   421→.site-contact-form label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px;font-weight:600}
+   422→.site-contact-form input,.site-contact-form textarea{
+   423→  width:100%;padding:12px 14px;border:1px solid #dde2df;border-radius:10px;font-family:inherit;font-size:14px;background:#fff;color:var(--ink);transition:.15s;
+   424→}
+   425→.site-contact-form textarea{resize:vertical;min-height:140px;line-height:1.6}
+   426→.site-contact-form input:focus,.site-contact-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,125,116,.1)}
+   427→.site-contact-form input::placeholder,.site-contact-form textarea::placeholder{color:#b9c0bc}
+   428→.site-contact-form .submit-btn{background:var(--accent);color:#fff;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:.15s;font-family:inherit}
+   429→.site-contact-form .submit-btn:hover{background:var(--accent-dark)}
+   430→.site-contact-info{margin-top:50px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+   431→.site-contact-info .ci-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;text-align:center}
+   432→.site-contact-info .ci-card h4{font-size:14px;font-weight:700;margin-bottom:8px}
+   433→.site-contact-info .ci-card p{font-size:13.5px;color:var(--slate)}
+   434→
+   435→@media(max-width:980px){
+   436→  .site-nav .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:16px 28px;gap:16px;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+   437→  .site-nav .nav-links.open{display:flex}
+   438→  .site-nav .mobile-toggle{display:block}
+   439→  .site-nav .nav-right .free-tag{display:none}
+   440→  .site-hero h1{font-size:28px}
+   441→  .site-hero{padding:50px 0 40px}
+   442→  .site-features .feat-grid{grid-template-columns:1fr 1fr}
+   443→  .site-howto .steps{grid-template-columns:1fr 1fr}
+   444→  .site-footer .foot-grid{grid-template-columns:1fr 1fr}
+   445→  .site-section .card-grid{grid-template-columns:1fr}
+   446→  .site-contact-info{grid-template-columns:1fr}
+   447→}
+   448→
+   449→@media(max-width:600px){
+   450→  .site-hero h1{font-size:24px}
+   451→  .site-features .feat-grid{grid-template-columns:1fr}
+   452→  .site-howto .steps{grid-template-columns:1fr}
+   453→  .site-hero .hero-actions{flex-direction:column;align-items:center}
+   454→  .site-hero .trust-row{flex-direction:column;align-items:center;gap:12px}
+   455→  .site-footer .foot-grid{grid-template-columns:1fr}
+   456→}
+   457→

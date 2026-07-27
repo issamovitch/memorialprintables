@@ -1,0 +1,491 @@
+     1→<!DOCTYPE html>
+     2→<html lang="en">
+     3→<head>
+     4→<meta charset="UTF-8">
+     5→<meta name="viewport" content="width=device-width, initial-scale=1.0">
+     6→<title>Free Funeral Program Maker — No Signup, Print-Ready PDF</title>
+     7→<style>
+     8→  :root{
+     9→    --accent:#3f7d74; --accent-dark:#2f5f58; --accent-soft:#eef4f2;
+    10→    --ink:#1f2a28; --slate:#5b6663; --muted:#8a938f;
+    11→    --line:#e6e9e7; --bg:#fbfcfb; --card:#ffffff;
+    12→  }
+    13→  *{box-sizing:border-box;margin:0;padding:0}
+    14→  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:15px}
+    15→  .serif{font-family:Georgia,"Times New Roman",serif}
+    16→  a{color:inherit;text-decoration:none}
+    17→  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+    18→
+    19→  /* nav */
+    20→  nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+    21→  .nav-inner{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between}
+    22→  .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:19px}
+    23→  .logo .mark{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+    24→  .logo span{color:var(--accent)}
+    25→  .nav-links{display:flex;align-items:center;gap:26px}
+    26→  .nav-links a{font-size:14.5px;color:var(--slate)}
+    27→  .nav-links a:hover{color:var(--ink)}
+    28→  .nav-right{display:flex;align-items:center;gap:16px}
+    29→  .free-tag{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:5px}
+    30→  .cta{background:var(--accent);color:#fff;padding:9px 17px;border-radius:8px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
+    31→  .cta:hover{background:var(--accent-dark)}
+    32→
+    33→  /* head */
+    34→  .breadcrumb{font-size:13px;color:var(--muted);padding:18px 0 0}
+    35→  .breadcrumb a:hover{color:var(--accent)}
+    36→  h1.title{font-size:30px;font-weight:700;margin:10px 0 6px}
+    37→  .subtitle{color:var(--slate);font-size:16px}
+    38→
+    39→  .chips{display:flex;gap:9px;margin:18px 0;flex-wrap:wrap}
+    40→  .chip{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 14px;font-size:13px;color:var(--slate);cursor:pointer}
+    41→  .chip:hover{border-color:var(--accent);color:var(--accent)}
+    42→
+    43→  .privacy{background:var(--accent-soft);border:1px solid #d9e7e3;border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--accent-dark);display:flex;align-items:center;gap:9px;margin-bottom:22px}
+    44→
+    45→  /* tool layout */
+    46→  .tool{display:grid;grid-template-columns:400px 1fr;gap:26px;align-items:start}
+    47→  .col-form{display:flex;flex-direction:column;gap:16px}
+    48→
+    49→  .group{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+    50→  .group h3{font-size:15px;font-weight:700;margin-bottom:3px}
+    51→  .group .hint{font-size:12.5px;color:var(--muted);margin-bottom:15px}
+    52→
+    53→  .formats{display:flex;gap:5px;background:var(--bg);padding:4px;border-radius:10px;border:1px solid var(--line);margin-bottom:2px}
+    54→  .formats button{flex:1;padding:9px 4px;font-size:13px;border:none;background:transparent;border-radius:7px;cursor:pointer;color:var(--slate);font-weight:500;transition:.15s}
+    55→  .formats button:hover{color:var(--accent)}
+    56→  .formats button.active{background:var(--accent);color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+    57→
+    58→  .field{margin-bottom:13px}
+    59→  .field:last-child{margin-bottom:0}
+    60→  .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+    61→  label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:5px;font-weight:600}
+    62→  input[type=text],textarea,select{width:100%;padding:10px 12px;border:1px solid #dde2df;border-radius:9px;font-family:inherit;font-size:14px;background:#fff;color:var(--ink);transition:.15s}
+    63→  textarea{resize:vertical;min-height:70px;line-height:1.55}
+    64→  input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,125,116,.1)}
+    65→  input::placeholder{color:#b9c0bc}
+    66→
+    67→  .upload-row{display:flex;align-items:center;gap:12px}
+    68→  .upload-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border:1px solid var(--accent);color:var(--accent);border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}
+    69→  .upload-btn:hover{background:var(--accent);color:#fff}
+    70→  .upload-btn svg{width:15px;height:15px}
+    71→  .thumb{width:48px;height:48px;border-radius:9px;object-fit:cover;border:1px solid var(--line);display:none}
+    72→  .thumb.show{display:block}
+    73→  .thumb-clear{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;display:none}
+    74→  .thumb-clear.show{display:inline}
+    75→
+    76→  /* template picker: 3 per row, only one row visible, vertical scroll for more */
+    77→  .tpl-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-height:176px;overflow-y:auto;padding:4px 10px 4px 2px}
+    78→  .tpl-strip::-webkit-scrollbar{width:8px}
+    79→  .tpl-strip::-webkit-scrollbar-track{background:var(--bg);border-radius:8px}
+    80→  .tpl-strip::-webkit-scrollbar-thumb{background:#cfd6d3;border-radius:8px}
+    81→  .tpl-strip::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+    82→  .tpl-card{cursor:pointer;text-align:center}
+    83→  .tpl-thumb{width:100%;aspect-ratio:5.5/7;border-radius:9px;border:2px solid var(--line);background:#fff;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:12px 8px;transition:.15s}
+    84→  .tpl-card:hover .tpl-thumb{border-color:var(--accent)}
+    85→  .tpl-card.active .tpl-thumb{border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,125,116,.14)}
+    86→  .tpl-thumb .t-bar{width:40px;height:4px;border-radius:3px}
+    87→  .tpl-thumb .t-photo{width:34px;height:40px;border-radius:3px;background:#eef1ef}
+    88→  .tpl-thumb .t-line{width:52px;height:3px;border-radius:2px;background:#e4e8e6}
+    89→  .tpl-thumb .t-line.sm{width:38px}
+    90→  .tpl-name{font-size:11.5px;color:var(--slate);margin-top:7px;font-weight:500}
+    91→  .tpl-card.active .tpl-name{color:var(--accent);font-weight:600}
+    92→  .styles{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+    93→  .styles button{padding:8px 15px;border:1px solid var(--line);background:#fff;border-radius:8px;font-size:13px;cursor:pointer;color:var(--slate)}
+    94→  .styles button.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+    95→  .swatches{display:flex;gap:9px}
+    96→  .swatch{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+    97→  .swatch.active{box-shadow:0 0 0 2px var(--accent)}
+    98→
+    99→  /* preview */
+   100→  .col-preview{position:sticky;top:80px}
+   101→  .preview-bar{display:flex;justify-content:flex-end;gap:10px;margin-bottom:12px}
+   102→  .pbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--slate)}
+   103→  .pbtn:hover{border-color:var(--accent);color:var(--accent)}
+   104→  .pbtn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+   105→  .pbtn.primary:hover{background:var(--accent-dark)}
+   106→  .pbtn svg{width:15px;height:15px}
+   107→  .stage{background:#eef0ee;border:1px solid var(--line);border-radius:14px;padding:30px;display:flex;flex-direction:column;align-items:center;gap:20px;max-height:78vh;overflow:auto}
+   108→  .sheet-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600}
+   109→  .sheet{background:#fff;box-shadow:0 6px 26px rgba(0,0,0,.13);display:flex;overflow:hidden;flex-shrink:0}
+   110→  /* Fixed real ratios at 52px/inch. US Letter = 8.5 x 11.
+   111→     single 442x572 = 8.5:11  |  spread 572x442 = 11:8.5  */
+   112→  .sheet.single{width:442px;height:572px;flex-direction:column}
+   113→  .sheet.spread{width:572px;height:442px}
+   114→  .cell{flex:1;min-width:0;min-height:0;padding:26px 22px;border-right:1px dashed #ececec;display:flex;flex-direction:column;overflow:hidden}
+   115→  .cell:last-child{border-right:none}
+   116→  .cover{justify-content:center;align-items:center;text-align:center}
+   117→  .cover .memof{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+   118→  .cover .photo{width:112px;height:138px;background:var(--accent-soft);border-radius:5px;margin:16px 0;display:flex;align-items:center;justify-content:center;color:#b3c4bf;font-size:11px;background-size:cover;background-position:center}
+   119→  .cover .name{font-size:25px;font-family:Georgia,serif;margin-bottom:5px;line-height:1.25}
+   120→  .cover .rule{width:44px;height:2px;background:var(--accent);margin:4px 0 8px}
+   121→  .cover .dates{font-size:13px;color:var(--slate)}
+   122→  .sec-title{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:9px;border-bottom:1px solid #eee;padding-bottom:6px;font-family:Georgia,serif}
+   123→  .sec-body{font-size:13px;white-space:pre-line;color:#3f4744;font-family:Georgia,serif;line-height:1.75}
+   124→  .back{justify-content:center;align-items:center;text-align:center}
+   125→  .back .sec-body{font-style:italic}
+   126→
+   127→  /* content sections */
+   128→  section.block{margin:56px 0}
+   129→  .band{background:#fff;border:1px solid var(--line);border-radius:16px;padding:34px}
+   130→  h2.h{font-size:23px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+   131→  .h-sub{color:var(--slate);margin-bottom:24px}
+   132→  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+   133→  .step .num{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:10px}
+   134→  .step p{font-size:13.5px;color:var(--slate)}
+   135→  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+   136→  .two-col h4{font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:7px;color:var(--accent)}
+   137→  .two-col ul{list-style:none}
+   138→  .two-col li{font-size:14px;color:var(--slate);padding:5px 0 5px 20px;position:relative}
+   139→  .two-col li:before{content:"•";color:var(--accent);position:absolute;left:4px}
+   140→
+   141→  .ad{background:#f3f5f3;border:1px dashed #d7dcd9;border-radius:12px;padding:26px;text-align:center;color:var(--muted);font-size:12.5px;letter-spacing:.08em}
+   142→  .ad .lbl{text-transform:uppercase;font-size:11px;margin-bottom:4px}
+   143→
+   144→  .faq-item{border-bottom:1px solid var(--line)}
+   145→  .faq-item:last-child{border-bottom:none}
+   146→  .faq-q{padding:16px 0;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+   147→  .faq-q span{color:var(--muted);transition:.2s}
+   148→  .faq-a{font-size:14px;color:var(--slate);padding:0 0 16px;display:none}
+   149→  .faq-item.open .faq-a{display:block}
+   150→  .faq-item.open .faq-q span{transform:rotate(180deg)}
+   151→
+   152→  .promo{background:var(--accent-soft);border:1px solid #d9e7e3;border-radius:16px;padding:30px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+   153→  .promo .tag{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700;margin-bottom:8px}
+   154→  .promo h3{font-size:20px;margin-bottom:8px}
+   155→  .promo p{font-size:13.5px;color:var(--slate);max-width:560px}
+   156→  .promo .acts{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+   157→  .promo .acts a{background:var(--accent);color:#fff;padding:11px 20px;border-radius:9px;font-size:14px;font-weight:600;text-align:center;white-space:nowrap}
+   158→  .promo .acts a.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+   159→
+   160→  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+   161→  .card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px;transition:.15s}
+   162→  .card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.05)}
+   163→  .card .ic{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:11px}
+   164→  .card h4{font-size:15px;margin-bottom:4px}
+   165→  .card p{font-size:12.5px;color:var(--muted)}
+   166→  .cards.guides .card .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-weight:700;margin-bottom:8px}
+   167→  .cards.guides .card h4{font-size:14.5px;line-height:1.35}
+   168→  .cards.guides .card .read{font-size:12px;color:var(--muted);margin-top:8px}
+   169→
+   170→  .country-row{display:flex;gap:10px;flex-wrap:wrap}
+   171→  .country{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 13px;font-size:13px;color:var(--slate);cursor:pointer}
+   172→  .country:hover{border-color:var(--accent);color:var(--accent)}
+   173→
+   174→  /* footer */
+   175→  footer{background:#1f2a28;color:#aeb8b4;margin-top:60px;padding:48px 0 26px}
+   176→  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:30px}
+   177→  footer .logo{color:#fff;margin-bottom:12px}
+   178→  footer .about{font-size:13px;color:#8a9691;max-width:230px}
+   179→  footer .about .badge{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:#9fb0aa}
+   180→  footer h5{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+   181→  footer ul{list-style:none}
+   182→  footer li{margin-bottom:9px}
+   183→  footer li a{font-size:13.5px;color:#aeb8b4}
+   184→  footer li a:hover{color:#fff}
+   185→  .foot-bottom{border-top:1px solid #33413d;margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;font-size:12.5px;color:#7d8a85;gap:20px;flex-wrap:wrap}
+   186→
+   187→  @media(max-width:980px){
+   188→    .tool{grid-template-columns:1fr}
+   189→    .col-preview{position:static}
+   190→    .steps{grid-template-columns:1fr 1fr}
+   191→    .cards{grid-template-columns:1fr 1fr}
+   192→    .foot-grid{grid-template-columns:1fr 1fr}
+   193→    .nav-links{display:none}
+   194→    .two-col{grid-template-columns:1fr;gap:24px}
+   195→    .sheet.single{width:340px;height:440px}
+   196→    .sheet.spread{width:440px;height:340px}
+   197→  }
+   198→</style>
+   199→</head>
+   200→<body>
+   201→
+   202→<nav>
+   203→  <div class="nav-inner">
+   204→    <div class="logo">
+   205→      <span class="mark">✦</span>Ever<span>Rest</span>
+   206→    </div>
+   207→    <div class="nav-links">
+   208→      <a href="#">Programs ▾</a>
+   209→      <a href="#">Templates ▾</a>
+   210→      <a href="#">Guides</a>
+   211→      <a href="#">About</a>
+   212→      <a href="#">Contact</a>
+   213→    </div>
+   214→    <div class="nav-right">
+   215→      <span class="free-tag">✦ Free · No signup</span>
+   216→      <a href="#" class="cta">✦ Make a program</a>
+   217→    </div>
+   218→  </div>
+   219→</nav>
+   220→
+   221→<div class="wrap">
+   222→  <div class="breadcrumb"><a href="#">Home</a> › <a href="#">Program Makers</a> › Funeral Program</div>
+   223→  <h1 class="title">Funeral Program Maker</h1>
+   224→  <p class="subtitle">Create a beautiful, print-ready funeral program in under a minute.</p>
+   225→
+   226→  <div class="chips">
+   227→    <div class="chip">▤ Format</div>
+   228→    <div class="chip">✝ Religion</div>
+   229→    <div class="chip">▾ All templates</div>
+   230→  </div>
+   231→
+   232→  <div class="privacy">🔒 100% private. Everything is generated in your browser — nothing is uploaded or saved.</div>
+   233→
+   234→  <div class="tool">
+   235→    <!-- FORM -->
+   236→    <div class="col-form">
+   237→      <div class="group">
+   238→        <h3>Format</h3>
+   239→        <div class="hint">Choose how the program folds. The preview updates instantly.</div>
+   240→        <div class="formats" id="formats">
+   241→          <button data-fmt="single" class="active">Single</button>
+   242→          <button data-fmt="bifold">Bifold</button>
+   243→          <button data-fmt="trifold">Trifold</button>
+   244→        </div>
+   245→      </div>
+   246→
+   247→      <div class="group">
+   248→        <h3>Template</h3>
+   249→        <div class="hint">Pick a design. Sets the layout and colour.</div>
+   250→        <div class="tpl-strip" id="tplStrip">
+   251→          <div class="tpl-card active" data-c="#3f7d74" data-name="Classic">
+   252→            <div class="tpl-thumb"><div class="t-bar" style="background:#3f7d74"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+   253→            <div class="tpl-name">Classic</div>
+   254→          </div>
+   255→          <div class="tpl-card" data-c="#7a6a8a" data-name="Lavender">
+   256→            <div class="tpl-thumb"><div class="t-bar" style="background:#7a6a8a"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+   257→            <div class="tpl-name">Lavender</div>
+   258→          </div>
+   259→          <div class="tpl-card" data-c="#8a6d5b" data-name="Warm">
+   260→            <div class="tpl-thumb"><div class="t-bar" style="background:#8a6d5b"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+   261→            <div class="tpl-name">Warm</div>
+   262→          </div>
+   263→          <div class="tpl-card" data-c="#4a6b8a" data-name="Slate Blue">
+   264→            <div class="tpl-thumb"><div class="t-bar" style="background:#4a6b8a"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+   265→            <div class="tpl-name">Slate Blue</div>
+   266→          </div>
+   267→          <div class="tpl-card" data-c="#9a5b5b" data-name="Rose">
+   268→            <div class="tpl-thumb"><div class="t-bar" style="background:#9a5b5b"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+   269→            <div class="tpl-name">Rose</div>
+   270→          </div>
+   271→          <div class="tpl-card" data-c="#5b6663" data-name="Minimal">
+   272→            <div class="tpl-thumb"><div class="t-bar" style="background:#5b6663"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+   273→            <div class="tpl-name">Minimal</div>
+   274→          </div>
+   275→          <div class="tpl-card" data-c="#6b7a4a" data-name="Sage">
+   276→            <div class="tpl-thumb"><div class="t-bar" style="background:#6b7a4a"></div><div class="t-photo"></div><div class="t-line"></div><div class="t-line sm"></div></div>
+   277→            <div class="tpl-name">Sage</div>
+   278→          </div>
+   279→        </div>
+   280→      </div>
+   281→
+   282→      <div class="group">
+   283→        <h3>In memory of</h3>
+   284→        <div class="hint">These appear on the cover.</div>
+   285→        <div class="field"><label>Full name</label><input type="text" id="name" value="Margaret Eleanor Hayes"></div>
+   286→        <div class="field"><label>Dates</label><input type="text" id="dates" value="March 4, 1946 — January 12, 2026"></div>
+   287→        <div class="field">
+   288→          <label>Photo</label>
+   289→          <div class="upload-row">
+   290→            <label class="upload-btn">
+   291→              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+   292→              Upload photo
+   293→              <input type="file" id="photo" accept="image/*" hidden>
+   294→            </label>
+   295→            <img class="thumb" id="thumb" alt="">
+   296→            <button class="thumb-clear" id="thumbClear" type="button">remove</button>
+   297→          </div>
+   298→        </div>
+   299→      </div>
+   300→
+   301→      <div class="group">
+   302→        <h3>Content</h3>
+   303→        <div class="hint">The order of service, life story, and closing note.</div>
+   304→        <div class="field"><label>Order of service</label><textarea id="order">Prelude
+   305→Opening Words
+   306→Hymn — Amazing Grace
+   307→Scripture Reading
+   308→Eulogy
+   309→Closing Prayer
+   310→Recessional</textarea></div>
+   311→        <div class="field"><label>Obituary</label><textarea id="obit">Margaret was born in Portland and lived a life full of warmth and devotion to her family. A teacher for 30 years, she touched countless lives.</textarea></div>
+   312→        <div class="field"><label>Acknowledgments</label><textarea id="ack">The family gratefully thanks all who offered love and support during this difficult time.</textarea></div>
+   313→      </div>
+   314→    </div>
+   315→
+   316→    <!-- PREVIEW -->
+   317→    <div class="col-preview">
+   318→      <div class="preview-bar">
+   319→        <button class="pbtn" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-3a2 2 0 012-2h16a2 2 0 012 2v3a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>Print</button>
+   320→        <button class="pbtn primary" onclick="alert('In the real build this exports a print-ready PDF via pdf-lib, with fold panels placed in print position.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>Download PDF</button>
+   321→      </div>
+   322→      <div class="stage" id="stage"></div>
+   323→    </div>
+   324→  </div>
+   325→
+   326→  <!-- how to -->
+   327→  <section class="block">
+   328→    <div class="band">
+   329→      <h2 class="h">How to make a funeral program</h2>
+   330→      <p class="h-sub">Four steps to a finished, print-ready program — no account needed.</p>
+   331→      <div class="steps">
+   332→        <div class="step"><div class="num">1</div><p>Pick a format — single, bifold, or trifold.</p></div>
+   333→        <div class="step"><div class="num">2</div><p>Enter the name, dates, and upload a photo.</p></div>
+   334→        <div class="step"><div class="num">3</div><p>Add the order of service and obituary.</p></div>
+   335→        <div class="step"><div class="num">4</div><p>Choose a style, then download your PDF.</p></div>
+   336→        <div class="step"><div class="num">5</div><p>Print double-sided, fold, and share.</p></div>
+   337→      </div>
+   338→    </div>
+   339→  </section>
+   340→
+   341→  <!-- what to include -->
+   342→  <section class="block">
+   343→    <h2 class="h">What to include in a funeral program</h2>
+   344→    <p class="h-sub">A clear program helps guests follow the service and becomes a lasting keepsake.</p>
+   345→    <div class="two-col">
+   346→      <div>
+   347→        <h4>◷ What to include</h4>
+   348→        <ul>
+   349→          <li>Full name, birth and death dates, and a cover photo.</li>
+   350→          <li>The order of service — readings, hymns, eulogy, prayers.</li>
+   351→          <li>A short obituary or life story.</li>
+   352→          <li>Acknowledgments thanking those who offered support.</li>
+   353→          <li>An optional poem, scripture, or favourite quote.</li>
+   354→        </ul>
+   355→      </div>
+   356→      <div>
+   357→        <h4>◷ Why it matters</h4>
+   358→        <p style="font-size:14px;color:var(--slate)">A well-structured program gives mourners something to hold and follow, guides them through each moment of the service, and preserves the details of a life so families can return to it long after the day itself.</p>
+   359→      </div>
+   360→    </div>
+   361→  </section>
+   362→
+   363→  <div class="ad"><div class="lbl">Advertisement</div>A discreet ad keeps this tool free. The maker above is fully usable without clicking anything.</div>
+   364→
+   365→  <!-- faq -->
+   366→  <section class="block">
+   367→    <div class="band">
+   368→      <h2 class="h">Frequently asked questions</h2>
+   369→      <div id="faq">
+   370→        <div class="faq-item"><div class="faq-q">Do I need an account to make a program?<span>▾</span></div><div class="faq-a">No. There is no signup, watermark, or hidden fee. Fill in the fields and download your PDF.</div></div>
+   371→        <div class="faq-item"><div class="faq-q">Is my data private?<span>▾</span></div><div class="faq-a">Yes. Everything is generated in your browser. Your photo and details are never uploaded or saved.</div></div>
+   372→        <div class="faq-item"><div class="faq-q">What paper should I use?<span>▾</span></div><div class="faq-a">Standard 8.5 × 11" letter paper works well. For a keepsake feel, use a heavier 80 lb cardstock.</div></div>
+   373→        <div class="faq-item"><div class="faq-q">How do I print a bifold?<span>▾</span></div><div class="faq-a">Print double-sided on one sheet, then fold in half. The maker positions the panels so the cover lands on the front automatically.</div></div>
+   374→        <div class="faq-item"><div class="faq-q">Can I add my own photo?<span>▾</span></div><div class="faq-a">Yes. Use the Upload photo button — it appears on the cover instantly and stays on your device.</div></div>
+   375→      </div>
+   376→    </div>
+   377→  </section>
+   378→
+   379→  <!-- promo / affiliate -->
+   380→  <section class="block">
+   381→    <div class="promo">
+   382→      <div>
+   383→        <div class="tag">Recommended</div>
+   384→        <h3>Need it printed and delivered?</h3>
+   385→        <p>If you'd rather not print at home, online print services can ship professionally printed programs on heavy cardstock — often next-day. Free to design here; upgrade only if you want it done for you.</p>
+   386→        <p style="margin-top:10px;font-size:12px;color:var(--muted)">Affiliate disclosure: we may earn a commission if you order through these links, at no cost to you.</p>
+   387→      </div>
+   388→      <div class="acts">
+   389→        <a href="#">Order Prints</a>
+   390→        <a href="#" class="ghost">Compare Services</a>
+   391→      </div>
+   392→    </div>
+   393→  </section>
+   394→
+   395→  <!-- learn more -->
+   396→  <section class="block">
+   397→    <h2 class="h">◫ Learn more</h2>
+   398→    <p class="h-sub">Practical guides to help you plan a meaningful service.</p>
+   399→    <div class="cards guides">
+   400→      <a class="card" href="#"><div class="k">Getting started</div><h4>How to Write a Funeral Program: A Step-by-Step Guide</h4><div class="read">7 min read</div></a>
+   401→      <a class="card" href="#"><div class="k">Wording</div><h4>Order of Service Wording and Examples</h4><div class="read">6 min read</div></a>
+   402→      <a class="card" href="#"><div class="k">Writing</div><h4>How to Write an Obituary That Honors a Life</h4><div class="read">8 min read</div></a>
+   403→    </div>
+   404→  </section>
+   405→</div>
+   406→
+   407→<footer>
+   408→  <div class="wrap">
+   409→    <div class="foot-grid">
+   410→      <div>
+   411→        <div class="logo"><span class="mark">✦</span>Ever<span style="color:#7fb3a9">Rest</span></div>
+   412→        <p class="about">Free, private memorial tools. Fill in a form, download a print-ready PDF, ever.</p>
+   413→        <div class="about badge">◷ Generated in your browser — nothing uploaded</div>
+   414→        <div class="about badge">✓ No signup required to download</div>
+   415→      </div>
+   416→      <div><h5>Programs</h5><ul><li><a href="#">Funeral Program</a></li><li><a href="#">Catholic</a></li><li><a href="#">Celebration of Life</a></li><li><a href="#">Pet Memorial</a></li><li><a href="#">Browse all →</a></li></ul></div>
+   417→      <div><h5>Keepsakes</h5><ul><li><a href="#">Prayer Cards</a></li><li><a href="#">Bookmarks</a></li><li><a href="#">Thank-You Cards</a></li><li><a href="#">Memorial Cards</a></li><li><a href="#">View all →</a></li></ul></div>
+   418→      <div><h5>By language</h5><ul><li><a href="#">English</a></li><li><a href="#">Español</a></li><li><a href="#">Français</a></li><li><a href="#">Português</a></li><li><a href="#">A4 / UK</a></li></ul></div>
+   419→      <div><h5>Resources</h5><ul><li><a href="#">Guides</a></li><li><a href="#">How to Write a Program</a></li><li><a href="#">Order of Service Wording</a></li><li><a href="#">About</a></li><li><a href="#">Privacy</a></li></ul></div>
+   420→    </div>
+   421→    <div class="foot-bottom">
+   422→      <span>© 2026 EverRest. Free tools for families.</span>
+   423→      <span>Everything runs in your browser. Your details stay private.</span>
+   424→    </div>
+   425→  </div>
+   426→</footer>
+   427→
+   428→<script>
+   429→  const state={fmt:'single',photo:'',accent:'#3f7d74'};
+   430→  const $=id=>document.getElementById(id);
+   431→  const textFields=['name','dates','order','obit','ack'];
+   432→  const data=()=>({name:$('name').value,dates:$('dates').value,photo:state.photo,order:$('order').value,obit:$('obit').value,ack:$('ack').value});
+   433→
+   434→  function coverHTML(d){
+   435→    const photo=d.photo?`<div class="photo" style="background-image:url('${d.photo}')"></div>`:`<div class="photo">Photo</div>`;
+   436→    return `<div class="cell cover"><div class="memof">In Loving Memory</div>${photo}<div class="name">${d.name}</div><div class="rule"></div><div class="dates">${d.dates}</div></div>`;
+   437→  }
+   438→  const orderHTML=d=>`<div class="cell"><div class="sec-title">Order of Service</div><div class="sec-body">${d.order}</div></div>`;
+   439→  const obitHTML=d=>`<div class="cell"><div class="sec-title">Obituary</div><div class="sec-body">${d.obit}</div></div>`;
+   440→  const backHTML=d=>`<div class="cell back"><div class="sec-body">${d.ack}</div></div>`;
+   441→
+   442→  function render(){
+   443→    const d=data();let html='';
+   444→    if(state.fmt==='single'){
+   445→      html=`<div class="sheet-label">Front · 8.5 × 11"</div><div class="sheet single">${coverHTML(d)}</div>
+   446→        <div class="sheet-label">Back</div><div class="sheet single">
+   447→        <div class="cell"><div class="sec-title">Order of Service</div><div class="sec-body">${d.order}</div></div>
+   448→        <div class="cell"><div class="sec-title">Obituary</div><div class="sec-body">${d.obit}</div></div></div>`;
+   449→    }
+   450→    if(state.fmt==='bifold'){
+   451→      html=`<div class="sheet-label">Outside · fold down the middle</div><div class="sheet spread">${backHTML(d)}${coverHTML(d)}</div>
+   452→        <div class="sheet-label">Inside</div><div class="sheet spread">${orderHTML(d)}${obitHTML(d)}</div>`;
+   453→    }
+   454→    if(state.fmt==='trifold'){
+   455→      html=`<div class="sheet-label">Outside · cover on right</div><div class="sheet spread">${backHTML(d)}
+   456→        <div class="cell"><div class="sec-title">Poem</div><div class="sec-body">Do not stand at my grave and weep,
+   457→I am not there; I do not sleep.</div></div>${coverHTML(d)}</div>
+   458→        <div class="sheet-label">Inside</div><div class="sheet spread">${orderHTML(d)}${obitHTML(d)}
+   459→        <div class="cell"><div class="sec-title">Reflections</div><div class="sec-body">Shared memories from family and friends.</div></div></div>`;
+   460→    }
+   461→    $('stage').innerHTML=html;
+   462→  }
+   463→
+   464→  textFields.forEach(f=>$(f).addEventListener('input',render));
+   465→
+   466→  $('photo').addEventListener('change',e=>{
+   467→    const file=e.target.files[0];if(!file)return;
+   468→    const r=new FileReader();
+   469→    r.onload=ev=>{state.photo=ev.target.result;const t=$('thumb');t.src=state.photo;t.classList.add('show');$('thumbClear').classList.add('show');render();};
+   470→    r.readAsDataURL(file);
+   471→  });
+   472→  $('thumbClear').addEventListener('click',()=>{state.photo='';$('photo').value='';$('thumb').classList.remove('show');$('thumbClear').classList.remove('show');render();});
+   473→
+   474→  document.querySelectorAll('#formats button').forEach(b=>b.addEventListener('click',()=>{
+   475→    document.querySelectorAll('#formats button').forEach(x=>x.classList.remove('active'));
+   476→    b.classList.add('active');state.fmt=b.dataset.fmt;render();
+   477→  }));
+   478→
+   479→  document.querySelectorAll('#tplStrip .tpl-card').forEach(c=>c.addEventListener('click',()=>{
+   480→    document.querySelectorAll('#tplStrip .tpl-card').forEach(x=>x.classList.remove('active'));
+   481→    c.classList.add('active');
+   482→    document.documentElement.style.setProperty('--accent',c.dataset.c);
+   483→  }));
+   484→
+   485→  document.querySelectorAll('.faq-item').forEach(it=>it.querySelector('.faq-q').addEventListener('click',()=>it.classList.toggle('open')));
+   486→
+   487→  render();
+   488→</script>
+   489→</body>
+   490→</html>
+   491→
