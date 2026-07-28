@@ -15,7 +15,7 @@ export default function SiteNav({ current }: SiteNavProps) {
     <nav className="site-nav">
       <div className="nav-inner">
         <Link href="/" className="logo">
-          <Image src="/logo.png" alt="Memorial Printables" width={32} height={32} className="logo-img" />
+          <Image src="/logo.png" alt="Memorial Printables" width={48} height={48} className="logo-img" />
           <span>Memorial Printables</span>
         </Link>
 
@@ -38,7 +38,7 @@ export default function SiteNav({ current }: SiteNavProps) {
 
         <div className="nav-right">
           <span className="free-tag">Free · No signup</span>
-          <Link href="/free-funeral-program-generator" className="cta">Make a program</Link>
+          <Link href="/free-funeral-program-generator" className="cta text-center">Make a program</Link>
         </div>
       </div>
     </nav>
