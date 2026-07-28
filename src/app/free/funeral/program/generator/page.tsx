@@ -101,7 +101,7 @@ export default function FuneralProgramPage() {
 
         {/* HOW TO */}
         <section className="block">
-          <div className="band">
+          <div className="band text-center">
             <h2 className="h">How to make a funeral program</h2>
             <p className="h-sub">Four steps to a finished, print-ready program — no account needed.</p>
             <div className="steps">

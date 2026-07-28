@@ -9,7 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const TEMPLATES_DIR = path.resolve(__dirname, '..', 'templates');
+const TEMPLATES_DIR = path.resolve(__dirname, '..', 'public', 'templates');
 const OUTPUT_PATH = path.resolve(__dirname, '..', 'public', 'templates-manifest.json');
 
 function slugify(name) {

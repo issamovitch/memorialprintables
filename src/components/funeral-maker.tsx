@@ -144,6 +144,7 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
   }, [format]);
 
   // Update --accent on the .tool div ONLY (not the whole page)
+  /*
   useEffect(() => {
     const el = toolRef.current;
     if (el && tpl) {
@@ -157,6 +158,7 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
       el.style.setProperty('--accent-soft', `rgb(${Math.round(r + (255 - r) * 0.88)},${Math.round(g + (255 - g) * 0.88)},${Math.round(b + (255 - b) * 0.88)})`);
     }
   }, [tpl]);
+  */
 
   const handlePhoto = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -378,7 +380,7 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
             <DownloadIcon />{downloading ? 'Generating…' : 'Download PDF'}
           </button>
         </div>
-        <div className="stage" ref={previewRef}>
+        <div className={`stage${sheets.length === 0 ? ' is-loading' : ''}`} ref={previewRef}>
           {sheets.length === 0 ? (
             <div style={{ padding: '40px', textAlign: 'center', color: '#999' }}>
               Loading template…

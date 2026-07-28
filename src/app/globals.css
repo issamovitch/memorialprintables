@@ -176,7 +176,7 @@
 .er-root .tpl-strip::-webkit-scrollbar-thumb{background:#cfd6d3;border-radius:8px}
 .er-root .tpl-strip::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 .er-root .tpl-card{cursor:pointer;text-align:center}
-.er-root .tpl-thumb{width:100%;aspect-ratio:5.5/7;border-radius:9px;border:2px solid #b5cbbc;background:#fff;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:4px;transition:.15s}
+.er-root .tpl-thumb{width:100%;aspect-ratio:5.5/7;border-radius:9px;border:2px solid #b5cbbc;background:#fff;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:5px 4px 0px;transition:.15s}
 .er-root .tpl-card:hover .tpl-thumb{border-color:#3F7D74FF;}
 .er-root .tpl-card.active .tpl-thumb{border-color:#3F7D74FF;box-shadow:0 0 0 3px rgba(63,125,116,.14)}
 .er-root .tpl-thumb .t-bar{width:40px;height:4px;border-radius:3px}
@@ -195,6 +195,7 @@
 .er-root .pbtn.primary:hover{background:var(--accent-dark)}
 .er-root .pbtn svg{width:15px;height:15px}
 .er-root .stage{background:#eef0ee;border:1px solid var(--line);border-radius:14px;padding:30px;display:flex;flex-direction:column;align-items:center;gap:20px;max-height:78vh;overflow:auto}
+.er-root .stage.is-loading { min-height: 500px; }
 .er-root .sheet-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600}
 .er-root .sheet{background:#fff;box-shadow:0 6px 26px rgba(0,0,0,.13);display:flex;overflow:hidden;flex-shrink:0}
 .er-root .sheet.single{width:442px;height:572px;flex-direction:column}
