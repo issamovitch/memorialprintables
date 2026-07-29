@@ -452,7 +452,7 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
             </div>
           ) : (
             sheets.map((sheet, i) => (
-              <div key={i} className="sheet-group">
+              <div key={i} className={`sheet-group ${format}`}>
                 <div className="sheet-label">{sheet.label}</div>
                 <SheetFrame
                   srcDoc={sheet.srcDoc}
