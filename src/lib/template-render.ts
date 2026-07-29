@@ -94,11 +94,9 @@ export function renderTemplate(
   const styleEl = doc.querySelector('style');
   const styles = styleEl ? styleEl.textContent || '' : '';
 
-  // Extract Google Font stylesheets and convert to @import for cleaner injection
-  const fontLinks = Array.from(doc.querySelectorAll('head link[rel="stylesheet"]'))
-    .filter(l => l.getAttribute('href')?.includes('fonts.googleapis.com'))
-    .map(l => `@import url("${l.getAttribute('href')}");`)
-    .join('\n');
+// Extract Google Font stylesheets and convert to @import for cleaner injection
+  const ALL_FONT_IMPORTS = `@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Parisienne&family=Pinyon+Script&family=Poppins:wght@300;400;500;600;700&family=Sacramento&display=swap");`;
+  const fontLinks = ALL_FONT_IMPORTS;
 
   // Remove standalone-only chrome elements from the entire document
   doc.querySelectorAll('[data-mp-chrome]').forEach((el) => el.remove());
@@ -149,6 +147,7 @@ export function renderTemplate(
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+${fontLinks}
 ${styles}
 ${OVERRIDE_CSS}
 </style>
