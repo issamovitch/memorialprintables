@@ -145,6 +145,16 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
 
   // Fetch the selected template's HTML source
   useEffect(() => {
+    console.clear()
+    console.log("-------------------------")
+    console.log("-------------------------")
+    console.log("-------------------------")
+    console.log("-------------------------")
+    console.log(templates)
+    console.log("-------------------------")
+    console.log("-------------------------")
+    console.log("-------------------------")
+    console.log("-------------------------")
     if (!tpl) return;
     let cancelled = false;
     fetchTemplateHtml(tpl.htmlUrl)
@@ -237,7 +247,6 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
   // NOTE: `photo` is NOT included here — it is applied to the iframe's
   // contentDocument after load (see SheetFrame), not embedded in the srcDoc.
   const fields: TemplateFields = useMemo(() => ({
-    headerLabel: 'In Loving Memory',
     fullName: name,
     dates,
     serviceDate,

@@ -38,6 +38,7 @@
 
 <style>
   :root{
+      --hair:#cfcdc6;
     --ink:#2c2c2c;
     --muted:#5a5f55;
     --script:"Great Vibes",cursive;
@@ -141,6 +142,25 @@
   }
   .panel-bifold .photo-wrap + .group { margin-top: -10px; }
   .panel-trifold .photo-wrap + .group { margin-top: -10px; }
+
+  .big {font-size: 68px !important; font-weight: bold;}
+  .hair {
+      width: 1.5in;
+      height: 1px;
+      background: var(--hair);
+      border: 0;
+      margin: 10px 0px;
+  }
+
+  .body {max-width: 86%;}
+  .label , .head {font-size: 22px !important; font-weight: bold;}
+  .name{font-size: 86px !important; font-weight: bold;}
+  .panel-bifold .name {font-size: 38px !important;}
+  .panel-trifold .name {font-size: 30px !important;}
+  .panel-bifold .photo-wrap + .group { margin-top: -10px; }
+  .panel-trifold .photo-wrap + .group { margin-top: -10px; }
+  .dates, .venue, .paired, .body{font-size: 18px !important; line-height: 36px !important;}
+  .dates, .venue {font-family: var(--display) !important;}
 </style>
 </head>
 
@@ -162,45 +182,61 @@
     <div class="bg"></div>
     <div class="layer">
       <div class="mast">
-        <div class="small" data-field="headerLabel">In Loving</div>
-        <div class="big" data-mp-chrome-keep>Memory Of</div>
+        <div class="big">In Loving Memory</div>
       </div>
       <div class="photo-wrap">
         <div class="photo" data-field="photo"></div>
         <div class="wreath"></div>
       </div>
       <div class="group"><div class="name" data-field="fullName">Lorna Alvarado</div>
-<div class="dates" data-field="dates">24.10.1942 - 22.04.2022</div></div>
-      <div class="group"><div class="sub-sm" data-field="subtitleSmall">Our Beloved</div>
-<div class="sub" data-field="subtitle">Mothers and Grandmothers</div></div>
+<div class="dates" data-field="dates">1942 - 2022</div></div>
+        <hr class="hair">
+      <div class="group">
+          <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
+          <p class="venue" style="max-width: 80%" data-field="serviceDetails">Eleven o'clock in the morning
+              Grace Chapel, 123 Main Street, Any City</p>
+      </div>
     </div>
   </div>
 
   <div class="mp-caption" data-mp-chrome>Single &middot; 8.5 &times; 11 &middot; inside page</div>
   <div class="page" data-format="single" data-side="back">
     <div class="bg"></div>
-    <div class="layer">
-      <div class="group"><div class="head">
-        <div class="small">You Will Always Be</div>
-        <div class="big">Remembered</div>
+      <div class="layer">
+          <div class="group">
+              <div class="head" data-field="scheduleTitle">Order of Service</div>
+              <hr class="hair">
+              <div class="paired" data-field="orderOfService">
+                  Prelude
+                  Opening Words
+                  Hymn — Amazing Grace
+                  Scripture Reading
+                  Eulogy
+                  Closing Prayer
+                  Recessional
+              </div>
+          </div>
+          <div class="group">
+              <div class="head" data-field="obituaryTitle">Obituary</div>
+              <hr class="hair">
+              <p class="body" data-field="obituary">Eleanor was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She taught for thirty years, kept a garden her neighbours still admire, and never let a friend leave her table hungry.</p>
+          </div>
+          <div class="group">
+              <div class="head">In Remembrance</div>
+              <hr class="hair">
+              <p class="body" data-field="poem"></p>
+          </div>
+          <div class="group">
+              <div class="head">Gathering</div>
+              <hr class="hair">
+              <p class="body" data-field="reflections"></p>
+          </div>
+          <div class="group">
+              <div class="head" data-field="thanksTitle">With Gratitude</div>
+              <hr class="hair">
+              <p class="body" data-field="withGratitude">Thank you for your kindness, your presence, and your quiet support. It has meant more to our family than we can say.</p>
+          </div>
       </div>
-<p class="body" data-field="obituary">Lorna was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She loved her garden, her Sunday table, and every person lucky enough to be called her own.</p></div>
-
-      <div class="group"><div class="section">Pallbearers</div>
-<div class="paired" data-field="pallbearers">Aaron Loeb | Sebastian Bennett
-Adora Montminy | Korina Villanueva
-Alexander Aronowitz | Kyrie Petrakis
-Francois Mercer | Lorna Alvarado</div></div>
-
-      <div class="group"><div class="section">Order of Service</div>
-<div class="paired" data-field="orderOfService">Prayer in The Home | Korina Villanueva
-Prelude Music | Donna Stroupe
-Invocation | Kimberly Nguyen
-Remarks | Korina Villanueva
-Vocal Solo | Sebastian Bennett
-Guest Speakers | Shawn Garcia
-Closing Remarks | Takehiro Kanegi</div></div>
-    </div>
   </div>
 
   <!-- ============================================================ -->

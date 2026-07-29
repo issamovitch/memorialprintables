@@ -23,10 +23,11 @@ export interface TemplateFields {
 }
 
 export interface RenderedSheet {
-  srcDoc: string;       // full HTML document for iframe srcDoc
-  label: string;        // human label, e.g. "Front · 8.5 × 11"
-  widthPx: number;      // native pixel width at 96dpi (for iframe sizing)
-  heightPx: number;     // native pixel height at 96dpi
+  srcDoc: string;
+  sheetHtml: string;
+  label: string;
+  widthPx: number;
+  heightPx: number;
 }
 
 const DPI = 96;
@@ -93,6 +94,12 @@ export function renderTemplate(
   const styleEl = doc.querySelector('style');
   const styles = styleEl ? styleEl.textContent || '' : '';
 
+  // Extract Google Font stylesheets and convert to @import for cleaner injection
+  const fontLinks = Array.from(doc.querySelectorAll('head link[rel="stylesheet"]'))
+    .filter(l => l.getAttribute('href')?.includes('fonts.googleapis.com'))
+    .map(l => `@import url("${l.getAttribute('href')}");`)
+    .join('\n');
+
   // Remove standalone-only chrome elements from the entire document
   doc.querySelectorAll('[data-mp-chrome]').forEach((el) => el.remove());
 
@@ -153,6 +160,7 @@ ${clone.outerHTML}
 
     return {
       srcDoc,
+      sheetHtml: `<style>${fontLinks}\n${styles}\n${OVERRIDE_CSS}</style>${clone.outerHTML}`,
       label,
       widthPx: dims.w,
       heightPx: dims.h,
@@ -166,17 +174,18 @@ ${clone.outerHTML}
  * photo changes — without reloading the iframe.
  */
 export function applyPhotoToDocument(
-  doc: Document | null | undefined,
+  root: ParentNode | null | undefined,
   photoDataUrl: string | null
 ): void {
-  if (!doc) return;
-  const el = doc.querySelector<HTMLElement>('[data-field="photo"]');
-  if (!el) return;
-  if (photoDataUrl) {
-    el.style.backgroundImage = `url("${photoDataUrl}")`;
-  } else {
-    el.style.backgroundImage = '';
-  }
+  if (!root) return;
+  const els = root.querySelectorAll<HTMLElement>('[data-field="photo"]');
+  els.forEach((el) => {
+    if (photoDataUrl) {
+      el.style.backgroundImage = `url("${photoDataUrl}")`;
+    } else {
+      el.style.backgroundImage = '';
+    }
+  });
 }
 
 /**
