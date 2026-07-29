@@ -99,7 +99,9 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
   const [order, setOrder] = useState(cfg.defaultOrderOfService);
   const [obit, setObit] = useState(cfg.defaultObituary);
   const [gratitude, setGratitude] = useState(cfg.defaultWithGratitude);
-  const [photo, setPhoto] = useState<string | null>(null);
+  const [poem, setPoem] = useState(cfg.defaultPoem);
+  const [reflections, setReflections] = useState(cfg.defaultReflections);
+  const [photo, setPhoto] = useState<string | null>('/img.png');
   const [photoBytes, setPhotoBytes] = useState<Uint8Array | null>(null);
   const [photoMime, setPhotoMime] = useState<string | undefined>(undefined);
   const [downloading, setDownloading] = useState(false);
@@ -108,7 +110,7 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
   const [cropOpen, setCropOpen] = useState(false);
   // The ORIGINAL uploaded photo (data URL). We keep this separate from `photo`
   // so that re-editing always starts from the un-cropped source image.
-  const [originalPhoto, setOriginalPhoto] = useState<string | null>(null);
+  const [originalPhoto, setOriginalPhoto] = useState<string | null>('/img.png');
 
   const fileRef = useRef<HTMLInputElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -126,6 +128,17 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
       .catch(() => { if (!cancelled) setTplHtml(''); });
     return () => { cancelled = true; };
   }, [tpl]);
+
+  // Load default photo bytes
+  useEffect(() => {
+    fetch('/img.png')
+      .then(res => res.arrayBuffer())
+      .then(buf => {
+        setPhotoBytes(new Uint8Array(buf));
+        setPhotoMime('image/png');
+      })
+      .catch(console.error);
+  }, []);
 
   // Compute the preview scale from the preview column width
   useEffect(() => {
@@ -208,13 +221,13 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
     orderOfService: order,
     obituary: obit,
     withGratitude: gratitude,
-    poem: cfg.defaultPoem,
-    poemTitle: '',
-    reflections: cfg.defaultReflections,
+    poem: format === 'trifold' ? poem : '',
+    poemTitle: format === 'trifold' ? 'In Remembrance' : '',
+    reflections: format === 'trifold' ? reflections : '',
     subtitle: '',
     subtitleSmall: '',
     pallbearers: '',
-  }), [name, dates, serviceDate, serviceDetails, order, obit, gratitude]);
+  }), [name, dates, serviceDate, serviceDetails, order, obit, gratitude, poem, reflections, format]);
 
   // Render the template into sheet srcDocs
   const sheets = useMemo(() => {
@@ -380,6 +393,18 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
             <label className="er-label">With Gratitude</label>
             <textarea value={gratitude} onChange={(e) => setGratitude(e.target.value)} />
           </div>
+          {format === 'trifold' && (
+            <>
+              <div className="field">
+                <label className="er-label">In Remembrance (Poem)</label>
+                <textarea value={poem} onChange={(e) => setPoem(e.target.value)} />
+              </div>
+              <div className="field">
+                <label className="er-label">Gathering (Reflections)</label>
+                <textarea value={reflections} onChange={(e) => setReflections(e.target.value)} />
+              </div>
+            </>
+          )}
         </div>
       </div>
 

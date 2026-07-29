@@ -120,6 +120,12 @@ export function renderTemplate(
     clone.querySelectorAll<HTMLElement>('[data-field]').forEach((el) => {
       const key = el.getAttribute('data-field');
       if (!key || key === 'photo') return;
+
+      if (format !== 'trifold' && (key === 'poem' || key === 'reflections')) {
+        el.parentElement?.remove();
+        return;
+      }
+
       const value = fields[key];
       if (value != null && value !== '') {
         // Text field: set textContent (safe — no HTML injection)
