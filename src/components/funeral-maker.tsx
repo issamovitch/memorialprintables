@@ -22,6 +22,9 @@ const DownloadIcon = () => (
 const EditIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M12 20h9M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
 );
+const ResetIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
+);
 
 // ---------------------------------------------------------------------------
 // Preview iframe — renders a single sheet via srcDoc, scaled to fit.
@@ -111,6 +114,27 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
   // The ORIGINAL uploaded photo (data URL). We keep this separate from `photo`
   // so that re-editing always starts from the un-cropped source image.
   const [originalPhoto, setOriginalPhoto] = useState<string | null>('/img.png');
+
+  const handleReset = useCallback(() => {
+    setName(cfg.defaultName);
+    setDates(cfg.defaultDates);
+    setServiceDate('Saturday, 18 January 2026');
+    setServiceDetails('Eleven o\'clock in the morning\nGrace Chapel, 123 Main Street, Any City');
+    setOrder(cfg.defaultOrderOfService);
+    setObit(cfg.defaultObituary);
+    setGratitude(cfg.defaultWithGratitude);
+    setPoem(cfg.defaultPoem);
+    setReflections(cfg.defaultReflections);
+    setPhoto('/img.png');
+    setOriginalPhoto('/img.png');
+    fetch('/img.png')
+      .then(res => res.arrayBuffer())
+      .then(buf => {
+        setPhotoBytes(new Uint8Array(buf));
+        setPhotoMime('image/png');
+      })
+      .catch(console.error);
+  }, [cfg]);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -411,6 +435,9 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
       {/* PREVIEW */}
       <div className="col-preview">
         <div className="preview-bar">
+          <button className="pbtn" onClick={handleReset}>
+            <ResetIcon />Reset
+          </button>
           <button className="pbtn" onClick={() => window.print()}>
             <PrintIcon />Print
           </button>
