@@ -160,7 +160,7 @@ export default function FlagshipGeneratorPage() {
                 </li>
                 <li>A short obituary or life story.</li>
                 <li>
-                  Acknowledgments thanking those who offered support.
+                  With Gratitude thanking those who offered support.
                 </li>
                 <li>
                   An optional poem, scripture, or favourite quote.
@@ -228,7 +228,7 @@ export default function FlagshipGeneratorPage() {
                 Printed on one sheet and folded in half to create four panels:
                 front cover, inside left, inside right, and back cover. The most
                 popular format for funeral programs. Gives you enough room for
-                the full order of service, an obituary, and acknowledgments.
+                the full order of service, an obituary, and With Gratitude.
               </p>
             </div>
             <div className="card">
@@ -244,7 +244,7 @@ export default function FlagshipGeneratorPage() {
               >
                 Printed on one sheet and folded in thirds for six panels. The
                 extra panels give you room for a detailed order of service, a
-                longer obituary, reflections or poems, and acknowledgments — all
+                longer obituary, reflections or poems, and With Gratitude — all
                 in one compact booklet.
               </p>
             </div>

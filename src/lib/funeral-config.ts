@@ -30,7 +30,7 @@ export interface FuneralConfig {
   defaultDates: string;
   defaultOrderOfService: string;
   defaultObituary: string;
-  defaultAcknowledgments: string;
+  defaultWithGratitude: string;
   defaultPoem: string;
   defaultReflections: string;
   faq: FAQItem[];
@@ -78,7 +78,7 @@ Closing Prayer
 Recessional`,
   defaultObituary:
     'Margaret was born in Portland and lived a life full of warmth and devotion to her family. A teacher for 30 years, she touched countless lives.',
-  defaultAcknowledgments:
+  defaultWithGratitude:
     'The family gratefully thanks all who offered love and support during this difficult time.',
   defaultPoem:
     'Do not stand at my grave and weep,\nI am not there; I do not sleep.',
@@ -162,7 +162,7 @@ Final Commendation
 Recessional`,
   defaultObituary:
     'Thomas was a devoted husband, father, and grandfather who lived his faith every day. A lifelong parishioner at St. Mary\'s, he served his community for over forty years.',
-  defaultAcknowledgments:
+  defaultWithGratitude:
     'The family wishes to thank Father Martin and the St. Mary\'s parish community for their prayers and support. In lieu of flowers, donations may be made to the parish food bank.',
   defaultPoem:
     'I am the resurrection and the life,\nsays the Lord.\nWhoever believes in me,\nthough he die, yet shall he live.',
@@ -207,7 +207,7 @@ Musical Recessional — "Here Comes the Sun"
 Gathering and Refreshments`,
   defaultObituary:
     'Sarah brought light and laughter to everyone she met. An accomplished musician, devoted teacher, and loving grandmother, she believed every day was a gift worth celebrating.',
-  defaultAcknowledgments:
+  defaultWithGratitude:
     'The family thanks everyone who joined today to celebrate Sarah\'s remarkable life. In lieu of flowers, donations may be made to the community music school.',
   defaultPoem:
     'Those we love don\'t go away,\nthey walk beside us every day.\nUnseen, unheard, but always near,\nstill loved, still missed, and very dear.',
@@ -263,7 +263,7 @@ Ritos Finales
   Procesional de Salida`,
   defaultObituary:
     'María Elena dedicó su vida a su familia y a su fe. Nacida en Guadalajara, fue una maestra, cocinera extraordinaria, y el corazón de su comunidad por más de cincuenta años.',
-  defaultAcknowledgments:
+  defaultWithGratitude:
     'La familia agradece al Padre Ruiz y a la comunidad parroquial por sus oraciones y apoyo. En lugar de flores, se aceptan donaciones para el fondo de becas de la parroquia.',
   defaultPoem:
     'No llores a mi tumba,\nno estoy allí, no duermo.\nSoy las mil brisas que soplan,\nel brillo de los diamantes sobre la nieve.',
@@ -307,7 +307,7 @@ Closing Words and Tribute
 Final Farewell`,
   defaultObituary:
     'Buddy was more than a pet — he was family. For fifteen years, his gentle spirit and unwavering loyalty brought joy to everyone he met. He will be deeply missed.',
-  defaultAcknowledgments:
+  defaultWithGratitude:
     'The family thanks everyone who loved and cared for Buddy over the years. Donations in his memory may be made to the local animal rescue.',
   defaultPoem:
     'Just this side of heaven is a place called Rainbow Bridge.\nWhen an animal dies that has been especially close to someone here,\nthat pet goes to Rainbow Bridge.',

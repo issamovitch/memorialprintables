@@ -21,7 +21,7 @@
   - The photo is a clean rectangle (4:5) with a hairline rule, no ornament.
   Fields: headerLabel, photo, fullName, dates, serviceDate, serviceDetails,
           scheduleTitle, orderOfService, obituaryTitle, obituary,
-          thanksTitle, acknowledgments, poem, reflections.
+          thanksTitle, withGratitude, poem, reflections.
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,7 +70,7 @@
   .panel-trifold .label{font-size:7.5pt;letter-spacing:.2em;text-indent:.2em;}
 
   /* clean rectangular photo, hairline only */
-  .photo-wrap{position:relative;width:3.5in;aspect-ratio:4/5;}
+  .photo-wrap{position:relative;width:3.5in;aspect-ratio:1;}
   .panel-bifold .photo-wrap{width:2.5in;}
   .panel-trifold .photo-wrap{width:1.95in;max-width:92%;}
   .photo{position:absolute;inset:0;border-radius:50%;background:#eceae5 center/cover no-repeat;
@@ -130,6 +130,13 @@
     .stage{padding:0;gap:0;}
     .page,.spread{box-shadow:none;page-break-after:always;}
   }
+
+  .name{color:var(--soft);}
+
+.label , .head{font-size: 18px !important; font-weight: bold;}
+  .name{font-size: 46px !important; font-weight: bold;}
+  .dates, .venue, .paired, .body{font-size: 18px !important; line-height: 36px !important;}
+
 </style>
 </head>
 
@@ -175,14 +182,14 @@ Grace Chapel, 123 Main Street, Any City</p>
 11:40 | Committal and Blessing</div>
       </div>
       <div class="group">
-        <div class="head" data-field="obituaryTitle">Her Life</div>
+        <div class="head" data-field="obituaryTitle">Obituary</div>
         <hr class="hair">
         <p class="body" data-field="obituary">Eleanor was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She taught for thirty years, kept a garden her neighbours still admire, and never let a friend leave her table hungry.</p>
       </div>
       <div class="group">
         <div class="head" data-field="thanksTitle">With Gratitude</div>
         <hr class="hair">
-        <p class="body" data-field="acknowledgments">Thank you for your kindness, your presence, and your quiet support. It has meant more to our family than we can say.</p>
+        <p class="body" data-field="withGratitude">Thank you for your kindness, your presence, and your quiet support. It has meant more to our family than we can say.</p>
       </div>
     </div>
   </div>
@@ -230,7 +237,7 @@ Grace Chapel, 123 Main Street, Any City</p>
     <div class="panel panel-bifold">
       <div class="layer">
         <div class="group">
-          <div class="head" data-field="obituaryTitle">Her Life</div>
+          <div class="head" data-field="obituaryTitle">Obituary</div>
           <hr class="hair">
           <p class="body" data-field="obituary">Eleanor was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She taught for thirty years and never let a friend leave her table hungry.</p>
         </div>
@@ -297,7 +304,7 @@ your light is never gone.</p>
     <div class="panel panel-trifold">
       <div class="layer">
         <div class="group">
-          <div class="head" data-field="obituaryTitle">Her Life</div>
+          <div class="head" data-field="obituaryTitle">Obituary</div>
           <hr class="hair">
           <p class="body" data-field="obituary">Eleanor gave her family a lifetime of warmth, patience, and quiet strength, and never let a friend leave her table hungry.</p>
         </div>

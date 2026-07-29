@@ -94,9 +94,11 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
   const [tplIdx, setTplIdx] = useState(0);
   const [name, setName] = useState(cfg.defaultName);
   const [dates, setDates] = useState(cfg.defaultDates);
+  const [serviceDate, setServiceDate] = useState('Saturday, 18 January 2026');
+  const [serviceDetails, setServiceDetails] = useState('Eleven o\'clock in the morning\nGrace Chapel, 123 Main Street, Any City');
   const [order, setOrder] = useState(cfg.defaultOrderOfService);
   const [obit, setObit] = useState(cfg.defaultObituary);
-  const [ack, setAck] = useState(cfg.defaultAcknowledgments);
+  const [gratitude, setGratitude] = useState(cfg.defaultWithGratitude);
   const [photo, setPhoto] = useState<string | null>(null);
   const [photoBytes, setPhotoBytes] = useState<Uint8Array | null>(null);
   const [photoMime, setPhotoMime] = useState<string | undefined>(undefined);
@@ -201,17 +203,18 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
     headerLabel: 'In Loving Memory',
     fullName: name,
     dates,
-    serviceDetails: 'Celebration of Life',
+    serviceDate,
+    serviceDetails,
     orderOfService: order,
     obituary: obit,
-    acknowledgments: ack,
+    withGratitude: gratitude,
     poem: cfg.defaultPoem,
     poemTitle: '',
     reflections: cfg.defaultReflections,
     subtitle: '',
     subtitleSmall: '',
     pallbearers: '',
-  }), [name, dates, order, obit, ack]);
+  }), [name, dates, serviceDate, serviceDetails, order, obit, gratitude]);
 
   // Render the template into sheet srcDocs
   const sheets = useMemo(() => {
@@ -249,9 +252,11 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
         {
           fullName: name,
           dates,
+          serviceDate,
+          serviceDetails,
           orderOfService: order,
           obituary: obit,
-          acknowledgments: ack,
+          withGratitude: ack,
           poem: DEFAULT_CONFIG.defaultPoem,
           reflections: DEFAULT_CONFIG.defaultReflections,
           photoBytes,
@@ -275,7 +280,7 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
     } finally {
       setDownloading(false);
     }
-  }, [format, name, dates, order, obit, ack, photoBytes, photoMime, tplPreset]);
+  }, [format, name, dates, order, obit, gratitude, photoBytes, photoMime, tplPreset]);
 
   return (
     <div className="tool" ref={toolRef}>
@@ -328,6 +333,14 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
             <input type="text" value={dates} onChange={(e) => setDates(e.target.value)} />
           </div>
           <div className="field">
+            <label className="er-label">Service Date</label>
+            <input type="text" value={serviceDate} onChange={(e) => setServiceDate(e.target.value)} />
+          </div>
+          <div className="field">
+            <label className="er-label">Service Details</label>
+            <textarea value={serviceDetails} onChange={(e) => setServiceDetails(e.target.value)} />
+          </div>
+          <div className="field">
             <label className="er-label">Photo</label>
             <div className="upload-row">
               <label className="upload-btn">
@@ -364,8 +377,8 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
             <textarea value={obit} onChange={(e) => setObit(e.target.value)} />
           </div>
           <div className="field">
-            <label className="er-label">Acknowledgments</label>
-            <textarea value={ack} onChange={(e) => setAck(e.target.value)} />
+            <label className="er-label">With Gratitude</label>
+            <textarea value={gratitude} onChange={(e) => setGratitude(e.target.value)} />
           </div>
         </div>
       </div>

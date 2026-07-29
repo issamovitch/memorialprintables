@@ -30,9 +30,11 @@ const TRIFOLD_PANEL_W = 264; // 3.6667 in
 export interface PdfContent {
   fullName: string;
   dates: string;
+  serviceDate: string;
+  serviceDetails: string;
   orderOfService: string;
   obituary: string;
-  acknowledgments: string;
+  withGratitude: string;
   poem: string;
   reflections: string;
   photoBytes?: Uint8Array | null;
@@ -229,6 +231,42 @@ function drawPanel(opts: DrawPanelOptions) {
         currentY -= lineHeight(10);
       }
     }
+    currentY -= 12;
+
+    // Service Date
+    const serviceDateText = content.serviceDate || '';
+    if (serviceDateText) {
+      const dateLines = wrapText(serviceDateText, serif, 14, innerW);
+      for (const line of dateLines) {
+        const lineW = serif.widthOfTextAtSize(line, 14);
+        page.drawText(line, {
+          x: x + (width - lineW) / 2,
+          y: currentY,
+          size: 14,
+          font: serif,
+          color: rgb(0.15, 0.15, 0.15),
+        });
+        currentY -= lineHeight(14);
+      }
+      currentY -= 4;
+    }
+
+    // Service Details
+    const serviceDetailsText = content.serviceDetails || '';
+    if (serviceDetailsText) {
+      const detailLines = wrapText(serviceDetailsText, sans, 10, innerW);
+      for (const line of detailLines) {
+        const lineW = sans.widthOfTextAtSize(line, 10);
+        page.drawText(line, {
+          x: x + (width - lineW) / 2,
+          y: currentY,
+          size: 10,
+          font: sans,
+          color: rgb(0.4, 0.4, 0.4),
+        });
+        currentY -= lineHeight(10);
+      }
+    }
     return;
   }
 
@@ -275,7 +313,7 @@ function drawPanel(opts: DrawPanelOptions) {
       color: rgb(accentRgb.r, accentRgb.g, accentRgb.b),
     });
     currentY -= 8;
-    drawWrappedText(page, innerX, currentY, innerW, content.acknowledgments || '', serif, 10, rgb(0.2, 0.2, 0.2));
+    drawWrappedText(page, innerX, currentY, innerW, content.withGratitude || '', serif, 10, rgb(0.2, 0.2, 0.2));
     return;
   }
 

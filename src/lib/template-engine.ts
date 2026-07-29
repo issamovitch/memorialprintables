@@ -17,7 +17,7 @@ export type FormData = {
   dates: string;
   orderOfService: string;
   obituary: string;
-  acknowledgments: string;
+  withGratitude: string;
   poem: string;
   reflections: string;
   photoUrl: string | null;
