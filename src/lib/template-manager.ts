@@ -1,5 +1,5 @@
 // ============================================================================
-// template-render.ts — Client-side template rendering engine
+// template-manager.ts — Client-side template rendering engine
 //
 // Fetches a template's HTML, parses it, extracts the sheet matching the chosen
 // format, fills in the editable [data-field] spots, and returns a complete
@@ -165,7 +165,9 @@ ${clone.outerHTML}
 
     return {
       srcDoc,
-      sheetHtml: `<style>${fontLinks}\n${styles}\n${OVERRIDE_CSS}</style>${clone.outerHTML}`,
+      sheetHtml: `<style>${fontLinks}
+${styles}
+${OVERRIDE_CSS}</style>${clone.outerHTML}`,
       label,
       widthPx: dims.w,
       heightPx: dims.h,
@@ -205,7 +207,7 @@ export async function fetchTemplateHtml(htmlUrl: string, force: boolean = false)
   }
 
   const res = await fetch(htmlUrl);
-  if (!res.ok) throw new Error(`Failed to fetch template: ${htmlUrl}`);
+  if (!res.ok) throw new Error('Failed to fetch template: ' + htmlUrl);
   const html = await res.text();
   htmlCache.set(htmlUrl, html);
   return html;

@@ -137,7 +137,7 @@
 
 /* tool layout */
 .er-root .tool{display:grid;grid-template-columns:400px 1fr;gap:26px;align-items:start}
-.er-root .col-form{display:flex;flex-direction:column;gap:16px;max-height:78vh;overflow-y:auto}
+.er-root .col-form{display:flex;flex-direction:column;gap:16px;}
 
 .er-root .group{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
 .er-root .group h3{font-size:15px;font-weight:700;margin-bottom:3px}

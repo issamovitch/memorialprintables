@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { DEFAULT_CONFIG, Format, extractLastName, type TemplatePreset, type FuneralConfig } from '@/lib/funeral-config';
 import { generateFuneralPdf } from '@/lib/funeral-pdf';
 import type { TemplateMeta } from '@/lib/template-loader';
-import { fetchTemplateHtml, renderTemplate, applyPhotoToDocument, type TemplateFields } from '@/lib/template-render';
+import { fetchTemplateHtml, renderTemplate, applyPhotoToDocument, type TemplateFields } from '@/lib/template-manager';
 import { ImageCropModal } from '@/components/image-crop-modal';
 
 // ---------------------------------------------------------------------------
