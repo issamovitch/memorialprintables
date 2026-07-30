@@ -80,12 +80,14 @@ const OVERRIDE_CSS = `
  * @param htmlString  The raw template HTML (fetched from /templates/<Name>/html.html)
  * @param format      The chosen fold format
  * @param fields      Key/value map of editable field contents
+ * @param baseUrl     Base URL for resolving relative assets in the template
  * @returns           Array of rendered sheets (one per physical page)
  */
 export function renderTemplate(
   htmlString: string,
   format: Format,
-  fields: TemplateFields
+  fields: TemplateFields,
+  baseUrl: string
 ): RenderedSheet[] {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlString, 'text/html');
@@ -152,6 +154,7 @@ export function renderTemplate(
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="${baseUrl}">
 <style>
 ${fontLinks}
 ${styles}

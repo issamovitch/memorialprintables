@@ -256,13 +256,14 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
 
   // Render the template into sheet srcDocs
   const sheets = useMemo(() => {
-    if (!tplHtml) return [];
+    if (!tplHtml || !tpl) return [];
     try {
-      return renderTemplate(tplHtml, format, fields);
+      const baseUrl = tpl.htmlUrl.replace('html.html', '');
+      return renderTemplate(tplHtml, format, fields, baseUrl);
     } catch {
       return [];
     }
-  }, [tplHtml, format, fields]);
+  }, [tplHtml, tpl, format, fields]);
 
   // Derive a TemplatePreset for the PDF generator (uses accent colour)
   const tplPreset: TemplatePreset = useMemo(() => {

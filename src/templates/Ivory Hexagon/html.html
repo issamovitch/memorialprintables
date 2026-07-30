@@ -77,9 +77,9 @@
   .panel-trifold .group{gap:.06in;}
 
   /* script masthead + name */
-  .mast{font-family:var(--script);font-size:38pt;line-height:1.3;color:var(--green);}
-  .panel-bifold .mast{font-size:27pt;}
-  .panel-trifold .mast{font-size:20pt;}
+  .big{font-family:var(--script);font-size:38pt;line-height:1.3;color:var(--green);}
+  .panel-bifold .big{font-size:27pt;}
+  .panel-trifold .big{font-size:20pt;}
 
   .name{font-family:var(--script);font-size:54pt;line-height:1.32;color:var(--green);}
   .panel-bifold .name{font-size:38pt;}
@@ -137,9 +137,17 @@
     margin: .06in .1in 0;
     white-space: pre-line;
   }
-  .big, .mast {font-size: 38px !important; font-weight: bold;}
-  .panel-bifold .big {font-size: 38px !important;}
-  .panel-trifold .big {font-size: 28px !important;}
+
+  .bigdate {
+    font-size: 26pt;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .big {font-size: 38px !important; font-weight: bold;}
+  .panel-bifold .big {font-size: 34px !important;}
+  .panel-trifold .big {font-size: 30px !important;}
   .hair {
     width: 1.5in;
     height: 1px;
@@ -151,13 +159,13 @@
   .body {max-width: 84%;}
   .label , .head {font-size: 22px !important; font-weight: bold;}
   .name{font-size: 66px !important; font-weight: bold;}
-  .panel-bifold .name {font-size: 38px !important;}
-  .panel-trifold .name {font-size: 30px !important;}
+  .panel-bifold .name {font-size: 42px !important;}
+  .panel-trifold .name {font-size: 34px !important;}
   .panel-bifold .photo-wrap + .group { margin-top: -10px; }
   .panel-trifold .photo-wrap + .group { margin-top: -10px; }
-  .dates, .venue, .body{font-size: 18px !important; line-height: 36px !important;}
+  .dates, .venue, .body{font-size: 24px !important; line-height: 36px !important;}
 
-  .bigdate{font-weight:400;font-size:16pt;letter-spacing:.02em;}
+  .bigdate{font-weight:bold;font-size:16pt;letter-spacing:.02em;}
 
 
   .orn{width:60%;max-width:3.6in;height:12px;}
@@ -166,6 +174,9 @@
 
   .head {
     margin: 0;
+  }
+  .panel-trifold .bigdate{
+    font-size: 18px;
   }
 </style>
 </head>
@@ -180,7 +191,7 @@
   <div class="page plain" data-format="single" data-side="front">
     <div class="bg"></div>
     <div class="layer">
-      <div class="mast">In Loving Memory</div>
+      <div class="big">In Loving Memory Of</div>
       <div class="photo-wrap">
         <div class="photo" data-field="photo"></div>
         <div class="wreath"></div>
@@ -204,7 +215,7 @@
     <div class="bg"></div>
     <div class="layer">
       <div class="group">
-        <div class="mast" data-field="scheduleTitle">Order of Service</div>
+        <div class="big" data-field="scheduleTitle">Order of Service</div>
         <div class="body" data-field="orderOfService">
           Prelude
           Opening Words
@@ -217,7 +228,7 @@
       </div>
       <svg class="orn" viewBox="0 0 300 12"><line x1="6" y1="6" x2="138" y2="6"/><path d="M150 1.5 L155 6 L150 10.5 L145 6 Z"/><line x1="162" y1="6" x2="294" y2="6"/></svg>
       <div class="group">
-        <div class="mast" data-field="obituaryTitle">Obituary</div>
+        <div class="big" data-field="obituaryTitle">Obituary</div>
 
         <p class="body" data-field="obituary">Eleanor was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She taught for thirty years, kept a garden her neighbours still admire, and never let a friend leave her table hungry.</p>
       </div>
@@ -233,7 +244,7 @@
       </div>
       <svg class="orn" viewBox="0 0 300 12"><line x1="6" y1="6" x2="138" y2="6"/><path d="M150 1.5 L155 6 L150 10.5 L145 6 Z"/><line x1="162" y1="6" x2="294" y2="6"/></svg>
       <div class="group">
-        <div class="mast" data-field="thanksTitle">With Gratitude</div>
+        <div class="big" data-field="thanksTitle">With Gratitude</div>
 
         <p class="body" data-field="withGratitude">Thank you for your kindness, your presence, and your quiet support. It has meant more to our family than we can say.</p>
       </div>
@@ -246,16 +257,14 @@
     <div class="panel panel-bifold bordered">
       <div class="bg"></div>
       <div class="layer">
-        <div class="group">
-          <div class="thanks" data-field="thanksTitle">Thank You</div>
-          <p class="body" data-field="withGratitude">We deeply appreciate your consistent support during this challenging period. Your kindness and empathy are truly invaluable to us.</p>
-        </div>
+        <div class="group"><div class="head"><div class="big">With Gratitude</div></div>
+          <p class="body" data-field="withGratitude">The family of Lorna Alvarado thanks you for your kindness, your prayers, and your presence today.</p></div>
       </div>
     </div>
     <div class="panel panel-bifold plain">
       <div class="bg"></div>
       <div class="layer">
-        <div class="mast">In Loving Memory</div>
+        <div class="big">In Loving Memory Of</div>
         <div class="photo-wrap">
           <div class="photo" data-field="photo"></div>
           <div class="wreath"></div>
@@ -263,7 +272,6 @@
         <div class="group">
           <div class="name" data-field="fullName">Lorna Alvarado</div>
           <div class="dates" data-field="dates">1968 &ndash; 2024</div>
-          <div class="church" data-field="churchName">Church Name</div>
         </div>
       </div>
     </div>
@@ -274,32 +282,26 @@
     <div class="panel panel-bifold bordered">
       <div class="bg"></div>
       <div class="layer">
-        <div class="bighead" data-field="scheduleTitle">Order of service.</div>
-        <div class="paired" data-field="orderOfService">Welcome &amp; Introduction | Pastor Lawrence Rogers
-Prayer | Avery Davis
-Selection | Choir - Dancing &amp; Singing
-Remembering Lorna | Friends &amp; Family
-Eulogy | Chidi Eze</div>
+        <div class="group"><div class="head"><div class="big">Order of Service</div></div>
+          <div class="body" data-field="orderOfService">Prayer in The Home | Korina Villanueva
+            Prelude Music | Donna Stroupe
+            Invocation | Kimberly Nguyen
+            Remarks | Korina Villanueva
+            Vocal Solo | Sebastian Bennett
+            Guest Speakers | Shawn Garcia
+            Closing Remarks | Takehiro Kanegi</div></div>
       </div>
     </div>
     <div class="panel panel-bifold bordered">
       <div class="bg"></div>
       <div class="layer">
+        <div class="group"><div class="head"><div class="big">Obituary</div></div>
+          <p class="body" data-field="obituary">Lorna was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She loved her garden, her Sunday table, and every person lucky enough to be called her own.</p></div>
+        <svg class="orn" viewBox="0 0 300 12"><line x1="6" y1="6" x2="138" y2="6"/><path d="M150 1.5 L155 6 L150 10.5 L145 6 Z"/><line x1="162" y1="6" x2="294" y2="6"/></svg>
         <div class="group">
-          <div class="bighead">Life Story</div>
-          <p class="body" data-field="obituary">Lorna met the world with warmth and a ready laugh. A devoted mother, grandmother, and friend, she filled her home with music and her table with room for everyone.</p>
+          <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
+          <p class="body" data-field="serviceDetails">Grace Chapel, 123 Main Street, Any City</p>
         </div>
-        <div class="group">
-          <div class="bighead">In Remembrance</div>
-          <p class="body" data-field="poem"></p>
-        </div>
-        <div class="group">
-          <div class="bighead">Gathering</div>
-          <p class="body" data-field="reflections"></p>
-        </div>
-        <p class="service" data-field="serviceDetails">The memorial service will be held on
-May 30, 2025 at 5:00 pm at 123
-Main Street, Any City.</p>
       </div>
     </div>
   </div>
@@ -310,27 +312,24 @@ Main Street, Any City.</p>
     <div class="panel panel-trifold bordered">
       <div class="bg"></div>
       <div class="layer">
-        <div class="group">
-          <div class="thanks" data-field="thanksTitle">Thank You</div>
-          <p class="body" data-field="withGratitude">We deeply appreciate your support during this challenging period. Your kindness is invaluable to us.</p>
-        </div>
+        <div class="group"><div class="head"><div class="big">With Gratitude</div></div>
+          <p class="body" data-field="withGratitude">The family thanks you for your kindness, your prayers, and your presence today.</p></div>
       </div>
     </div>
     <div class="panel panel-trifold bordered">
       <div class="bg"></div>
       <div class="layer">
-        <div class="group">
-          <div class="bighead">In Remembrance</div>
-          <p class="body" data-field="poem">Hold her gently in Your care,
-grant her rest in Your eternal light,
-and comfort all who carry her memory.</p>
-        </div>
+        <div class="group"><div class="head"><div class="big">In Remembrance</div></div>
+          <p class="body" data-field="poem">We hold you in the quiet,
+            in every gentle dawn.
+            Though you have walked ahead of us,
+            your light is never gone.</p></div>
       </div>
     </div>
     <div class="panel panel-trifold plain">
       <div class="bg"></div>
       <div class="layer">
-        <div class="mast">In Loving Memory</div>
+        <div class="big">In Loving Memory</div>
         <div class="photo-wrap">
           <div class="photo" data-field="photo"></div>
           <div class="wreath"></div>
@@ -348,30 +347,28 @@ and comfort all who carry her memory.</p>
     <div class="panel panel-trifold bordered">
       <div class="bg"></div>
       <div class="layer">
-        <div class="bighead" data-field="scheduleTitle">Order of service.</div>
-        <div class="paired" data-field="orderOfService">Welcome | Pastor L. Rogers
-Prayer | Avery Davis
-Selection | Choir
-Remembering | Friends &amp; Family
-Eulogy | Chidi Eze</div>
+        <div class="group"><div class="head"><div class="big">Order of Service</div></div>
+          <div class="body" data-field="orderOfService">Prayer | Korina V.
+            Prelude | Donna S.
+            Invocation | Kimberly N.
+            Remarks | Korina V.
+            Vocal Solo | Sebastian B.
+            Speakers | Shawn G.
+            Closing | Takehiro K.</div></div>
       </div>
     </div>
     <div class="panel panel-trifold bordered">
       <div class="bg"></div>
       <div class="layer">
-        <div class="group">
-          <div class="bighead">Life Story</div>
-          <p class="body" data-field="obituary">Lorna met the world with warmth and a ready laugh. She filled her home with music and her table with room for everyone.</p>
-        </div>
+        <div class="group"><div class="head"><div class="big">Obituary</div></div>
+          <p class="body" data-field="obituary">Lorna was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength.</p></div>
       </div>
     </div>
     <div class="panel panel-trifold bordered">
       <div class="bg"></div>
       <div class="layer">
-        <div class="group">
-          <div class="bighead">Gathering</div>
-          <p class="body" data-field="reflections">Please join the family for refreshments following the service. All who loved Lorna are welcome.</p>
-        </div>
+        <div class="group"><div class="head"><div class="big">Gathering</div></div>
+          <p class="body" data-field="reflections">Please join the family for refreshments and fellowship following the service. All who loved Lorna are welcome.</p></div>
         <svg class="orn" viewBox="0 0 300 12"><line x1="6" y1="6" x2="138" y2="6"/><path d="M150 1.5 L155 6 L150 10.5 L145 6 Z"/><line x1="162" y1="6" x2="294" y2="6"/></svg>
 
         <div class="group">
