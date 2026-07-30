@@ -9,19 +9,7 @@
 <meta name="mp-accent" content="#8a4a2b">
 <meta name="mp-order" content="50">
 
-<!--
-  CONTRACT (same as every template):
-  - data-format="single|bifold|trifold"; data-field="NAME" editable spots.
-  - photo = data-field="photo" via background-image. Chrome = data-mp-chrome.
-  - .panel is position:relative. Fixed panel widths: bifold 5.5in, trifold 3.6667in.
-  - .paired accepts "Left | Right" per line (time | item).
-  NOTE: this background has NO drawn border. Watercolour florals hang from the top
-  corners, reaching ~17% in from each side down to ~32% depth. Content is inset to
-  clear them, and top-zone blocks are width-capped.
-  Fields: headerLabel, photo, fullName, dates, serviceDate, serviceDetails,
-          poemTitle, poem, scheduleTitle, orderOfService, withGratitude,
-          obituary, reflections.
--->
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +28,6 @@
   body{margin:0;background:#e6ded2;color:var(--ink);font-family:var(--sans);
     -webkit-print-color-adjust:exact;print-color-adjust:exact;}
 
-  .mp-note{font-size:13px;color:#6d665d;max-width:960px;margin:0 auto;padding:26px 20px 6px;line-height:1.5;}
   .mp-caption{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6d665d;max-width:960px;margin:30px auto 10px;padding:0 20px;}
   .stage{display:flex;flex-direction:column;align-items:center;gap:14px;padding:0 20px 60px;}
 
@@ -113,14 +100,6 @@
   .panel .body{font-size:9.5pt;letter-spacing:.06em;line-height:1.6;}
   .panel-trifold .body{font-size:8.5pt;letter-spacing:.04em;line-height:1.55;}
 
-  /* schedule: time | item */
-  .paired{display:grid;grid-template-columns:auto auto;column-gap:.4in;row-gap:.14in;
-    font-size:12.5pt;justify-content:center;align-items:baseline;}
-  .paired .pl{text-align:right;font-weight:700;color:var(--ink);letter-spacing:.04em;}
-  .paired .pr{text-align:left;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);}
-  .paired .pc{grid-column:1/-1;text-align:center;}
-  .panel .paired{font-size:9.5pt;row-gap:.09in;column-gap:.24in;}
-  .panel-trifold .paired{font-size:8pt;row-gap:.06in;column-gap:.14in;}
 
   @media print{
     .page,.spread{zoom:1 !important;}
@@ -131,37 +110,57 @@
   }
   .panel-bifold .photo-wrap + .group { margin-top: -10px; }
   .panel-trifold .photo-wrap + .group { margin-top: -10px; }
+
+  .big {font-size: 44px !important; font-weight: bold;color:var(--brown);}
+  .panel-bifold .big {font-size: 38px !important;}
+  .panel-trifold .big {font-size: 32px !important;}
+  .hair {
+    width: 1.5in;
+    height: 1px;
+    background: var(--hair);
+    border: 0;
+    margin: 10px 0px;
+  }
+
+  .body {max-width: 84%;}
+  .label , .head {font-size: 40px !important; font-weight: bold;}
+  .name{font-size: 66px !important; font-weight: bold;}
+  .panel-bifold .name {font-size: 48px !important;}
+  .panel-trifold .name {font-size: 38px !important;}
+  .panel-bifold .photo-wrap + .group { margin-top: -10px; }
+  .panel-trifold .photo-wrap + .group { margin-top: -10px; }
+  .dates, .venue, .body{font-size: 18px !important; line-height: 36px !important;}
+
+  .bigdate{font-weight:400;font-size:16pt;letter-spacing:.02em;}
 </style>
 </head>
 
 <body>
 
-<div class="mp-note" data-mp-chrome>
-  Dusty Rose template preview. Artwork embedded; Pinyon Script + Poppins load from
-  Google Fonts when online. Sample text is placeholder, the app replaces every field.
-</div>
 
 <div class="stage">
 
-  <!-- ================= SINGLE ================= -->
+  <!-- ============================================================ -->
+  <!-- SINGLE  (matches the reference PDF, front page + inside page) -->
+  <!-- ============================================================ -->
   <div class="mp-caption" data-mp-chrome>Single &middot; 8.5 &times; 11 &middot; front cover</div>
   <div class="page" data-format="single" data-side="front">
     <div class="bg"></div>
     <div class="layer">
+      <div class="mast">
+        <div class="big" style="font-family: 'Great Vibes'  , cursive;">In Loving Memory Of</div>
+      </div>
       <div class="photo-wrap">
         <div class="photo" data-field="photo"></div>
         <div class="wreath"></div>
       </div>
-      <div class="group">
-        <div class="label">In Loving Memory</div>
-        <div class="name" data-field="fullName">Alfredo Torres</div>
-        <div class="dates" data-field="dates">10 December 1975 &ndash; 18 January 2024</div>
-      </div>
+      <div class="group"><div class="name" data-field="fullName">Lorna Alvarado</div>
+        <div class="dates" data-field="dates">1942 - 2022</div></div>
       <svg class="orn" viewBox="0 0 300 12"><line x1="6" y1="6" x2="138" y2="6"/><path d="M150 1.5 L155 6 L150 10.5 L145 6 Z"/><line x1="162" y1="6" x2="294" y2="6"/></svg>
       <div class="group">
-        <div class="bigdate" data-field="serviceDate">22 January 2024</div>
-        <p class="venue" data-field="serviceDetails">Rosewood Memory Hall, 123
-Main Street, Any City</p>
+        <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
+        <p class="venue" style="max-width: 80%" data-field="serviceDetails">Eleven o'clock in the morning
+          Grace Chapel, 123 Main Street, Any City</p>
       </div>
     </div>
   </div>
@@ -170,50 +169,67 @@ Main Street, Any City</p>
   <div class="page" data-format="single" data-side="back">
     <div class="bg"></div>
     <div class="layer">
-      <div class="group topsafe">
-        <div class="head" data-field="poemTitle">A Prayer</div>
-        <p class="body" data-field="poem">May the Lord embrace Alfredo with his eternal love and grant him peace in his heavenly abode.</p>
+      <div class="group">
+        <div class="head" data-field="scheduleTitle">Order of Service</div>
+        <div class="body" data-field="orderOfService">
+          Prelude
+          Opening Words
+          Hymn — Amazing Grace
+          Scripture Reading
+          Eulogy
+          Closing Prayer
+          Recessional
+        </div>
+      </div>
+      <svg class="orn" viewBox="0 0 300 12"><line x1="6" y1="6" x2="138" y2="6"/><path d="M150 1.5 L155 6 L150 10.5 L145 6 Z"/><line x1="162" y1="6" x2="294" y2="6"/></svg>
+      <div class="group">
+        <div class="head" data-field="obituaryTitle">Obituary</div>
+        <p class="body" data-field="obituary">Eleanor was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She taught for thirty years, kept a garden her neighbours still admire, and never let a friend leave her table hungry.</p>
       </div>
       <div class="group">
-        <div class="head" data-field="scheduleTitle">Service Program</div>
+        <div class="head">In Remembrance</div>
+        <p class="body" data-field="poem"></p>
       </div>
-      <div class="paired" data-field="orderOfService">11:00 AM | Gathering and Welcome
-11:15 AM | Reflections and Remembrance
-11:45 AM | Prayer and Commemoration
-12:15 PM | Musical Tribute and Eulogy
-12:45 PM | Sharing Memories and Tributes
-1:15 PM | Final Farewell and Departure
-1:30 PM | Reception and Condolences</div>
-      <p class="body" data-field="withGratitude">In the tapestry of our lives, Alfredo's thread will forever be woven. May his spirit of love and kindness live on in our hearts, guiding us with his eternal light.</p>
+      <div class="group">
+        <div class="head">Gathering</div>
+
+        <p class="body" data-field="reflections"></p>
+      </div>
+      <svg class="orn" viewBox="0 0 300 12"><line x1="6" y1="6" x2="138" y2="6"/><path d="M150 1.5 L155 6 L150 10.5 L145 6 Z"/><line x1="162" y1="6" x2="294" y2="6"/></svg>
+      <div class="group">
+        <div class="head" data-field="thanksTitle">With Gratitude</div>
+
+        <p class="body" data-field="withGratitude">Thank you for your kindness, your presence, and your quiet support. It has meant more to our family than we can say.</p>
+      </div>
     </div>
   </div>
 
-  <!-- ================= BIFOLD ================= -->
+  <!-- ============================================================ -->
+  <!-- BIFOLD  (same theme, 5.5in panels)                           -->
+  <!-- Outside: [back / gratitude | front cover]                    -->
+  <!-- Inside:  [order of service | life story]                     -->
+  <!-- ============================================================ -->
   <div class="mp-caption" data-mp-chrome>Bifold &middot; 11 &times; 8.5 &middot; outside (print side 1)</div>
   <div class="spread" data-format="bifold" data-side="outside">
     <div class="panel panel-bifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="group topsafe">
-          <div class="head" data-field="poemTitle">A Prayer</div>
-          <p class="body" data-field="poem">May the Lord embrace Alfredo with his eternal love and grant him peace in his heavenly abode.</p>
-        </div>
-        <svg class="orn" viewBox="0 0 300 12"><line x1="6" y1="6" x2="138" y2="6"/><path d="M150 1.5 L155 6 L150 10.5 L145 6 Z"/><line x1="162" y1="6" x2="294" y2="6"/></svg>
-        <p class="body" data-field="withGratitude">In the tapestry of our lives, Alfredo's thread will forever be woven. May his spirit of love and kindness live on in our hearts.</p>
+      <div class="layer center-col">
+        <div class="group"><div class="head"><div class="big">With Gratitude</div></div>
+          <p class="body" data-field="withGratitude">The family of Lorna Alvarado thanks you for your kindness, your prayers, and your presence today.</p></div>
       </div>
     </div>
     <div class="panel panel-bifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="photo-wrap">
+      <div class="layer center-col">
+        <div class="mast">
+          <div class="big" style="font-family: 'Great Vibes'  , cursive;">In Loving Memory Of</div>
+        </div>
+        <div class="photo-wrap" style="margin-top: -30px;">
           <div class="photo" data-field="photo"></div>
           <div class="wreath"></div>
         </div>
-        <div class="group">
-          <div class="label">In Loving Memory</div>
-          <div class="name" data-field="fullName">Alfredo Torres</div>
-          <div class="dates" data-field="dates">1975 &ndash; 2024</div>
-        </div>
+        <div class="group" style="margin-top: -30px;"><div class="name" data-field="fullName">Lorna Alvarado</div>
+          <div class="dates" data-field="dates">24.10.1942 - 22.04.2022</div></div>
       </div>
     </div>
   </div>
@@ -222,69 +238,68 @@ Main Street, Any City</p>
   <div class="spread" data-format="bifold" data-side="inside">
     <div class="panel panel-bifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="group topsafe">
-          <div class="head" data-field="scheduleTitle">Service Program</div>
-        </div>
-        <div class="paired" data-field="orderOfService">11:00 AM | Gathering
-11:15 AM | Reflections
-11:45 AM | Prayer
-12:15 PM | Musical Tribute
-12:45 PM | Sharing Memories
-1:15 PM | Final Farewell
-1:30 PM | Reception</div>
+      <div class="layer center-col">
+        <div class="group"><div class="head"><div class="big">Order of Service</div></div>
+          <div class="body" data-field="orderOfService">Prayer in The Home | Korina Villanueva
+            Prelude Music | Donna Stroupe
+            Invocation | Kimberly Nguyen
+            Remarks | Korina Villanueva
+            Vocal Solo | Sebastian Bennett
+            Guest Speakers | Shawn Garcia
+            Closing Remarks | Takehiro Kanegi</div></div>
       </div>
     </div>
     <div class="panel panel-bifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="group topsafe">
-          <div class="head">Life Story</div>
-          <p class="body" data-field="obituary">Alfredo met the world with warmth and a ready laugh. A devoted husband, father, and friend, he built things that lasted and left a kindness that time will not wear away.</p>
-        </div>
+      <div class="layer center-col">
+        <div class="group"><div class="head"><div class="big">Obituary</div></div>
+          <p class="body" data-field="obituary">Lorna was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She loved her garden, her Sunday table, and every person lucky enough to be called her own.</p></div>
         <svg class="orn" viewBox="0 0 300 12"><line x1="6" y1="6" x2="138" y2="6"/><path d="M150 1.5 L155 6 L150 10.5 L145 6 Z"/><line x1="162" y1="6" x2="294" y2="6"/></svg>
         <div class="group">
-          <div class="bigdate" data-field="serviceDate">22 January 2024</div>
-          <p class="venue" data-field="serviceDetails">Rosewood Memory Hall, 123
-Main Street, Any City</p>
+          <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
+          <p class="body" data-field="serviceDetails">Grace Chapel, 123 Main Street, Any City</p>
         </div>
+
       </div>
     </div>
   </div>
 
-  <!-- ================= TRIFOLD ================= -->
+  <!-- ============================================================ -->
+  <!-- TRIFOLD  (same theme, 3.6667in panels)                       -->
+  <!-- Outside: [back/thanks | poem | front cover]                  -->
+  <!-- Inside:  [order of service | life story | gathering]         -->
+  <!-- ============================================================ -->
   <div class="mp-caption" data-mp-chrome>Trifold &middot; 11 &times; 8.5 &middot; outside (print side 1)</div>
   <div class="spread" data-format="trifold" data-side="outside">
     <div class="panel panel-trifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="group topsafe">
-          <div class="head">With Thanks</div>
-          <p class="body" data-field="withGratitude">May his spirit of love and kindness live on in our hearts, guiding us with his eternal light.</p>
-        </div>
+      <div class="layer center-col">
+        <div class="group"><div class="head"><div class="big">With Gratitude</div></div>
+          <p class="body" data-field="withGratitude">The family thanks you for your kindness, your prayers, and your presence today.</p></div>
       </div>
     </div>
     <div class="panel panel-trifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="group topsafe">
-          <div class="head" data-field="poemTitle">A Prayer</div>
-          <p class="body" data-field="poem">May the Lord embrace Alfredo with his eternal love and grant him peace in his heavenly abode.</p>
-        </div>
+      <div class="layer center-col">
+        <div class="group"><div class="head"><div class="big">In Remembrance</div></div>
+          <p class="body" data-field="poem">We hold you in the quiet,
+            in every gentle dawn.
+            Though you have walked ahead of us,
+            your light is never gone.</p></div>
       </div>
     </div>
     <div class="panel panel-trifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="photo-wrap">
+      <div class="layer center-col">
+        <div class="mast">
+          <div class="big" style="font-family: 'Great Vibes'  , cursive;">In Loving <br>Memory Of</div>
+        </div>
+        <div class="photo-wrap" style="margin-top: -30px; ">
           <div class="photo" data-field="photo"></div>
           <div class="wreath"></div>
         </div>
-        <div class="group">
-          <div class="label">In Loving Memory</div>
-          <div class="name" data-field="fullName">Alfredo Torres</div>
-          <div class="dates" data-field="dates">1975 &ndash; 2024</div>
-        </div>
+        <div class="group" style="margin-top: -30px; "><div class="name" data-field="fullName">Lorna Alvarado</div>
+          <div class="dates" data-field="dates">1942 - 2022</div></div>
       </div>
     </div>
   </div>
@@ -293,38 +308,33 @@ Main Street, Any City</p>
   <div class="spread" data-format="trifold" data-side="inside">
     <div class="panel panel-trifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="group topsafe">
-          <div class="head" data-field="scheduleTitle">Service Program</div>
-        </div>
-        <div class="paired" data-field="orderOfService">11:00 | Gathering
-11:15 | Reflections
-11:45 | Prayer
-12:15 | Tribute
-12:45 | Memories
-1:15 | Farewell
-1:30 | Reception</div>
+      <div class="layer center-col">
+        <div class="group"><div class="head"><div class="big">Order of Service</div></div>
+          <div class="body" data-field="orderOfService">Prayer | Korina V.
+            Prelude | Donna S.
+            Invocation | Kimberly N.
+            Remarks | Korina V.
+            Vocal Solo | Sebastian B.
+            Speakers | Shawn G.
+            Closing | Takehiro K.</div></div>
       </div>
     </div>
     <div class="panel panel-trifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="group topsafe">
-          <div class="head">Life Story</div>
-          <p class="body" data-field="obituary">Alfredo met the world with warmth and a ready laugh. He left a kindness that time will not wear away.</p>
-        </div>
+      <div class="layer center-col">
+        <div class="group"><div class="head"><div class="big">Obituary</div></div>
+          <p class="body" data-field="obituary">Lorna was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength.</p></div>
       </div>
     </div>
     <div class="panel panel-trifold">
       <div class="bg"></div>
-      <div class="layer">
-        <div class="group topsafe">
-          <div class="head">Gathering</div>
-          <p class="body" data-field="reflections">Please join the family for refreshments following the service. All who loved Alfredo are welcome.</p>
-        </div>
+      <div class="layer center-col">
+        <div class="group"><div class="head"><div class="big">Gathering</div></div>
+          <p class="body" data-field="reflections">Please join the family for refreshments and fellowship following the service. All who loved Lorna are welcome.</p></div>
+
         <div class="group">
-          <div class="bigdate" data-field="serviceDate">22 January 2024</div>
-          <p class="venue" data-field="serviceDetails">Rosewood Memory Hall</p>
+          <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
+          <p class="body" data-field="serviceDetails">Grace Chapel, 123 Main Street, Any City</p>
         </div>
       </div>
     </div>
@@ -332,58 +342,6 @@ Main Street, Any City</p>
 
 </div>
 
-<script>
-/* paired "Left | Right" formatter; re-runs when the app injects plain text */
-(function(){
-  var busy=false;
-  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
-  function build(el){
-    if(!busy){
-      var t=(el.textContent||'').replace(/\u00a0/g,' ');
-      var cur=el.getAttribute('data-src');
-      if(t.trim() && t.trim()!==(cur||'').trim()){ el.setAttribute('data-src', t); }
-    }
-    var src=el.getAttribute('data-src');
-    if(src===null){ src=el.textContent; el.setAttribute('data-src', src); }
-    var rows=src.split('\n').map(function(l){return l.trim();}).filter(Boolean);
-    var html=rows.map(function(l){
-      var p=l.split('|');
-      if(p.length>1){ return '<span class="pl">'+esc(p[0].trim())+'</span><span class="pr">'+esc(p.slice(1).join('|').trim())+'</span>'; }
-      return '<span class="pc">'+esc(l)+'</span>';
-    }).join('');
-    busy=true; el.innerHTML=html; busy=false;
-  }
-  function init(){
-    var els=document.querySelectorAll('.paired');
-    els.forEach(build);
-    var mo=new MutationObserver(function(muts){
-      if(busy) return;
-      muts.forEach(function(m){
-        var t=m.target.classList&&m.target.classList.contains('paired')?m.target:
-              (m.target.parentElement&&m.target.parentElement.classList&&m.target.parentElement.classList.contains('paired')?m.target.parentElement:null);
-        if(t) build(t);
-      });
-    });
-    els.forEach(function(el){ mo.observe(el,{childList:true,characterData:true,subtree:true}); });
-  }
-  if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded', init);
-})();
 
-/* scale sheets to fit narrow viewers; print stays 1:1 */
-(function(){
-  function fit(){
-    document.querySelectorAll('.page,.spread').forEach(function(el){
-      var nat = el.classList.contains('spread') ? 1056 : 816;
-      el.style.zoom = Math.min(1,(window.innerWidth-36)/nat);
-    });
-  }
-  window.addEventListener('resize', fit);
-  window.addEventListener('beforeprint', function(){
-    document.querySelectorAll('.page,.spread').forEach(function(el){ el.style.zoom=1; });
-  });
-  window.addEventListener('afterprint', fit);
-  if(document.readyState!=='loading') fit(); else document.addEventListener('DOMContentLoaded', fit);
-})();
-</script>
 </body>
 </html>

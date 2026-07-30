@@ -364,7 +364,7 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
           <div className="hint">These appear on the cover.</div>
           <div className="field">
             <label className="er-label">Full name</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            <textarea rows={1} style={{ minHeight: 'inherit' }} value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="field">
             <label className="er-label">Dates</label>
