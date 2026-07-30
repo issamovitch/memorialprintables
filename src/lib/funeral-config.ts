@@ -67,11 +67,11 @@ export const DEFAULT_CONFIG: FuneralConfig = {
     'trifold funeral program template',
   ],
   templates: TEMPLATES,
-  defaultName: 'Margaret Eleanor Hayes',
-  defaultDates: 'March 4, 1946 — January 12, 2026',
+  defaultName: 'Margaret Eleanor',
+  defaultDates: '1946 —  2026',
   defaultOrderOfService: `Prelude
 Opening Words
-Hymn — Amazing Grace
+Hymn, Amazing Grace
 Scripture Reading
 Eulogy
 Closing Prayer
