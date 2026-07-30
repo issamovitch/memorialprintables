@@ -25,11 +25,7 @@
   - Chrome (standalone-only) tagged data-mp-chrome. Panel widths FIXED in inches:
     bifold 5.5in, trifold 3.6667in. Never flex.
 
-  PAIRED LISTS:
-  - orderOfService and pallbearers accept "Left | Right" per line and render as two
-    aligned columns (matches the reference). A line with no "|" is centered.
-  - A tiny inline script formats these; it also re-formats when the app injects new
-    text, so the app only ever needs to set plain textContent (with | separators).
+
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,7 +47,6 @@
   }
 
   /* ---- standalone-only chrome ---- */
-  .mp-note{font-size:13px;color:var(--muted);max-width:960px;margin:0 auto;padding:26px 20px 6px;line-height:1.5;}
   .mp-caption{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);max-width:960px;margin:30px auto 10px;padding:0 20px;}
   .stage{display:flex;flex-direction:column;align-items:center;gap:14px;padding:0 20px 60px;}
 
@@ -76,11 +71,10 @@
   /* ---- masthead ---- */
   .mast{position:relative;width:100%;}
   .mast .small{font-size:19pt;font-weight:400;color:#333;letter-spacing:.01em;line-height:1;margin-bottom:.16in;}
-  .mast .big{font-family:var(--script);font-size:72pt;line-height:1.18;color:#242424;margin-top:-2pt;}
+  .mast .big{font-family:var(--script);line-height:1.18;color:#242424;margin-top:-2pt;}
   .panel .mast .small{font-size:11pt;margin-bottom:.1in;}
   .panel-trifold .mast .small{font-size:9.5pt;margin-bottom:.07in;}
-  .panel .mast .big{font-size:38pt;}
-  .panel-trifold .mast .big{font-size:26pt;}
+
 
   /* ---- photo + wreath ---- */
   .photo-wrap{position:relative;width:4.5in;aspect-ratio:1/1;margin:.16in 0;}
@@ -107,11 +101,10 @@
   /* ---- inside headings ---- */
   .head{margin:0;}
   .head .small{font-size:17pt;font-weight:400;color:#333;line-height:1;margin-bottom:.16in;}
-  .head .big{font-family:var(--script);font-size:54pt;line-height:1.18;color:#242424;}
+  .head .big{font-family:var(--script);line-height:1.18;color:#242424;}
   .panel .head .small{font-size:11pt;margin-bottom:.1in;}
   .panel-trifold .head .small{font-size:9pt;margin-bottom:.07in;}
-  .panel .head .big{font-size:30pt;}
-  .panel-trifold .head .big{font-size:22pt;}
+
 
   .body{font-size:12pt;line-height:1.55;color:#333;text-align:center;margin:.06in .1in 0;white-space:pre-line;}
   .panel-trifold .body{font-size:10pt;line-height:1.5;margin-top:.12in;}
@@ -120,14 +113,8 @@
   .panel .section{font-size:14pt;margin:0 0 .07in;}
   .panel-trifold .section{font-size:12pt;margin:0 0 .05in;}
 
-  /* ---- paired two-column lists ---- */
-  .paired{display:grid;grid-template-columns:1fr 1fr;column-gap:.4in;row-gap:.02in;
-    font-size:14.5pt;color:#2f2f2f;width:100%;max-width:6.2in;}
-  .panel .paired{font-size:11pt;column-gap:.2in;}
-  .panel-trifold .paired{font-size:9.5pt;column-gap:.12in;line-height:1.5;}
-  .paired .pl{text-align:right;}
-  .paired .pr{text-align:left;color:#5c6b57;}
-  .paired .pc{grid-column:1 / -1;text-align:center;}
+
+
 
   .group{display:flex;flex-direction:column;align-items:center;width:100%;}
   .grow{flex:1 1 auto;}
@@ -143,7 +130,9 @@
   .panel-bifold .photo-wrap + .group { margin-top: -10px; }
   .panel-trifold .photo-wrap + .group { margin-top: -10px; }
 
-  .big {font-size: 68px !important; font-weight: bold;}
+  .big {font-size: 44px !important; font-weight: bold;}
+  .panel-bifold .big {font-size: 38px !important;}
+  .panel-trifold .big {font-size: 28px !important;}
   .hair {
       width: 1.5in;
       height: 1px;
@@ -152,25 +141,21 @@
       margin: 10px 0px;
   }
 
-  .body {max-width: 86%;}
+  .body {max-width: 84%;}
   .label , .head {font-size: 22px !important; font-weight: bold;}
-  .name{font-size: 86px !important; font-weight: bold;}
+  .name{font-size: 66px !important; font-weight: bold;}
   .panel-bifold .name {font-size: 38px !important;}
   .panel-trifold .name {font-size: 30px !important;}
   .panel-bifold .photo-wrap + .group { margin-top: -10px; }
   .panel-trifold .photo-wrap + .group { margin-top: -10px; }
-  .dates, .venue, .paired, .body{font-size: 18px !important; line-height: 36px !important;}
+  .dates, .venue, .body{font-size: 18px !important; line-height: 36px !important;}
+
+  .bigdate{font-weight:400;font-size:16pt;letter-spacing:.02em;}
 
 </style>
 </head>
 
 <body>
-
-<div class="mp-note" data-mp-chrome>
-  Floral Green template preview. Uses bg.jpg and image_frame.png from this folder.
-  Script + Poppins fonts load from Google Fonts (online); offline they fall back.
-  Sample text is placeholder, the app replaces every field.
-</div>
 
 <div class="stage">
 
@@ -182,7 +167,7 @@
     <div class="bg"></div>
     <div class="layer">
       <div class="mast">
-        <div class="big" style="font-family: 'Great Vibes'  , cursive;">In Loving Memory</div>
+        <div class="big" style="font-family: 'Great Vibes'  , cursive;">In Loving Memory Of</div>
       </div>
       <div class="photo-wrap">
         <div class="photo" data-field="photo"></div>
@@ -249,7 +234,7 @@
     <div class="panel panel-bifold">
       <div class="bg"></div>
       <div class="layer center-col">
-        <div class="group"><div class="head"><div class="big">With Thanks</div></div>
+        <div class="group"><div class="head"><div class="big">With Gratitude</div></div>
 <p class="body" data-field="withGratitude">The family of Lorna Alvarado thanks you for your kindness, your prayers, and your presence today.</p></div>
       </div>
     </div>
@@ -257,14 +242,13 @@
       <div class="bg"></div>
       <div class="layer center-col">
         <div class="mast">
-          <div class="small" data-field="headerLabel">In Loving</div>
-          <div class="big">Memory Of</div>
+          <div class="big">In Loving Memory Of</div>
         </div>
-        <div class="photo-wrap">
+        <div class="photo-wrap" style="margin-top: -30px;">
           <div class="photo" data-field="photo"></div>
           <div class="wreath"></div>
         </div>
-        <div class="group"><div class="name" data-field="fullName">Lorna Alvarado</div>
+        <div class="group" style="margin-top: -30px;"><div class="name" data-field="fullName">Lorna Alvarado</div>
 <div class="dates" data-field="dates">24.10.1942 - 22.04.2022</div></div>
       </div>
     </div>
@@ -275,7 +259,7 @@
     <div class="panel panel-bifold">
       <div class="bg"></div>
       <div class="layer center-col">
-        <div class="group"><div class="section">Order of Service</div>
+        <div class="group"><div class="head"><div class="big">Order of Service</div></div>
 <div class="body" data-field="orderOfService">Prayer in The Home | Korina Villanueva
 Prelude Music | Donna Stroupe
 Invocation | Kimberly Nguyen
@@ -288,8 +272,14 @@ Closing Remarks | Takehiro Kanegi</div></div>
     <div class="panel panel-bifold">
       <div class="bg"></div>
       <div class="layer center-col">
-        <div class="group"><div class="head"><div class="big">Remembered</div></div>
+        <div class="group"><div class="head"><div class="big">Obituary</div></div>
 <p class="body" data-field="obituary">Lorna was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She loved her garden, her Sunday table, and every person lucky enough to be called her own.</p></div>
+
+          <div class="group">
+              <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
+              <p class="body" data-field="serviceDetails">Grace Chapel, 123 Main Street, Any City</p>
+          </div>
+
       </div>
     </div>
   </div>
@@ -304,7 +294,7 @@ Closing Remarks | Takehiro Kanegi</div></div>
     <div class="panel panel-trifold">
       <div class="bg"></div>
       <div class="layer center-col">
-        <div class="group"><div class="head"><div class="big">With Thanks</div></div>
+        <div class="group"><div class="head"><div class="big">With Gratitude</div></div>
 <p class="body" data-field="withGratitude">The family thanks you for your kindness, your prayers, and your presence today.</p></div>
       </div>
     </div>
@@ -322,14 +312,13 @@ your light is never gone.</p></div>
       <div class="bg"></div>
       <div class="layer center-col">
         <div class="mast">
-          <div class="small" data-field="headerLabel">In Loving</div>
-          <div class="big">Memory Of</div>
+            <div class="big">In Loving Memory Of</div>
         </div>
-        <div class="photo-wrap">
+        <div class="photo-wrap" style="margin-top: -30px; ">
           <div class="photo" data-field="photo"></div>
           <div class="wreath"></div>
         </div>
-        <div class="group"><div class="name" data-field="fullName">Lorna Alvarado</div>
+        <div class="group" style="margin-top: -30px; "><div class="name" data-field="fullName">Lorna Alvarado</div>
 <div class="dates" data-field="dates">1942 - 2022</div></div>
       </div>
     </div>
@@ -340,8 +329,8 @@ your light is never gone.</p></div>
     <div class="panel panel-trifold">
       <div class="bg"></div>
       <div class="layer center-col">
-        <div class="group"><div class="section">Order of Service</div>
-<div class="paired" data-field="orderOfService">Prayer | Korina V.
+        <div class="group"><div class="head"><div class="big">Order of Service</div></div>
+<div class="body" data-field="orderOfService">Prayer | Korina V.
 Prelude | Donna S.
 Invocation | Kimberly N.
 Remarks | Korina V.
@@ -353,81 +342,25 @@ Closing | Takehiro K.</div></div>
     <div class="panel panel-trifold">
       <div class="bg"></div>
       <div class="layer center-col">
-        <div class="group"><div class="section">Life Story</div>
+        <div class="group"><div class="head"><div class="big">Obituary</div></div>
 <p class="body" data-field="obituary">Lorna was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength.</p></div>
       </div>
     </div>
     <div class="panel panel-trifold">
       <div class="bg"></div>
       <div class="layer center-col">
-        <div class="group"><div class="section">Gathering</div>
+        <div class="group"><div class="head"><div class="big">Gathering</div></div>
 <p class="body" data-field="reflections">Please join the family for refreshments and fellowship following the service. All who loved Lorna are welcome.</p></div>
+
+          <div class="group">
+                  <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
+              <p class="body" data-field="serviceDetails">Grace Chapel, 123 Main Street, Any City</p>
+          </div>
       </div>
     </div>
   </div>
 
 </div>
 
-<script>
-/* Format paired "Left | Right" lists into two aligned columns.
-   Re-runs when the app injects new textContent, so the app only sets plain text. */
-(function(){
-  var busy=false;
-  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
-  function build(el){
-    if(!busy){
-      var t=(el.textContent||'').replace(/\u00a0/g,' ');
-      var cur=el.getAttribute('data-src');
-      if(t.trim() && t.trim()!==(cur||'').trim()){ el.setAttribute('data-src', t); }
-    }
-    var src=el.getAttribute('data-src');
-    if(src===null){ src=el.textContent; el.setAttribute('data-src', src); }
-    var rows=src.split('\n').map(function(l){return l.trim();}).filter(Boolean);
-    var html=rows.map(function(l){
-      var p=l.split('|');
-      if(p.length>1){ return '<span class="pl">'+esc(p[0].trim())+'</span><span class="pr">'+esc(p.slice(1).join('|').trim())+'</span>'; }
-      return '<span class="pc">'+esc(l)+'</span>';
-    }).join('');
-    busy=true; el.innerHTML=html; busy=false;
-  }
-  function init(){
-    var els=document.querySelectorAll('.paired');
-    els.forEach(build);
-    var mo=new MutationObserver(function(muts){
-      if(busy) return;
-      muts.forEach(function(m){
-        var t=m.target.classList&&m.target.classList.contains('paired')?m.target:
-              (m.target.parentElement&&m.target.parentElement.classList&&m.target.parentElement.classList.contains('paired')?m.target.parentElement:null);
-        if(t) build(t);
-      });
-    });
-    els.forEach(function(el){ mo.observe(el,{childList:true,characterData:true,subtree:true}); });
-  }
-  if(document.readyState!=='loading') init();
-  else document.addEventListener('DOMContentLoaded', init);
-})();
-</script>
-
-<script>
-/* Scale sheets down to fit narrow viewers so bifold/trifold spreads are never clipped. */
-(function(){
-  function fit(){
-    var pad=36;
-    document.querySelectorAll('.page,.spread').forEach(function(el){
-      var w = el.classList.contains('spread') ? el.offsetWidth/(parseFloat(el.style.zoom)||1) : el.offsetWidth/(parseFloat(el.style.zoom)||1);
-      // natural widths: page 8.5in=816px, spread 11in=1056px
-      var nat = el.classList.contains('spread') ? 1056 : 816;
-      var z = Math.min(1,(window.innerWidth-pad)/nat);
-      el.style.zoom = z;
-    });
-  }
-  window.addEventListener('resize', fit);
-  window.addEventListener('beforeprint', function(){
-    document.querySelectorAll('.page,.spread').forEach(function(el){ el.style.zoom=1; });
-  });
-  window.addEventListener('afterprint', fit);
-  if(document.readyState!=='loading') fit(); else document.addEventListener('DOMContentLoaded', fit);
-})();
-</script>
 </body>
 </html>
