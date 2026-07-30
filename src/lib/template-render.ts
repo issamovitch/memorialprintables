@@ -92,7 +92,13 @@ export function renderTemplate(
 
   // Extract the template's <style> content (all CSS lives in one style block)
   const styleEl = doc.querySelector('style');
-  const styles = styleEl ? styleEl.textContent || '' : '';
+  let styles = styleEl ? styleEl.textContent || '' : '';
+
+  // Fix: replace url('../img.png') with a path that works when injected into the page.
+  // The preview is injected into the generator page at /free-funeral-program-generator,
+  // so url('../img.png') resolves to http://localhost:3000/img.png which is wrong.
+  // We want to point to /api/templates/img.png which our API route handles.
+  styles = styles.replace(/url\(['"]?\.\.\/img\.png['"]?\)/g, 'url("/api/templates/img.png")');
 
 // Extract Google Font stylesheets and convert to @import for cleaner injection
   const ALL_FONT_IMPORTS = `@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Parisienne&family=Pinyon+Script&family=Poppins:wght@300;400;500;600;700&family=Sacramento&display=swap");`;
@@ -192,9 +198,11 @@ export function applyPhotoToDocument(
  */
 const htmlCache = new Map<string, string>();
 
-export async function fetchTemplateHtml(htmlUrl: string): Promise<string> {
-  const cached = htmlCache.get(htmlUrl);
-  if (cached) return cached;
+export async function fetchTemplateHtml(htmlUrl: string, force: boolean = false): Promise<string> {
+  if (!force) {
+    const cached = htmlCache.get(htmlUrl);
+    if (cached) return cached;
+  }
 
   const res = await fetch(htmlUrl);
   if (!res.ok) throw new Error(`Failed to fetch template: ${htmlUrl}`);

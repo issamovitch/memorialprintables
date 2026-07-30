@@ -26,8 +26,8 @@ export interface TemplateMeta {
   previewUrl: string;    // public URL of the preview.png thumbnail
 }
 
-const TEMPLATES_DIR = path.join(process.cwd(), 'public', 'templates');
-const PUBLIC_URL_BASE = '/templates';
+const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');
+const PUBLIC_URL_BASE = '/api/templates';
 
 /**
  * Scan the /templates folder and return every template's metadata, sorted by

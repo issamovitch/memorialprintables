@@ -3,15 +3,6 @@
 // Fetches template HTML, parses it, fills data-field bindings, injects into preview
 // ============================================================================
 
-export interface TemplateManifestItem {
-  id: string;
-  name: string;
-  accent: string;
-  order: number;
-  html: string;
-  preview: string;
-}
-
 export type FormData = {
   fullName: string;
   dates: string;
@@ -22,19 +13,6 @@ export type FormData = {
   reflections: string;
   photoUrl: string | null;
 };
-
-// ---------------------------------------------------------------------------
-// Fetch and cache manifest
-// ---------------------------------------------------------------------------
-let cachedManifest: TemplateManifestItem[] | null = null;
-
-export async function loadManifest(): Promise<TemplateManifestItem[]> {
-  if (cachedManifest) return cachedManifest;
-  const res = await fetch('/templates-manifest.json');
-  if (!res.ok) throw new Error('Failed to load templates manifest');
-  cachedManifest = await res.json();
-  return cachedManifest;
-}
 
 // ---------------------------------------------------------------------------
 // Fetch and parse a template's HTML

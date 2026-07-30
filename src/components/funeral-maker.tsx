@@ -109,6 +109,7 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
   const [photoMime, setPhotoMime] = useState<string | undefined>(undefined);
   const [downloading, setDownloading] = useState(false);
   const [tplHtml, setTplHtml] = useState<string>('');
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [previewScale, setPreviewScale] = useState(0.5);
   const [cropOpen, setCropOpen] = useState(false);
   // The ORIGINAL uploaded photo (data URL). We keep this separate from `photo`
@@ -127,6 +128,7 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
     setReflections(cfg.defaultReflections);
     setPhoto('/img.png');
     setOriginalPhoto('/img.png');
+    setRefreshTrigger(prev => prev + 1);
     fetch('/img.png')
       .then(res => res.arrayBuffer())
       .then(buf => {
@@ -145,23 +147,13 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
 
   // Fetch the selected template's HTML source
   useEffect(() => {
-    console.clear()
-    console.log("-------------------------")
-    console.log("-------------------------")
-    console.log("-------------------------")
-    console.log("-------------------------")
-    console.log(templates)
-    console.log("-------------------------")
-    console.log("-------------------------")
-    console.log("-------------------------")
-    console.log("-------------------------")
     if (!tpl) return;
     let cancelled = false;
-    fetchTemplateHtml(tpl.htmlUrl)
+    fetchTemplateHtml(tpl.htmlUrl, refreshTrigger > 0)
       .then((html) => { if (!cancelled) setTplHtml(html); })
       .catch(() => { if (!cancelled) setTplHtml(''); });
     return () => { cancelled = true; };
-  }, [tpl]);
+  }, [tpl, refreshTrigger]);
 
   // Load default photo bytes
   useEffect(() => {
