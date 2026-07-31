@@ -87,11 +87,7 @@
   .panel .service{font-size:10.5pt;}
   .panel .service .when{font-size:12pt;}
 
-  /* olive ornament divider */
-  .orn{width:70%;max-width:4.6in;height:14px;}
-  .orn line{stroke:var(--olive);stroke-width:1;}
-  .orn circle{fill:var(--olive);}
-  .orn path{stroke:var(--olive);stroke-width:1;fill:none;}
+
 
   /* inside heading + body */
   .head{font-family:var(--serif);font-weight:700;font-size:23pt;color:var(--green);}
@@ -145,6 +141,10 @@
   .dates, .venue, .body{font-size: 18px !important; line-height: 36px !important;}
 
   .bigdate{font-weight:400;font-size:14pt;letter-spacing:.02em;}
+
+  .mast, .bigdate, .dates, .head {
+      color: var(--sage);
+  }
 </style>
 </head>
 
@@ -166,7 +166,15 @@
         <div class="name" data-field="fullName">Daniel Gallego</div>
         <div class="dates" data-field="dates">1 January 1960 - 23 March 2024</div>
       </div>
-      <svg class="orn" viewBox="0 0 300 14"><line x1="4" y1="7" x2="128" y2="7"/><circle cx="134" cy="7" r="1.6"/><path d="M150 1 L156 7 L150 13 L144 7 Z"/><circle cx="166" cy="7" r="1.6"/><line x1="172" y1="7" x2="296" y2="7"/></svg>
+
+        <svg viewBox="0 0 300 14" xmlns="http://www.w3.org/2000/svg" style="width:70%; max-width:4.6in; height:14px;">
+            <line x1="4" y1="7" x2="128" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+            <circle cx="134" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+            <path d="M150 1 L156 7 L150 13 L144 7 Z" style="stroke:#8a8353; stroke-width:1; fill:none;"></path>
+            <circle cx="166" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+            <line x1="172" y1="7" x2="296" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+        </svg>
+
         <div class="group">
             <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
             <p class="venue" style="max-width: 80%" data-field="serviceDetails">Eleven o'clock in the morning
@@ -192,13 +200,29 @@
                     Recessional
                 </div>
             </div>
-            <svg class="orn" viewBox="0 0 300 14"><line x1="4" y1="7" x2="128" y2="7"/><circle cx="134" cy="7" r="1.6"/><path d="M150 1 L156 7 L150 13 L144 7 Z"/><circle cx="166" cy="7" r="1.6"/><line x1="172" y1="7" x2="296" y2="7"/></svg>
+
+            <svg viewBox="0 0 300 14" xmlns="http://www.w3.org/2000/svg" style="width:70%; max-width:4.6in; height:14px;">
+                <line x1="4" y1="7" x2="128" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+                <circle cx="134" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+                <path d="M150 1 L156 7 L150 13 L144 7 Z" style="stroke:#8a8353; stroke-width:1; fill:none;"></path>
+                <circle cx="166" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+                <line x1="172" y1="7" x2="296" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+            </svg>
+
             <div class="group">
                 <div class="head" data-field="obituaryTitle">Obituary</div>
                 <hr class="hair">
                 <p class="body" data-field="obituary">Eleanor was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She taught for thirty years, kept a garden her neighbours still admire, and never let a friend leave her table hungry.</p>
             </div>
-            <svg class="orn" viewBox="0 0 300 14"><line x1="4" y1="7" x2="128" y2="7"/><circle cx="134" cy="7" r="1.6"/><path d="M150 1 L156 7 L150 13 L144 7 Z"/><circle cx="166" cy="7" r="1.6"/><line x1="172" y1="7" x2="296" y2="7"/></svg>
+
+            <svg viewBox="0 0 300 14" xmlns="http://www.w3.org/2000/svg" style="width:70%; max-width:4.6in; height:14px;">
+                <line x1="4" y1="7" x2="128" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+                <circle cx="134" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+                <path d="M150 1 L156 7 L150 13 L144 7 Z" style="stroke:#8a8353; stroke-width:1; fill:none;"></path>
+                <circle cx="166" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+                <line x1="172" y1="7" x2="296" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+            </svg>
+
             <div class="group">
                 <div class="head">In Remembrance</div>
                 <hr class="hair">
@@ -264,7 +288,14 @@
                 <div class="group"><div class="head"><div class="big">Obituary</div></div>
                     <p class="body" data-field="obituary">Lorna was born in Asheville and gave her family a lifetime of warmth, patience, and quiet strength. She loved her garden, her Sunday table, and every person lucky enough to be called her own.</p></div>
 
-                <svg class="orn" viewBox="0 0 300 14"><line x1="4" y1="7" x2="128" y2="7"/><circle cx="134" cy="7" r="1.6"/><path d="M150 1 L156 7 L150 13 L144 7 Z"/><circle cx="166" cy="7" r="1.6"/><line x1="172" y1="7" x2="296" y2="7"/></svg>
+                <svg viewBox="0 0 300 14" xmlns="http://www.w3.org/2000/svg" style="width:70%; max-width:4.6in; height:14px;">
+                    <line x1="4" y1="7" x2="128" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+                    <circle cx="134" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+                    <path d="M150 1 L156 7 L150 13 L144 7 Z" style="stroke:#8a8353; stroke-width:1; fill:none;"></path>
+                    <circle cx="166" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+                    <line x1="172" y1="7" x2="296" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+                </svg>
+
                 <div class="group">
                     <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
                     <p class="body" data-field="serviceDetails">Grace Chapel, 123 Main Street, Any City</p>
@@ -339,7 +370,14 @@
                 <div class="group"><div class="head"><div class="big">Gathering</div></div>
                     <p class="body" data-field="reflections">Please join the family for refreshments and fellowship following the service. All who loved Lorna are welcome.</p></div>
 
-                <svg class="orn" viewBox="0 0 300 14"><line x1="4" y1="7" x2="128" y2="7"/><circle cx="134" cy="7" r="1.6"/><path d="M150 1 L156 7 L150 13 L144 7 Z"/><circle cx="166" cy="7" r="1.6"/><line x1="172" y1="7" x2="296" y2="7"/></svg>
+                <svg viewBox="0 0 300 14" xmlns="http://www.w3.org/2000/svg" style="width:70%; max-width:4.6in; height:14px;">
+                    <line x1="4" y1="7" x2="128" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+                    <circle cx="134" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+                    <path d="M150 1 L156 7 L150 13 L144 7 Z" style="stroke:#8a8353; stroke-width:1; fill:none;"></path>
+                    <circle cx="166" cy="7" r="1.6" style="fill:#8a8353;"></circle>
+                    <line x1="172" y1="7" x2="296" y2="7" style="stroke:#8a8353; stroke-width:1;"></line>
+                </svg>
+
                 <div class="group">
                     <div class="bigdate" data-field="serviceDate">Saturday, 18 January 2026</div>
                     <p class="body" data-field="serviceDetails">Grace Chapel, 123 Main Street, Any City</p>

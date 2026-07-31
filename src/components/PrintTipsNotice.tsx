@@ -11,6 +11,8 @@ import { useState } from "react";
  *
  * No external CSS or UI library needed — styles are inline and scoped.
  */
+import ImageMagnifier from "@/components/ImageMagnifier";
+
 
 const tips: { label: string; value: string }[] = [
   { label: "Paper size", value: 'Letter 8.5" × 11"' },
@@ -57,11 +59,13 @@ export default function PrintTipsNotice() {
             so the design prints edge to edge and folds correctly:
           </p>
           <figure style={styles.figure}>
-            <img
-              src="/screenshot.png"
-              alt="Chrome print dialog showing the paper size set to Letter 8.5 by 11 inches"
-              style={styles.img}
-              loading="lazy"
+            <ImageMagnifier
+                src="/screenshot.png"
+                alt="Chrome print dialog showing the paper size set to Letter 8.5 by 11 inches"
+                style={styles.img}
+                loading="lazy"
+                zoom={2.5}
+                lensSize={220}
             />
             <figcaption style={styles.caption}>
               Set Paper size to Letter 8.5&quot; × 11&quot;
