@@ -1,12 +1,30 @@
 "use client";
 
-import { useRef, useState } from "react";
+import {
+    useRef,
+    useState,
+    type CSSProperties,
+    type ImgHTMLAttributes,
+    type MouseEvent,
+} from "react";
 
 type Props = {
     src: string;
     alt: string;
     zoom?: number;
     lensSize?: number;
+    style?: CSSProperties;
+    loading?: ImgHTMLAttributes<HTMLImageElement>["loading"];
+};
+
+type LensState = {
+    visible: boolean;
+    x: number;
+    y: number;
+    backgroundX: number;
+    backgroundY: number;
+    backgroundWidth: number;
+    backgroundHeight: number;
 };
 
 export default function ImageMagnifier({
@@ -14,9 +32,12 @@ export default function ImageMagnifier({
                                            alt,
                                            zoom = 2.5,
                                            lensSize = 220,
+                                           style,
+                                           loading = "lazy",
                                        }: Props) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [lens, setLens] = useState({
+
+    const [lens, setLens] = useState<LensState>({
         visible: false,
         x: 0,
         y: 0,
@@ -26,7 +47,7 @@ export default function ImageMagnifier({
         backgroundHeight: 0,
     });
 
-    function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
         const container = containerRef.current;
         if (!container) return;
 
@@ -45,16 +66,24 @@ export default function ImageMagnifier({
         });
     }
 
+    function handleMouseLeave() {
+        setLens((current) => ({
+            ...current,
+            visible: false,
+        }));
+    }
+
     return (
         <div
             ref={containerRef}
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseMove}
-            onMouseLeave={() => setLens((current) => ({ ...current, visible: false }))}
+            onMouseLeave={handleMouseLeave}
             style={{
-                position: "relative",
-                display: "inline-block",
                 width: "100%",
+                display: "inline-block",
+                ...style,
+                position: "relative",
                 overflow: "hidden",
                 lineHeight: 0,
                 cursor: "zoom-in",
@@ -63,6 +92,7 @@ export default function ImageMagnifier({
             <img
                 src={src}
                 alt={alt}
+                loading={loading}
                 draggable={false}
                 style={{
                     display: "block",
@@ -81,8 +111,8 @@ export default function ImageMagnifier({
                         width: lensSize,
                         height: lensSize,
                         borderRadius: "50%",
-                        outline: "4px solid white",
-                        boxShadow: "0 2px 12px rgba(0,0,0,0.35)",
+                        border: "4px solid white",
+                        boxShadow: "0 2px 12px rgba(0, 0, 0, 0.35)",
                         backgroundImage: `url("${src}")`,
                         backgroundRepeat: "no-repeat",
                         backgroundSize: `${lens.backgroundWidth}px ${lens.backgroundHeight}px`,

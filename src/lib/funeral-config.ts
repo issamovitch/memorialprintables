@@ -84,36 +84,6 @@ Recessional`,
     'Do not stand at my grave and weep,\nI am not there; I do not sleep.',
   defaultReflections:
     'Shared memories from family and friends.',
-  faq: [
-    {
-      q: 'Do I need an account to make a program?',
-      a: 'No. There is no signup, watermark, or hidden fee. Fill in the fields and download your PDF.',
-    },
-    {
-      q: 'Is my data private?',
-      a: 'Yes. Everything is generated in your browser. Your photo and details are never uploaded or saved.',
-    },
-    {
-      q: 'What paper should I use?',
-      a: 'Standard 8.5 × 11" letter paper works well. For a keepsake feel, use a heavier 80 lb cardstock.',
-    },
-    {
-      q: 'How do I print a bifold?',
-      a: 'Print double-sided on one sheet, then fold in half. The maker positions the panels so the cover lands on the front automatically.',
-    },
-    {
-      q: 'Can I add my own photo?',
-      a: 'Yes. Use the Upload photo button — it appears on the cover instantly and stays on your device.',
-    },
-    {
-      q: 'Can I edit this in Microsoft Word?',
-      a: 'This tool produces a print-ready PDF, not a Word document. If you need a .docx file, download the PDF, open Word, go to Insert → Object → Text from File, and select the PDF. Most fonts and layouts transfer cleanly. However, editing the PDF directly in a word processor will not preserve the template design — for the best results, customise everything here first, then download.',
-    },
-    {
-      q: 'Can I edit this in Google Docs?',
-      a: 'Google Docs can open PDFs (File → Open → Upload), but formatting may shift. This tool outputs a final, print-ready PDF intended for direct printing or sending to a print shop. For full control over layout and text, use the generator above to customise every field before downloading.',
-    },
-  ],
 };
 
 // ---------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 'use client';
 
+import { jsPDF } from 'jspdf';
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { DEFAULT_CONFIG, Format, extractLastName, type TemplatePreset, type FuneralConfig } from '@/lib/funeral-config';
-import { generateFuneralPdf } from '@/lib/funeral-pdf';
 import type { TemplateMeta } from '@/lib/template-loader';
 import { fetchTemplateHtml, renderTemplate, applyPhotoToDocument, type TemplateFields } from '@/lib/template-manager';
 import { ImageCropModal } from '@/components/image-crop-modal';
@@ -199,56 +199,63 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
     return cssChunks.join('\n');
   }, []);
 
+  const captureImages = useCallback(async (): Promise<string[]> => {
+    if (!previewRef.current) return [];
+    
+    const sheetElements = previewRef.current.querySelectorAll('.sheet-group');
+    if (sheetElements.length === 0) return [];
+
+    const capturedImages = [];
+
+    for (let i = 0; i < sheetElements.length; i++) {
+      const sheet = sheetElements[i] as HTMLElement;
+      const iframe = sheet.querySelector('iframe');
+      const elementToCapture = (iframe && iframe.contentDocument 
+        ? (iframe.contentDocument.querySelector('.page') || 
+           iframe.contentDocument.querySelector('.spread') || 
+           iframe.contentDocument.body) 
+        : sheet) as HTMLElement;
+
+      const originalBoxShadow = elementToCapture.style.boxShadow;
+      elementToCapture.style.boxShadow = 'none';
+
+      try {
+        // Ensure fonts are loaded before capturing
+        if (iframe?.contentDocument?.fonts) {
+          await iframe.contentDocument.fonts.ready;
+          // Explicitly load fonts if ready didn't catch them
+          await Promise.all(
+            Array.from(iframe.contentDocument.fonts).map(font => font.load().catch(() => {}))
+          );
+          // Small delay to allow layout engine to apply fonts
+          await new Promise(resolve => setTimeout(resolve, 200));
+        }
+
+        const embedCss = iframe?.contentDocument
+          ? await buildFontEmbedCss(iframe.contentDocument)
+          : '';
+        // Never pass an empty string: it would disable html-to-image's own font embedding
+        const fontEmbedCSS = embedCss.trim() ? embedCss : undefined;
+
+        const dataUrl = await toPng(elementToCapture, {
+          pixelRatio: 2,
+          cacheBust: true,
+          fontEmbedCSS,
+        });
+        capturedImages.push(dataUrl);
+      } finally {
+        elementToCapture.style.boxShadow = originalBoxShadow;
+      }
+    }
+    return capturedImages;
+  }, [buildFontEmbedCss]);
+
   const handlePrint = useCallback(async () => {
-    if (!previewRef.current) return;
     setDownloading(true);
 
     try {
-      const sheets = previewRef.current.querySelectorAll('.sheet-group');
-      if (sheets.length === 0) return;
-
-      const images = [];
-
-      for (let i = 0; i < sheets.length; i++) {
-        const sheet = sheets[i] as HTMLElement;
-        const iframe = sheet.querySelector('iframe');
-        const elementToCapture = (iframe && iframe.contentDocument 
-          ? (iframe.contentDocument.querySelector('.page') || 
-             iframe.contentDocument.querySelector('.spread') || 
-             iframe.contentDocument.body) 
-          : sheet) as HTMLElement;
-
-        const originalBoxShadow = elementToCapture.style.boxShadow;
-        elementToCapture.style.boxShadow = 'none';
-
-        try {
-          // Ensure fonts are loaded before capturing
-          if (iframe?.contentDocument?.fonts) {
-            await iframe.contentDocument.fonts.ready;
-            // Explicitly load fonts if ready didn't catch them
-            await Promise.all(
-              Array.from(iframe.contentDocument.fonts).map(font => font.load().catch(() => {}))
-            );
-            // Small delay to allow layout engine to apply fonts
-            await new Promise(resolve => setTimeout(resolve, 200));
-          }
-
-          const embedCss = iframe?.contentDocument
-            ? await buildFontEmbedCss(iframe.contentDocument)
-            : '';
-          // Never pass an empty string: it would disable html-to-image's own font embedding
-          const fontEmbedCSS = embedCss.trim() ? embedCss : undefined;
-
-          const dataUrl = await toPng(elementToCapture, {
-            pixelRatio: 2,
-            cacheBust: true,
-            fontEmbedCSS,
-          });
-          images.push(dataUrl);
-        } finally {
-          elementToCapture.style.boxShadow = originalBoxShadow;
-        }
-      }
+      const images = await captureImages();
+      if (images.length === 0) return;
 
       const printWindow = window.open('', '_blank');
       if (!printWindow) {
@@ -425,40 +432,35 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
   const handleDownload = useCallback(async () => {
     setDownloading(true);
     try {
-      const bytes = await generateFuneralPdf(
-        format,
-        {
-          fullName: name,
-          dates,
-          serviceDate,
-          serviceDetails,
-          orderOfService: order,
-          obituary: obit,
-          withGratitude: ack,
-          poem: DEFAULT_CONFIG.defaultPoem,
-          reflections: DEFAULT_CONFIG.defaultReflections,
-          photoBytes,
-          photoMimeType: photoMime,
-          showGuides: false,
-        },
-        tplPreset,
-      );
-      const blob = new Blob([bytes as BlobPart], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${extractLastName(name) || 'funeral'}-program.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      const images = await captureImages();
+      if (images.length === 0) return;
+
+      // jsPDF units are points (1pt = 1/72 inch)
+      // Letter: 8.5 x 11 inches = 612 x 792 points
+      const orientation = format === 'single' ? 'p' : 'l';
+      const pdf = new jsPDF({
+        orientation,
+        unit: 'in',
+        format: 'letter'
+      });
+
+      images.forEach((imgData, i) => {
+        if (i > 0) pdf.addPage('letter', orientation);
+        // Draw image edge-to-edge (0, 0, full width, full height)
+        // Letter size in inches: 8.5 x 11
+        const w = orientation === 'p' ? 8.5 : 11;
+        const h = orientation === 'p' ? 11 : 8.5;
+        pdf.addImage(imgData, 'PNG', 0, 0, w, h);
+      });
+
+      pdf.save(`${extractLastName(name) || 'funeral'}-program.pdf`);
     } catch (err) {
       console.error('PDF generation failed', err);
       alert('Sorry, something went wrong generating the PDF. Please try again.');
     } finally {
       setDownloading(false);
     }
-  }, [format, name, dates, order, obit, gratitude, photoBytes, photoMime, tplPreset]);
+  }, [format, name, captureImages]);
 
   return (
     <div className="tool" ref={toolRef}>
