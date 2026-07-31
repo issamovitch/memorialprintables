@@ -33,8 +33,8 @@
 
 <style>
   :root{
-    --rust: #eca08d;
-    --rust2: #ca7661;
+    --rust: #e49480;
+    --rust2: #d58a77;
     --ink:#3a3733;
     --serif:"EB Garamond",Georgia,serif;
     --script:"Parisienne",cursive;
@@ -109,23 +109,22 @@
 
   @media print{
     .page,.spread{zoom:1 !important;}
-    body{background:#fff;}
+    body{background:#fff; font-family: "EB Garamond",Georgia,serif !important;}
     [data-mp-chrome]{display:none !important;}
     .stage{padding:0;gap:0;}
     .page,.spread{box-shadow:none;page-break-after:always;}
+    
+    .body {max-width: 84%;}
+    .dates, .venue, .body{font-size: 26px !important; line-height: 36px !important;}
+    .name {font-size: 56px !important; font-weight: bold; font-family: "Parisienne",cursive !important;}
+    .panel-bifold .name{font-size: 46px !important; font-weight: bold; font-family: "Parisienne",cursive !important;}
+    .panel-trifold .name{font-size: 40px !important; font-weight: bold; font-family: "Parisienne",cursive !important;}
+    .head {font-size: 48px !important; font-weight: bold; font-family: "Parisienne",cursive !important;}
+    .panel-bifold .head {font-size: 40px !important; font-weight: bold; font-family: "Parisienne",cursive !important;}
+    .panel-trifold .head {font-size: 32px !important; font-weight: bold; font-family: "Parisienne",cursive !important;}
   }
   .panel-bifold .photo-wrap + .group { margin-top: -10px; }
   .panel-trifold .photo-wrap + .group { margin-top: -10px; }
-
-
-    .body {max-width: 84%;}
-    .dates, .venue, .body{font-size: 26px !important; line-height: 36px !important;}
-    .name {font-size: 56px !important; font-weight: bold;}
-  .panel-bifold .name{font-size: 46px !important; font-weight: bold;}
-  .panel-trifold .name{font-size: 40px !important; font-weight: bold;}
-  .head {font-size: 48px !important; font-weight: bold;}
-  .panel-bifold .head {font-size: 40px !important; font-weight: bold;}
-  .panel-trifold .head {font-size: 32px !important; font-weight: bold;}
 </style>
 </head>
 

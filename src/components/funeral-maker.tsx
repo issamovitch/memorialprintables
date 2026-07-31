@@ -6,6 +6,7 @@ import { generateFuneralPdf } from '@/lib/funeral-pdf';
 import type { TemplateMeta } from '@/lib/template-loader';
 import { fetchTemplateHtml, renderTemplate, applyPhotoToDocument, type TemplateFields } from '@/lib/template-manager';
 import { ImageCropModal } from '@/components/image-crop-modal';
+import { toPng } from 'html-to-image';
 
 // ---------------------------------------------------------------------------
 // Icons
@@ -141,6 +142,143 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
   const fileRef = useRef<HTMLInputElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const toolRef = useRef<HTMLDivElement>(null);
+
+  // Fetch cross-origin stylesheets (e.g. Google Fonts) and inline the font
+  // files as base64 data URIs so html-to-image can embed them in the capture.
+  const buildFontEmbedCss = useCallback(async (doc: Document): Promise<string> => {
+    // Stylesheet URLs can come from <link rel="stylesheet"> tags...
+    const cssUrls = Array.from(
+      doc.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]')
+    ).filter(l => l.href).map(l => l.href);
+
+    // ...or from @import rules inside <style> tags (how the templates load Google Fonts)
+    const importRegex = /@import\s+url\((['"]?)([^'")]+)\1\)/g;
+    for (const styleEl of Array.from(doc.querySelectorAll('style'))) {
+      for (const m of (styleEl.textContent ?? '').matchAll(importRegex)) {
+        cssUrls.push(new URL(m[2], doc.baseURI).href);
+      }
+    }
+
+    const uniqueUrls = Array.from(new Set(cssUrls));
+
+    const cssChunks = await Promise.all(uniqueUrls.map(async (cssHref) => {
+      try {
+        const cssText = await (await fetch(cssHref)).text();
+        const urlRegex = /url\((['"]?)([^'")]+)\1\)/g;
+        const urls = Array.from(new Set(
+          Array.from(cssText.matchAll(urlRegex)).map(m => m[2])
+        ));
+        const replacements = await Promise.all(urls.map(async (u) => {
+          try {
+            const abs = new URL(u, cssHref).href;
+            const blob = await (await fetch(abs)).blob();
+            const dataUrl: string = await new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result as string);
+              reader.onerror = reject;
+              reader.readAsDataURL(blob);
+            });
+            return [u, dataUrl] as const;
+          } catch {
+            return [u, u] as const;
+          }
+        }));
+        let inlined = cssText;
+        for (const [orig, dataUrl] of replacements) {
+          inlined = inlined.split(`url(${orig})`).join(`url(${dataUrl})`)
+            .split(`url('${orig}')`).join(`url('${dataUrl}')`)
+            .split(`url("${orig}")`).join(`url("${dataUrl}")`);
+        }
+        return inlined;
+      } catch {
+        return '';
+      }
+    }));
+
+    return cssChunks.join('\n');
+  }, []);
+
+  const handlePrint = useCallback(async () => {
+    if (!previewRef.current) return;
+    setDownloading(true);
+
+    try {
+      const sheets = previewRef.current.querySelectorAll('.sheet-group');
+      if (sheets.length === 0) return;
+
+      const images = [];
+
+      for (let i = 0; i < sheets.length; i++) {
+        const sheet = sheets[i] as HTMLElement;
+        const iframe = sheet.querySelector('iframe');
+        const elementToCapture = (iframe && iframe.contentDocument 
+          ? (iframe.contentDocument.querySelector('.page') || 
+             iframe.contentDocument.querySelector('.spread') || 
+             iframe.contentDocument.body) 
+          : sheet) as HTMLElement;
+
+        const originalBoxShadow = elementToCapture.style.boxShadow;
+        elementToCapture.style.boxShadow = 'none';
+
+        try {
+          // Ensure fonts are loaded before capturing
+          if (iframe?.contentDocument?.fonts) {
+            await iframe.contentDocument.fonts.ready;
+            // Explicitly load fonts if ready didn't catch them
+            await Promise.all(
+              Array.from(iframe.contentDocument.fonts).map(font => font.load().catch(() => {}))
+            );
+            // Small delay to allow layout engine to apply fonts
+            await new Promise(resolve => setTimeout(resolve, 200));
+          }
+
+          const embedCss = iframe?.contentDocument
+            ? await buildFontEmbedCss(iframe.contentDocument)
+            : '';
+          // Never pass an empty string: it would disable html-to-image's own font embedding
+          const fontEmbedCSS = embedCss.trim() ? embedCss : undefined;
+
+          const dataUrl = await toPng(elementToCapture, {
+            pixelRatio: 2,
+            cacheBust: true,
+            fontEmbedCSS,
+          });
+          images.push(dataUrl);
+        } finally {
+          elementToCapture.style.boxShadow = originalBoxShadow;
+        }
+      }
+
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) {
+        alert('Please allow popups to print');
+        return;
+      }
+
+      printWindow.document.write('<html><head><title>Print</title>');
+      const pageSize = format === 'single' ? '8.5in 11in' : '11in 8.5in';
+      printWindow.document.write('<style>@page { size: ' + pageSize + '; margin: 0; } html, body { margin: 0; padding: 0; } img { width: 100%; height: 100%; display: block; page-break-after: always; }</style>');
+      printWindow.document.write('</head><body></body></html>');
+
+      let loadedImages = 0;
+      images.forEach((imgData) => {
+        const img = printWindow.document.createElement('img');
+        img.src = imgData;
+        img.onload = () => {
+          loadedImages++;
+          if (loadedImages === images.length) {
+            printWindow.print();
+            printWindow.close();
+          }
+        };
+        printWindow.document.body.appendChild(img);
+      });
+
+      printWindow.document.close();
+    } finally {
+      setDownloading(false);
+    }
+  }, [format, buildFontEmbedCss]);
 
   // Guard against undefined templates during dev remounts
   const tpl = templates?.[tplIdx] ?? templates?.[0];
@@ -440,8 +578,8 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
           <button className="pbtn" onClick={handleReset}>
             <ResetIcon />Reset
           </button>
-          <button className="pbtn" onClick={() => window.print()}>
-            <PrintIcon />Print
+          <button className="pbtn" onClick={handlePrint} disabled={downloading}>
+            <PrintIcon />{downloading ? 'Generating…' : 'Print'}
           </button>
           <button className="pbtn primary" onClick={handleDownload} disabled={downloading}>
             <DownloadIcon />{downloading ? 'Generating…' : 'Download PDF'}
