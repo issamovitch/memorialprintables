@@ -7,6 +7,7 @@ import type { TemplateMeta } from '@/lib/template-loader';
 import { fetchTemplateHtml, renderTemplate, applyPhotoToDocument, type TemplateFields } from '@/lib/template-manager';
 import { ImageCropModal } from '@/components/image-crop-modal';
 import { toPng } from 'html-to-image';
+import PrintTipsNotice from "@/components/PrintTipsNotice";
 
 // ---------------------------------------------------------------------------
 // Icons
@@ -570,6 +571,10 @@ export default function FuneralMaker({ templates, config }: { templates: Templat
             </>
           )}
         </div>
+
+
+          <PrintTipsNotice />
+
       </div>
 
       {/* PREVIEW */}

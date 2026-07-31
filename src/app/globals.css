@@ -139,7 +139,7 @@
 .er-root .tool{display:grid;grid-template-columns:400px 1fr;gap:26px;align-items:start;}
 @media (min-width: 1024px) {
   .er-root .tool .col-form {
-    padding-bottom:400px;
+    padding-bottom:200px;
   }
 }
 
